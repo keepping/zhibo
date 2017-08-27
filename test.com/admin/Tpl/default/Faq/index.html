@@ -1,0 +1,43 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>常见问题列表</div>
+<div class="search_row">
+    <form name="search" action="__APP__" method="get">
+        分组：<select name="group">
+        <option value="">全部</option>
+        <foreach name="group" item="item">
+            <option value="{$item.group}"<if condition="$_REQUEST['group'] eq $item['group']">selected="selected"</if> >{$item.group}</option>
+        </foreach>
+        </select>
+        问题：<input type="text" class="textbox" name="question" value="{:trim($_REQUEST['question'])}"/>
+        <input type="hidden" value="Faq" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+    </form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="faq"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px
+	,group:分组:edit
+	,question:问题
+	,is_show|get_is_show=$faq['id']:{%IS_SHOW}
+	,sort|get_sort=$faq['id']:{%SORT}
+	,is_effect|get_is_effect=$faq['id']:{%IS_EFFECT}
+	"
+	actionlist="edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="6">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

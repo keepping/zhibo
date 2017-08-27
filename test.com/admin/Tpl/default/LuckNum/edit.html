@@ -1,0 +1,243 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/user_edit.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("LuckNum/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<input type="hidden" name="id" value="{$vo.id}" />
+		<td class="item_title">靓号</td>
+		<td class="item_input"><input type="text" class="textbox require" name="luck_num" value="{$vo.luck_num}"  readonly="true" /></td>
+	</tr>
+	<if condition="O2O_OPEN_GOODS eq 0">
+		<tr>
+			<td class="item_title">是否新用户:</td>
+			<td class="item_input">
+				<label>是<input type="radio" name="is_new_user" value="1" checked="checked"></label>
+				<label>否<input type="radio" name="is_new_user" value="0" ></label>
+			</td>
+		</tr>
+		<tr id="userid_tr" style="display: none">
+			<td class="item_title">用户id<span style="color: #FF0000">*</span>:</td>
+			<td class="item_input"><input type="text" class="textbox" name="user_id"></td>
+		</tr>
+	<else />
+		<tr>
+			<td class="item_title">是否新用户:</td>
+			<td class="item_input">
+				<label>否<input type="radio" name="is_new_user" value="0" checked="checked"></label>
+			</td>
+		</tr>
+		<tr id="userid_tr">
+			<td class="item_title">用户id<span style="color: #FF0000">*</span>:</td>
+			<td class="item_input"><input type="text" class="textbox" name="user_id"></td>
+		</tr>
+	</if>
+</table>
+<if condition="O2O_OPEN_GOODS eq 0">
+<table class="form" cellspacing=0  cellpadding=0 id="userinfo_table">
+	<tr>
+		<td class="item_title">{%NICK_NAME}<span style="color: #FF0000">*</span>:</td>
+		<td class="item_input"><input type="text" class="textbox " name="nick_name" /></td>
+	</tr>
+    <tr>
+        <td class="item_title">{%USER_HEADIMAGE}<span style="color: #FF0000">*</span>:</td>
+        <td class="item_input"><html:imgUpload name = 'head_image' id='head_image' value=""/>
+            <span class='tip_span'></span><span>必填</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">是否系统管理员:</td>
+        <td class="item_input">
+            <label>否<input type="radio" name="is_admin" value="0" checked="checked" /></label>
+            <label>是<input type="radio" name="is_admin" value="1" /></label>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%USER_MOBILE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="mobile" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">所属地区:</td>
+		<td class="item_input">
+			<select name="province">				
+			<option value="" rel="0">请选择省份</option>
+			<foreach name="region_lv2" item="region">
+				<option value="{$region.name}" rel="{$region.id}">{$region.name}</option>
+			</foreach>
+			</select>
+			
+			<select name="city">				
+			<option value="" rel="0">请选择城市</option>
+			</select>
+			<script type="text/javascript">
+				load_city();
+			</script>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">性别:</td>
+		<td class="item_input">
+			<label>女<input type="radio" name="sex" value="2"/></label>
+			<label>男<input type="radio" name="sex" value="1" checked="checked"/></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">会员等级:</td>
+		<td class="item_input">
+            <select name="user_level">
+                <foreach name="user_level" item="level">
+                    <option value="{$level.level}">{$level.name}</option>
+                </foreach>
+            </select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">简介:</td>
+		<td class="item_input">
+			<textarea name="intro" class="textarea"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></label>
+			<label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></label>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">{%IS_BAN}:</td>
+        <td class="item_input">
+            <label>{%IS_BAN_0}<input type="radio" name="is_ban" value="0" checked="checked"/></label>
+            <label>{%IS_BAN_1}<input type="radio" name="is_ban" value="1" /></label>
+        </td>
+    </tr>
+    <tr id="show_ban_time">
+        <td class="item_title">{%BAN_TIME}:</td>
+        <td class="item_input">
+            <input type="text" class="textbox" name="ban_time" id="ban_time"  onfocus="this.blur(); return showCalendar('ban_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_ban_time');" />
+            <input type="button" class="button" id="btn_ban_time" value="{%SELECT_TIME}" onclick="return showCalendar('ban_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_ban_time');" />
+            <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#ban_time').val('');" />
+            <span class='tip_span'>时间为空的话，直播状态正常；否则结束时间之前禁播。</span>
+        </td>
+    </tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+	<table class="form" cellspacing=0  cellpadding=0 id="authent_table">
+		<tr><td colspan=2 class="topTd"></td></tr>
+		<tr>
+			<td class="item_title">认证审核：</td>
+			<td class="item_input">
+				<input type="radio" name="is_authentication"  checked="checked" value="0">未认证
+				<input type="radio" name="is_authentication"  value="1">待审核
+				<input type="radio" name="is_authentication"  value="2">已认证
+				<input type="radio" name="is_authentication"  value="3">审核不通过
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">认证类型：</td>
+			<td class="item_input">
+                <select name="authentication_type">
+                    <option value="0">请选择类型</option>
+                    <foreach name="authent_list" item="authent">
+                        <option value="{$authent.name}">{$authent.name}</option>
+                    </foreach>
+                </select>
+			</td>
+		</tr>
+		<tr>
+		    <td class="item_title">+v认证说明：</td>
+		    <td class="item_input">
+		        <input type="text" value="" name="v_explain" class="textbox" style="width:500px;" />
+		    </td>
+		</tr>
+	</table>
+<table class="form identify_info" cellspacing=0 cellpadding=0 id="identify_info_1">
+<if condition="app_conf('IDENTIFY_POSITIVE') eq 1">
+    <tr>
+        <td class="item_title">身份证正面:</td>
+        <td class="item_input"><html:imgUpload name="identify_positive_image" id="identify_positive_image" value="" /></td>
+    </tr>
+    <tr>
+        <td class="item_title">身份证反面:</td>
+        <td class="item_input"><html:imgUpload name="identify_nagative_image" id="identify_nagative_image" value="" /></td>
+    </tr>
+    <tr>
+        <td class="item_title">手持身份证正面:</td>
+        <td class="item_input"><html:imgUpload name="identify_hold_image" id="identify_hold_image" value="" /></td>
+    </tr>
+</if>
+	<tr>
+        <td class="item_title">身份证号码:</td>
+        <td class="item_input"><input type="text"  id="identify_number" value="" class="textbox" name="identify_number" /></td>
+    </tr>
+</table>
+</if>
+<script>
+	$(function(){
+		$("input[name='is_new_user']").bind('click',function(){
+			var is_new_user = $(this).val();
+			if (is_new_user == 0) {
+				$("#userinfo_table").hide();
+				$("#authent_table").hide();
+				$("#identify_info_1").hide();
+				$("#userid_tr").show();
+			} else{
+				$("#userinfo_table").show();
+				$("#authent_table").show();
+				$("#identify_info_1").show();
+				$("#userid_tr").hide();
+			}
+		})
+
+        if($("input[name='is_ban']:checked").val()==1){
+            $('#show_ban_time').hide();
+        }else{
+            $('#show_ban_time').show();
+        }
+
+        $("input[name='is_ban']").bind("click",function(){
+            var is_ban=$(this).val();
+            if(is_ban==1){
+                $('#show_ban_time').hide();
+            }else{
+                $('#show_ban_time').show();
+            }
+        });
+	});
+</script>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="LuckNum" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="卖出" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>
+</div>
+<include file="Public:footer" />

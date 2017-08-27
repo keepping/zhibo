@@ -1,0 +1,68 @@
+@import (once) "public/variable.less";
+.order_status{
+	color:#fff;
+	& .container{
+		display:-webkit-box;-webkit-box-orient:horizontal;
+	    -webkit-box-pack: justify;
+	    -webkit-justify-content: space-between;
+	    -ms-flex-pack: justify;
+	  	justify-content: space-between;
+	  	& .status_info{
+	  		padding:0.75rem 0;
+	  		display:block;-webkit-box-flex:1;-moz-box-flex:1;-webkit-box-align:center;
+	  	}
+	  	& .status_ico{
+	  		background-repeat:no-repeat;
+			background-size:100% auto;
+			background-position:center;
+			width:5rem;
+			display:block;
+			&.status_wait_pay{background-image:url(../images/status_wait_pay.png);}
+			&.status_payed{background-image:url(../images/status_payed.png);}
+			&.status_wait_date{background-image:url(../images/status_wait_date.png);}
+			&.status_dated{background-image:url(../images/status_dated.png);}
+			&.status_wait_send{background-image:url(../images/status_wait_send.png);}
+			&.status_sended{background-image:url(../images/status_sended.png);}
+			&.status_refunded{background-image:url(../images/status_refunded.png);}
+			&.status_fail{background-image:url(../images/status_fail.png);}
+	  	}
+	}
+}
+
+.page_pai_order{
+	& .list-block{
+		& .item-subtitle{
+			font-size:  @fontsize4;
+		}
+		& .item-inner{
+			font-size:  @fontsize4;
+		}
+		& .good_name{
+			overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			white-space:initial;
+			line-height:1.2;
+			margin:0.4rem 0;
+			font-size: @fontsize4;
+		}
+	}
+	& .list-block.pay_way_list .item-subtitle{line-height:1.4rem;}
+	& .list-block.adress{
+		& .item-after{
+			color:@fontcolorstress;
+		}
+		& .item-subtitle{
+			white-space:normal;
+		}
+	}
+	& .button{padding:0 0.75rem;}
+	& .content{bottom:2.5rem;padding-bottom:2.5rem;}
+	& .content-no-footer_btn{bottom:0;padding-bottom:0;}
+	& .footer_btn{
+		background-color:#fff;
+		& .btn{background-color:#fff;}
+	}
+}

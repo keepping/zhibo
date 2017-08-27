@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+    $('#game_distribution_edit').unbind().bind('click',function () {
+        var user_id = parseInt($("input[name='user_id']").val());
+        var game_distribution1 = parseInt($("input[name='game_distribution1']").val());
+        if(isNaN(game_distribution1))
+        {
+            alert("请输入一级分销系数");
+            return false;
+        }
+        var game_distribution2 = parseInt($("input[name='game_distribution2']").val());
+        if(isNaN(game_distribution2))
+        {
+            alert("请输入二级分销系数");
+            return false;
+        }
+        $.post(ROOT+'?'+VAR_MODULE+'=UserGeneral&'+VAR_ACTION+'=game_distribution', {user_id:user_id,game_distribution1:game_distribution1,game_distribution2:game_distribution2}, function (data) {
+            alert(data.error);
+            location.reload();
+        },'json');
+    })
+</script>
+<div class="main">
+<div class="main_title">{$user_info.nick_name} 游戏分销系数</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+    <tr>
+        <td colspan=2 class="topTd"></td>
+    </tr>
+    <tr>
+        <td class="item_title">一级分销系数:</td>
+        <td class="item_input"><input type="number" class="textbox require" name="game_distribution1" onkeydown="if(event.keyCode==13) {document.getElementById('game_distribution_edit').click();return false;}" value="{$user_info.game_distribution1}" max="100" min="0" step="1" />
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">二级分销系数:</td>
+        <td class="item_input"><input type="number" class="textbox require" name="game_distribution2" onkeydown="if(event.keyCode==13) {document.getElementById('game_distribution_edit').click();return false;}" value="{$user_info.game_distribution2}" max="100" min="0" step="1" />
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">&nbsp;</td>
+        <td class="item_input">
+            <!--隐藏元素-->
+            <input type="hidden" name="user_id" value="{$user_info.id}" />
+            <!--隐藏元素-->
+            <input type="button" id="game_distribution_edit" class="button" value="{%OK}" />
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2 class="bottomTd"></td>
+    </tr>
+</table>
+</form>
+</div>

@@ -1,0 +1,112 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<PHP>
+	function tips()
+	{
+		return "<a sytle='text-decoration:none;'>无</a>";
+	}
+	function get_payment_user_name($uid)
+	{
+		return M("User")->where("id=".$uid)->getField("nick_name");
+	}
+	function get_payment_name($id,$notice)
+	{
+		$str = "";
+		$payment = M("Payment")->getById($notice['payment_id']);
+		if($payment)
+		{
+			$str .= "通过";
+			$class_name = $payment['class_name']."_payment";
+			$str.=$payment['name'];
+			if($notice['bank_id']!="")
+			{
+				require_once APP_ROOT_PATH."/system/payment/".$class_name.".php";
+				$str.=$payment_lang[$notice['bank_id']];
+			}
+		}
+		else
+		{
+			$str = "管理员收款";
+		}
+
+		return $str;
+	}
+	function get_paymentnotice_title($name,$notice)
+	{
+		if($notice['memo']=="")$notice['memo']="无";
+		if($name)
+		return "<span title='".$name."--付款备注:".$notice['memo']."'>".msubstr($name)."</span>";
+		else
+		return "<span title='在线充值--付款备注:".$notice['memo']."'>在线充值</span>";
+	}
+</PHP>
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>在线充值单</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>主播ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px" /></div>
+		<div>{%NICK_NAME}：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" /></div>
+		<div>创建时间 ：
+			<input style="margin: 0" type="text" class="textbox" name="start_time" id="start_time" value="{:trim($_REQUEST['start_time'])}" onfocus="return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" /> - <input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+		</div>
+		<div>付款单号：<input type="text" class="textbox" name="notice_sn" value="{:trim($_REQUEST['notice_sn'])}" /></div>
+		<div>收款方式：
+			<select style="width: 100px" name="payment_id">
+				<option value="0" <if condition="intval($_REQUEST['payment_id']) eq 0">selected="selected"</if>>{%ALL}</option>
+				<foreach name="payment_list" item="payment_item">
+					<option value="{$payment_item.id}" <if condition="intval($_REQUEST['payment_id']) eq $payment_item['id']">selected="selected"</if>>{$payment_item.name}</option>
+				</foreach>
+			</select>
+		</div>
+		<div>支付状态：
+			<select style="width: 80px;margin:0" name="is_paid">
+				<option value="-1" <if condition="intval($_REQUEST['is_paid']) eq -1 || !isset($_REQUEST['is_paid'])">selected="selected"</if>>{%ALL}</option>
+				<option value="0" <if condition="intval($_REQUEST['is_paid']) eq 0 && isset($_REQUEST['is_paid'])">selected="selected"</if>>未支付</option>
+				<option value="1" <if condition="intval($_REQUEST['is_paid']) eq 1">selected="selected"</if>>已支付</option>
+			</select>
+		</div>
+		<div>
+			<if condition="$open_vip eq 1">
+	        项目类型：
+    		<select style="width: 100px;margin:0" name="type">
+                <option value="" selected="selected">{%ALL}</option>
+                <option value="0" <if condition="$_REQUEST['type'] eq 0 && $_REQUEST['type'] neq ''"> selected="selected"</if>>购买钻石</option>
+                <option value="1"<if condition="$_REQUEST['type'] eq 1"> selected="selected"</if>>购买VIP</option>
+            </select>
+	        </if>
+			<input type="hidden" value="RechargeNotice" name="m" />
+			<input type="hidden" value="index" name="a" />
+			<input type="submit" class="button" value="{%SEARCH}" /><input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+		</div>
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	action="true"
+	datasource="list"
+	show="id:{%ID}
+		,user_id:主播ID
+		,notice_sn:付款单号
+		,recharge_name|get_paymentnotice_title=$deal:项目名称
+		,outer_notice_sn:外部单号
+		,user_id|get_payment_user_name:{%NICK_NAME}
+		,payment_id|get_payment_name=$deal:支付方式
+		,create_time|to_date:创建时间
+		,pay_time|to_date:支付时间
+		,money|format_price:金额
+		,is_paid|get_status:是否支付"
+	actionlist="tips:无" />
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

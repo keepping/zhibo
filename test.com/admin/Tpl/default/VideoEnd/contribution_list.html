@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+	function get_view($id)
+	{
+		return "<a href='".url("Deal#updatedetail",array("id"=>$id))."' target='_blank'>查看</a>";
+	}
+</PHP>
+
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$video.id} {%TICKET_CONTRIBUTION}</div>
+<div class="blank5"></div>
+<!--<div class="button_row">
+	<input type="button" class="button" value="删除" onclick="del_contribution_list();" />
+</div>-->
+<div class="blank5"></div>
+    <table id="" class="dataTable" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td colspan="6" class="topTd">
+            </td>
+        </tr>
+        <tr class="row">
+            <th width="8">
+                <input type="checkbox" id="check" onclick="CheckAll('dataTable')">
+            </th>
+            <th>贡献用户ID </th>
+            <th>贡献用户昵称</th>
+            <th>用户头像</th>
+            <th>贡献印票数量</th>
+            <th>贡献钻石数量</th>
+        </tr>
+        <foreach name="list" item="list_item">
+            <tr class="row">
+                <td><input type="checkbox" name="key" class="key" value="{$list_item.user_id}"></td>
+                <td>{$list_item.user_id}</td>
+                <td>{$list_item.nick_name}</td>
+                <td><img src="{$list_item.head_image}" style="height:35px;width:35px;"></td>
+                <td>{$list_item.total_ticket}</td>
+                <td>{$list_item.num}</td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

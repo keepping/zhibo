@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function is_animated($animated){
+		if($animated==0){
+			return "炸金花";
+		}
+	}
+	function image($image){
+		return "<img src='".$image."' style='height:35px;width:35px;'/>";
+	}
+
+</php>
+
+<script>
+
+	//编辑跳转
+	function games_item(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=games_item&id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>游戏列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+            <input type="hidden" value="Games" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="user"
+			action="true"
+			datasource="list"
+			show="id:{%ID}
+			,name:名称:edit
+			,image|image:{%USER_HEADIMAGE}
+			,commission_rate:佣金比例
+			,long_time:游戏时长
+			,rate:干预系数"
+			actionlist="edit:{%EDIT}" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

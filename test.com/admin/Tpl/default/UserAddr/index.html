@@ -1,0 +1,22 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>收货地址列表</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user_addr"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,user_name:会员名称,consignee:收货人姓名,consignee_mobile:收货人手机号,consignee_district:省市级,consignee_address:详细地址,create_time:添加时间"
+	actionlist="edit:{%EDIT},foreverdel:{%FOREVERDEL}"/>
+	
+	
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

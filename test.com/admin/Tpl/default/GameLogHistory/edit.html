@@ -1,0 +1,58 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("GameLogHistory/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">游戏ID:</td>
+        <td class="item_input">{$vo.id}</td>
+    </tr>
+    <tr>
+        <td class="item_title">主播ID:</td>
+        <td class="item_input">{$vo.podcast_id}</td>
+    </tr>
+    <tr>
+        <td class="item_title">游戏时长:</td>
+        <td class="item_input">{$vo.long_time}</td>
+    </tr>
+    <tr>
+        <td class="item_title">创建时间:</td>
+        <td class="item_input">{$vo.create_date}</td>
+    </tr>
+    <tr>
+        <td class="item_title">下注情况:</td>
+        <td class="item_input">{$vo.bet}</td>
+    </tr>
+    <tr>
+        <td class="item_title">主播收入:</td>
+        <td class="item_input">{$vo.podcast_income}</td>
+    </tr>
+    <tr>
+        <td class="item_title">发牌情况:</td>
+        <td class="item_input">
+        <foreach  name="cards" item="card">
+            <div>
+                {$card['img']}
+                {$card['type']}
+            </div>
+        </foreach>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">平台收入:</td>
+        <td class="item_input">{$vo.income}</td>
+    </tr>
+	<!--<tr>-->
+		<!--<td colspan=2 class="bottomTd"></td>-->
+	<!--</tr>-->
+</table>
+
+</form>
+</div>
+<include file="Public:footer" />

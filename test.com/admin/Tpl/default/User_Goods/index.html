@@ -1,0 +1,89 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+
+	function image($image){
+		return "<img src='".$image."' style='height:35px;width:35px;'/>";
+	}
+
+</php>
+
+<script>
+
+	//编辑跳转
+//	function Goods_item(id)
+//	{
+//		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=Goods_item&id="+id;
+//	}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>主播平台商品列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+			主播ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" />
+            商品名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+        </select>
+            <input type="hidden" value="User_Goods" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+	<if condition="PAI_REAL_BTN eq 0 && SHOPPING_GOODS eq 1">
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="user"
+				datasource="list"
+				show="id:{%ID}
+			,user_id:主播ID
+			,goods_id:商品ID
+			,name:商品名称
+			,imgs|image:商品主图片
+			,imgs_details|image:商品详情图片
+			,price:商品价格(人民币)
+			,kd_cost:快递费用
+			,score:经验
+			,is_effect|get_is_effect:{%IS_EFFECT}"
+		/>
+	<elseif condition="SHOPPING_GOODS eq 0 && PAI_REAL_BTN eq 1"/>
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="user"
+				datasource="list"
+				show="id:{%ID}
+			,user_id:主播ID
+			,goods_id:商品ID
+			,name:商品名称
+			,imgs|image:商品主图片
+			,imgs_details|image:商品详情图片
+			,pai_diamonds:商品直播价格(钻石)
+			,kd_cost:快递费用
+			,score:经验
+			,is_effect|get_is_effect:{%IS_EFFECT}"
+		/>
+	<else/>
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="user"
+				datasource="list"
+				show="id:{%ID}
+			,user_id:主播ID
+			,goods_id:商品ID
+			,name:商品名称
+			,imgs|image:商品主图片
+			,imgs_details|image:商品详情图片
+			,price:商品价格(人民币)
+			,pai_diamonds:商品直播价格(钻石)
+			,kd_cost:快递费用
+			,score:经验
+			,is_effect|get_is_effect:{%IS_EFFECT}"
+		/>
+	</if>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

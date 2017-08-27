@@ -1,0 +1,46 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-pailogs.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-pailogs.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page-text_index" id="page-pai_user-pailogs">
+<!-- 	{if !isApp()}
+	<header class="bar bar-nav">
+		<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+			<span class="icon icon-left"></span>
+		</a>
+		<h1 class="title">{$data.page_title}</h1>
+		<a class="button button-link button-nav refresh" href="#">刷新</a>
+	</header>
+	{/if} -->
+	<div class="content">
+		<!-- 页面主体 -->
+		<div class="list-block pailogs_list">
+			<ul>
+				{foreach from=$data.data.list item=item key=key}
+				<li class="item-content">
+					<div class="item-inner">
+						<div class="item-title">
+						<img class="avatar" src="{$item.head_image}" width="24" height="24" alt="头像">{$item.user_name}</div>
+						<div class="item-after time"><i class="{if $item.pai_status eq '领先'}lead{else}out{/if}">{$item.pai_status}</i>{$item.pai_date_format}</div>
+						<div class="item-after"><span class="diamond">{$item.pai_diamonds}</span></div>
+					</div>
+				</li>
+				{/foreach}
+				<!--<li class="item-content">
+					<a href="#">
+						<div class="item-inner">
+							<div class="item-title">
+								<img class="avatar" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="24" height="24" alt="头像">郑**三
+							</div>
+							<div class="item-after time"><i class="out">出局</i>06.06 20:10:00</div>
+							<div class="item-after"><span class="diamond">2600</span></div>
+						</div>
+					</a>
+				</li>-->
+			</ul>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

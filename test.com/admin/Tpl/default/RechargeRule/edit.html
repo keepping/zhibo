@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("RechargeRule/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">名称:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">钻石数量:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="diamonds" value="{$vo.diamonds}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">价格:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="money" value="{$vo.money}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">苹果支付获得钻石:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="iap_diamonds" value="{$vo.iap_diamonds}"/><span class="tip_span" id="tip_span">&nbsp;[必须与苹果审核内支付的钻石一致,不能随意修改]</span></td>
+    </tr>
+	<tr>
+        <td class="item_title">苹果支付价格:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="iap_money" value="{$vo.iap_money}"/><span class="tip_span" id="tip_span">&nbsp;[必须与苹果审核内支付的价格一致,不能随意修改]</span></td>
+    </tr>
+    <tr>
+        <td class="item_title">苹果应用内支付项目ID:</td>
+        <td class="item_input"><input type="text" class="textbox" name="product_id" value="{$vo.product_id}"/><span class="tip_span" id="tip_span">&nbsp;[为空时，不会出现在苹果购买项目中]</span></td>
+    </tr>
+    <tr>
+        <td class="item_title">赠送钻石:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="gift_diamonds" value="{$vo.gift_diamonds}"/></td>
+    </tr>
+    <if condition="$vo['place_id'] eq $place['id']">
+        <if condition ="$is_coins_module eq 1">
+        <tr>
+            <td class="item_title">赠送游戏币:</td>
+            <td class="item_input"><input type="number" class="textbox require" name="gift_coins" value="{$vo.gift_coins}"/></td>
+        </tr>
+        </if>
+    </if>
+	<tr>
+        <td class="item_title">排序:</td>
+        <td class="item_input"><input type="text" class="textbox" name="sort" value="{$vo.sort}"/></td>
+    </tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="RechargeRule" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

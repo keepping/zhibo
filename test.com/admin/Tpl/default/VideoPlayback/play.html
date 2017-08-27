@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<input type="hidden" id="live_in" value="{$video.live_in}"/>
+<div id="video-container" style="margin: 0px auto;"></div>
+
+<input type="hidden" id="video_type" value="{$video.video_type}"/>
+<input type="hidden" id="rtmp_url" value="{$video.rtmp_url}"/>
+<input type="hidden" id="flv_url" value="{$video.flv_url}"/>
+<input type="hidden" id="flv_hd_url" value="{$video.flv_hd_url}"/>
+<input type="hidden" id="flv_sd_url" value="{$video.flv_sd_url}"/>
+<input type="hidden" id="m3u8_url" value="{$video.m3u8_url}"/>
+<input type="hidden" id="m3u8_hd_url" value="{$video.m3u8_hd_url}"/>
+<input type="hidden" id="m3u8_sd_url" value="{$video.m3u8_sd_url}"/>
+<input type="hidden" id="mp4_url" value="{$video.mp4_url}"/>
+<input type="hidden" id="mp4_hd_url" value="{$video.mp4_hd_url}"/>
+<input type="hidden" id="mp4_sd_url" value="{$video.mp4_sd_url}"/>
+<input type="hidden" id="error" value="{$error}"/>
+
+<script src="http://imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer.js"></script>
+<script>
+    var live = $("#live_in").val();
+    var video_type = $("#video_type").val();
+    var rtmp_url = $("#rtmp_url").val();
+    var flv_url = $("#flv_url").val();
+    var flv_hd_url = $("#flv_hd_url").val();
+    var flv_sd_url = $("#flv_sd_url").val();
+    var m3u8_url = $("#m3u8_url").val();
+    var m3u8_hd_url = $("#m3u8_hd_url").val();
+    var m3u8_sd_url = $("#m3u8_sd_url").val();
+    var mp4_url = $("#mp4_url").val();
+    var mp4_hd_url = $("#mp4_hd_url").val();
+    var mp4_sd_url = $("#mp4_sd_url").val();
+    var error = $("#error").val();
+
+    (function(){
+        if(error){
+            alert(error);
+            func();
+            function func(){
+                window.close();
+            }
+        }
+        function getParams(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return decodeURIComponent(r[2]);
+            }
+            return null;
+        }
+        var rtmp = getParams('rtmp'),
+                flv  = getParams('flv'),
+                m3u8 = getParams('m3u8'),
+                mp4  = getParams('mp4'),
+                live = (getParams('live') == 'true' ? true : false),
+                coverpic = getParams('coverpic'),
+                width = getParams('width'),
+                height = getParams('height'),
+                autoplay = (getParams('autoplay') == 'true' ? true : false);
+        /**
+         * 视频类型播放优先级
+         * mobile ：m3u8>mp4
+         * PC ：RTMP>flv>m3u8>mp4
+         */
+        var options = {
+            rtmp: rtmp,
+            flv: flv  ,
+            flv_hd: flv ,
+            flv_sd: flv ,
+            m3u8: m3u8 || m3u8_url,
+            m3u8_hd: m3u8 || m3u8_hd_url,
+            m3u8_sd: m3u8 || m3u8_sd_url,
+            mp4 : mp4 || mp4_url,
+            mp4_hd :  mp4_hd_url,
+            mp4_sd :  mp4_sd_url,
+            coverpic: coverpic ,
+            autoplay: autoplay ? true : false,
+            live: live,
+            width : width || '1024',
+            height : height || '768'
+        };
+        var player = new TcPlayer('video-container', options);
+        window.qcplayer  = player;
+    })();
+</script>

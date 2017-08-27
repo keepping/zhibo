@@ -1,0 +1,52 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<PHP>
+	function get_real_name($user_id) {
+		return $GLOBALS['db']->getOne("select authentication_name from ".DB_PREFIX."user where id=".$user_id);
+    }
+
+	function get_course_title($course_id) {
+		return $GLOBALS['db']->getOne("select title from ".DB_PREFIX."edu_courses where id=".$course_id);
+	}
+	
+	function fix($content, $length = 20) {
+		if(mb_strlen($content) > $length) {
+		    return "<span title='".$content."'>" . mb_substr($content, 0, $length) . " ...</span>";
+		} else {
+			return $content;
+		}
+	}
+</PHP> 
+<div class="main_title_list"><div class="list-line-ico"></div>课程评论</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduComment" name="m" /><input type="hidden" value="course" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="class"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,user_id|get_real_name:用户,content|fix:内容,ext_id|get_course_title:课程,likes:点赞数,create_time|to_date:评论时间"
+	actionlist="view_reply:查看回复,del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-del" value="{%DEL}" onclick="del();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<script>
+	function view_reply(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduComment&"+VAR_ACTION+"=course&reply_id="+id;
+	}
+</script>
+<include file="Public:footer" />

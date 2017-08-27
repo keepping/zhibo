@@ -1,0 +1,65 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+//完全删除
+function foreverdel_account_detail(id)
+{
+	if(!id)
+	{
+		idBox = $(".key:checked");
+		if(idBox.length == 0)
+		{
+			alert(LANG['DELETE_EMPTY_WARNING']);
+			return;
+		}
+		idArray = new Array();
+		$.each( idBox, function(i, n){
+			idArray.push($(n).val());
+		});
+		id = idArray.join(",");
+	}
+	if(confirm(LANG['CONFIRM_DELETE']))
+	$.ajax({ 
+			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=foreverdelete_account_detail&id="+id, 
+			data: "ajax=1",
+			dataType: "json",
+			success: function(obj){
+				$("#info").html(obj.info);
+				if(obj.status==1)
+				location.href=location.href;
+			}
+	});
+}
+</script>
+<div class="main">
+<div class="main_title">{$user_info.nick_name} {%USER_ACCOUNT_DETAIL}</div>
+<div class="blank5"></div>
+<div class="button_row">
+    <form name="search" action="__APP__" method="get">
+        <input type="hidden" name="id" id="id" value="{$user_info.id}"/>
+        日志类型：<select name="type">
+        <option value="">全部</option>
+        <foreach  name="types" item="type_item" key="k">
+            <option value="{$k}" <if condition="$_REQUEST['type'] neq '' and $_REQUEST['type'] eq $k">selected="selected"</if>>{$type_item}</option>
+        </foreach>
+    </select>
+        <input type="hidden" value="{$module_name}" name="m" /><input type="hidden" value="account_detail" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+        <input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel_account_detail();" />
+    </form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="log" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,log_info:{%USER_LOG_INFO},log_time|to_date:{%USER_LOG_TIME},diamonds|:{%LOG_DIAMONDS},score:{%LOG_SCORE},ticket:{%LOG_TICKET},log_admin_id|get_admin_name:{%LOG_ADMIN}"
+	actionlist="foreverdel_account_detail:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

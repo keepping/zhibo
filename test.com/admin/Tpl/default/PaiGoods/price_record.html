@@ -1,0 +1,37 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">出价记录 <a href="{:u("PaiGoods/index")}" class="back_list">{%BACK_LIST}</a></div>
+<php>
+    function get_istrue($status){
+        if($status==0){
+            return '未处理';
+        }elseif($status==1){
+            return '已返还';
+        }else{
+            return '已扣除';
+        }
+    }
+</php>
+<html:list
+id="dataTable"
+	style="dataTable"
+	name="price_record"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,user_name:竞拍人,bz_diamonds:竞拍保证金,qp_diamonds:起拍价,jj_diamonds:每次加价,pai_sort:出价顺序,status|get_istrue=$price_record['status']:状态,pai_date:竞拍时间"/>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+<script>
+
+$(function(){
+	$("input[type='checkbox']").each(function(){
+		$(this).hide();
+	})
+	$('th:last').hide();
+});
+
+</script>

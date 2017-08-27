@@ -1,0 +1,26 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>兑换规则列表</div>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="exchangerule"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,diamonds:钻石,ticket:{%USER_TICKET},is_effect|get_is_effect=$exchangerule['id']:{%IS_EFFECT}"
+	actionlist="edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="6">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

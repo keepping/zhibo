@@ -1,0 +1,67 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page-shop-new_address .info {
+  width: 100%;
+  margin-top: -0.4rem;
+  margin-bottom: -0.35rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -ms-flex: 0 1 auto;
+  -webkit-flex-shrink: 1;
+  flex-shrink: 1;
+}
+.page-shop-new_address .list-block {
+  margin: 0;
+}
+.page-shop-new_address .list-block select {
+  color: #999;
+  -webkit-appearance: menulist;
+  border-bottom: 1px solid #e7e7e7;
+}
+.page-shop-new_address .list-block select:last-child {
+  border: 0;
+}
+.page-shop-new_address .list-block input[type="text"] {
+  color: #999;
+}
+.page-shop-new_address .list-block input[type="number"] {
+  color: #999;
+}
+.page-shop-new_address .list-block .item-title {
+  width: 20%;
+}
+.page-shop-new_address .list-block .area {
+  align-items: initial;
+}
+.page-shop-new_address .list-block .area .item-title {
+  margin: 0.1rem 0;
+}
+.page-shop-new_address nav a.button {
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  color: #fff;
+  background: #ff7551;
+  border-radius: 0;
+  border: 0;
+  top: 0;
+}

@@ -1,0 +1,90 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+
+</script>
+<div class="main">
+    <div class="main_title_list"><div class="list-line-ico"></div>预约配置信息</div>
+    <div class="blank5"></div>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">人物姓名:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" id="name" value="{$reservation_config.name}"/></td>
+            </tr>
+            <tr>
+                <td class="item_title">人物头像:</td>
+                <td class="item_input"><html:imgUpload  name="head_image" id='head_image' value="$reservation_config.head_image"/></td>
+            </tr>
+            <tr>
+                <td class="item_title">人物简介:</td>
+                <td class="item_input"><textarea cols="100" rows="5" name="desc" >{$reservation_config.desc}</textarea></td>
+            </tr>
+            <tr>
+                <td class="item_title">人物详细信息:</td>
+                <td class="item_input"><textarea cols="100" rows="10" name="content">{$reservation_config.content}</textarea></td>
+            </tr>
+            <tr>
+                <td class="item_title">约见区域:</td>
+                <td class="item_input">
+                    <foreach name="region_tree" item="region_item">
+                        <input type="checkbox" name="region[]" class="p_key_{$region_item.pid} key_{$region_item.id}" value="{$region_item.name}" onclick="check_all('{$region_item.id}','{$region_item.pid}');" <if condition="in_array($region_item['name'],$reservation_config['region'])">checked="checked"</if> />{$region_item.name}
+                        <if condition="$region_item['_child'] neq ''">
+                            <div style="padding-left: 20px;padding-right: 20%;">
+                            <foreach name="region_item._child" item="child_item">
+                                <input type="checkbox" name="region[]" class="p_key_{$child_item.pid} key_{$child_item.id}" value="{$child_item.name}" onclick="check_all('{$child_item.id}','{$child_item.pid}');" <if condition="in_array($child_item['name'],$reservation_config['region'])">checked="checked"</if> />{$child_item.name}&nbsp;&nbsp;&nbsp;
+                            </foreach>
+                            </div>
+                        </if>
+                    </foreach>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">约见保障:</td>
+                <td class="item_input"><textarea cols="100" rows="10" name="security">{$reservation_config.security}</textarea></td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="ReservationConfig" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="{%ADD}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 class="bottomTd"></td>
+            </tr>
+        </table>
+    </form>
+    <div class="blank5"></div>
+    <script>
+        function check_all(id,pid){
+            var p_key = 'p_key_'+ id;
+            var key = 'key_'+ id;
+            if($("."+key).attr("checked")){
+                $("."+p_key).attr("checked","true");
+                var all=1;
+                $(".p_key_"+pid).each(function(){
+                    if(!$(this).attr("checked")){
+                        all = 0;
+                    }
+                });
+                if(all==1){
+                    $(".key_"+pid).attr("checked","true");
+                }
+            }else{
+                $(".key_"+pid).removeAttr("checked");
+                $("."+p_key).removeAttr("checked");
+            }
+        }
+
+    </script>
+</div>
+<include file="Public:footer" />

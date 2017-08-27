@@ -1,0 +1,169 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("WeiboIndex/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">标题:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="title" value="{$vo.title}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">图片:</td>
+		<td class="item_input"><html:imgUpload name = 'image' id='image' value="$vo.image" />
+            <span class="tip_span" id="tip_span">&nbsp;[启动广告图标规格为：750px*1334px][其他图片规格为：750px*400px]</span>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">显示位置:</td>
+        <td class="item_input">
+            <select name="show_position" id="position">
+                <foreach  name="position" item="position_item" key="k">
+                    <option value="{$k}" <if condition="$vo['show_position'] eq $k">selected="selected"</if>>{$position_item}</option>
+                </foreach>
+            </select>
+
+        </td>
+    </tr>
+	<tr  id="select_type">
+		<td class="item_title">类型:</td>
+		<td class="item_input">
+			<select name="type" id="type">
+				<foreach  name="type_list" item="type_item" key="k">
+					<option value="{$k}" <if condition="$vo['type'] eq $k">selected="selected"</if> >{$type_item}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+    <tr  id="url">
+        <td class="item_title">链接:</td>
+        <td class="item_input"><input type="text" class="textbox" name="url" value="{$vo.url}" /></td>
+    </tr>
+    <tr id="family_id" <if condition="$vo['type'] neq 1">style="display: none"</if>>
+        <td class="item_title">家族:</td>
+        <td class="item_input">
+            <select name="show_id" style="width:300px">
+                <foreach  name="family" item="f_item" key="k">
+                    <option value="{$f_item.id}" <if condition="$vo['show_id'] eq $f_item['id']">selected="selected"</if> >{$f_item.name}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+	<tr id="edu_show_id" >
+        <td class="item_title" id="edu_show_id_title" >会员id:</td>
+        <td class="item_input">
+           <input type="text" class="textbox" name="show_id" value="{$vo.show_id}" />
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$vo.sort}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="WeiboIndex" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+    <script>
+        $(function(){
+            var type = $('#type option:selected').val();
+            var position = $('#position option:selected').val();
+            if(type==1){
+                $('#family_id').show();
+            }else{
+                $('#family_id').hide();
+            }
+
+            if(type==0){
+                $("#url").show();
+            }else{
+                $("#url").hide();
+            }
+
+            if(type==10 || type==11){
+                $('#edu_show_id').show();
+                if( type==10)
+                    $('#edu_show_id_title').html("会员id：");
+                else
+                    $('#edu_show_id_title').html("动态id：");
+
+            }else{
+                $('#edu_show_id').hide();
+            }
+
+
+            if(position == 3){
+                $("#select_type").hide();
+                $("#type").val(0);
+                $("#url").show();
+            }else{
+                $("#select_type").show();
+            }
+
+            $("#type").bind("click",function(){
+                type = $(this).val();
+                if(type==1){
+                    $('#family_id').show();
+                }else{
+                    $('#family_id').hide();
+                }
+
+                if(type!=0){
+                    $("#url").hide();
+                    $("input[name='url']").val('');
+                }else{
+                    $("#url").show();
+                }
+
+                if(type==10 || type==11){
+                    $('#edu_show_id').show();
+                    if( type==10)
+                        $('#edu_show_id_title').html("会员id：");
+                    else
+                        $('#edu_show_id_title').html("动态id：");
+
+                }else{
+                    $('#edu_show_id').hide();
+                }
+            });
+
+            $("#position").bind("click",function(){
+                position = $(this).val();
+                if(position == 3){
+                    $("#select_type").hide();
+                    $("#type").val(0);
+                    $("#url").show();
+                }else{
+                    type = $('#type option:selected').val();
+                    if(type==0){
+                        $("#url").show();
+                    }else{
+                        $("#url").hide();
+                        $("input[name='url']").val('');
+                    }
+                    $("#select_type").show();
+                }
+            });
+
+        });
+    </script>
+</form>
+</div>
+<include file="Public:footer" />

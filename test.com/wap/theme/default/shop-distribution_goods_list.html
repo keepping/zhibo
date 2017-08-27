@@ -1,0 +1,101 @@
+<!-- 分销商品列表 -->
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-distribution_goods_list.css";
+	$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-distribution_goods_list.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+
+<div class="page page-current page-shop-distribution_goods_list" id="page-shop-distribution_goods_list">
+	<div class="searchbar row">
+    <div class="search-input col-85">
+      <input type="search" id='search' value="{$data.content}" placeholder='输入关键字...'/>
+    </div>
+    <a href="javascript:void(0)" class="button button-fill button-primary col-15 J-search"><span class="icon icon-search"></span></a>
+  </div>
+ 	<header class="bar bar-nav shop-nav">
+ 		<select class="select" id="goods_cate">
+ 			<option id="0" data-id="0">全部</option>
+ 			{foreach from=$data.goods_cate item=item key=key name=item_name}
+ 			<option id="{$item.id}" data-id="{$item.id}" {if $data.cate_id eq $item.id}selected="selected"{/if}>{$item.name}</option>
+ 			{/foreach}
+ 		</select>
+        <a href='javascript:void(0)' class="{if $data.options eq 1}active {/if}option1">销量</a>
+		<a href='javascript:void(0)' class="{if $data.options eq 2}active {/if}option2">佣金</a>
+		<a href='javascript:void(0)' class="{if $data.options eq 3}active {/if}option3">价格</a>
+    </header>
+	<div class="content pull-to-refresh-content infinite-scroll">
+		<!-- 默认的下拉刷新层 -->
+	    <div class="pull-to-refresh-layer">
+	        <div class="preloader"></div>
+	        <div class="pull-to-refresh-arrow"></div>
+	    </div>
+		<div class="shop-list" id="infinite_scroll_box">
+			{foreach from=$data.goods item=item key=key name=item_name}
+			<div class="shop-item">
+				<a href='{url_wap r="shop#goods_details" p="goods_id=$item.id"}'>
+					<div class="item-image">
+						<img src="{$item.imgs}">
+					</div>
+					<div class="item-info">
+						<p class="item-info-title">{$item.name}</p>
+						<p class="item-info-price">
+							{if SHOPPING_GOODS == 1}
+							<span class="s-l">价格:￥{$item.price}</span>
+							{/if}
+							<span class="s-l"></span>
+							<span class="s-r">已有{$item.sales}人购买</span>
+						</p>
+						{if PAI_REAL_BTN == 1}
+						<p>
+							<span class="s-l">起拍价:{$item.pai_diamonds}(钻石)</span>
+						</p>
+						{/if}
+						<p class="item-info-btn">
+							{if SHOPPING_GOODS == 1}
+							<span class="s-l">佣金：{$item.commission}</span>
+							{/if}
+							<span class="s-l"></span>
+							<span>
+								{if $item.has eq 0}
+								<a class="button button-fill J-distribution" data-id="{$item.id}">我要分销</a>
+								{else}
+								<a class="button button-fill">已添加分销</a>
+								{/if}
+							</span>
+						</p>
+					</div>
+				</a>
+			</div>
+			{foreachelse}
+			<div class="null-data">暂无数据</div>
+			{/foreach}
+			<input type="hidden" name="total_page" value="{$data.page.count}">
+		</div>
+      	
+	</div>
+	{if $data.goods}
+		<div id="vscope-paging">
+		  	<!-- 加载提示符 -->
+		    <div class="infinite-scroll-preloader" v-if="total_page>1 && page<=total_page">
+		        <div class="preloader"></div>
+		    </div>
+		    <div class="infinite-scroll-preloader data-null" v-if="page>total_page">
+		        <span style="color:#999;font-size:0.75rem;">无更多数据</span>
+		    </div>
+	    </div>
+    {/if}
+</div>
+<script type="text/javascript">
+		var paramet = {
+        options: GetQueryString("options"),
+        cate_id:GetQueryString("cate_id")
+        // content:encodeURI(GetQueryString("content")),
+        // page:GetQueryString("page")
+    },ajax_url,new_paramet,page=2,loading=false,total_page=Number('{$data.page.count}');
+    var data = {
+    	page:'{$data.page.page}',
+    	options:'{$data.options}'
+    }
+</script>
+{include file="inc/footer.html"}

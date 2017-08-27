@@ -1,0 +1,99 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<div class="main">
+<PHP>
+	function identify_positive_image($identify_positive_image){
+	return "<a target="._blank."  href='".$identify_positive_image."'><img src='".$identify_positive_image." ' style='height:100px;width:100px;'/></a>";
+	}
+	function identify_nagative_image($identify_nagative_image){
+	return "<a  target="._blank." href='".$identify_nagative_image."'><img src='".$identify_nagative_image." ' style='height:100px;width:100px;'/></a>";
+	}
+	function identify_hold_image($identify_hold_image){
+	return "<a  target="._blank." href='".$identify_hold_image."'><img src='".$identify_hold_image." ' style='height:100px;width:100px;'/></a>";
+	}
+</PHP>
+	<div class="main_title"></div>
+	<div class="blank5"></div>
+    <if condition="$show_identify_number eq 1">
+        <html:list
+                id="dataTable"
+                style="dataTable"
+                name="user"
+                datasource="list"
+                show="id:主播ID|300px
+		,authentication_name|:主播昵称|300px
+		,identify_number|:身份证号码|300px
+		,identify_positive_image|identify_positive_image:身份证正面|300px
+		,identify_nagative_image|identify_nagative_image:身份证反面|300px
+		,identify_hold_image|identify_hold_image:手持身份证正面照"/>
+    <else/>
+        <html:list
+                id="dataTable"
+                style="dataTable"
+                name="user"
+                datasource="list"
+                show="id:主播ID|300px
+		,authentication_name|:主播昵称|300px
+		,identify_positive_image|identify_positive_image:身份证正面|300px
+		,identify_nagative_image|identify_nagative_image:身份证反面|300px
+		,identify_hold_image|identify_hold_image:手持身份证正面照"/>
+    </if>
+	<form name="edit" action="__APP__" method="post" enctype="multipart/form-data" onsubmit="return check_val();">
+		<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td class="item_input">
+				通过<input type="radio" name="is_authentication" value="2" checked="checked" >
+				未通过<input type="radio" name="is_authentication" value="3"  >
+			</td>
+		</tr>
+	<tr class="type_2 " style="">
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$implode_id}" />
+			<input type="hidden" name="status" value="{$status}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="UserInvestor" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="investor_go_allow" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="确认" />
+		</td>
+	</tr>
+</table>
+		</form>
+</div>
+<script>
+	function externallinks() {
+
+		if (!document.getElementsByTagName) return;
+
+		var anchors = document.getElementsByTagName("a");
+
+		for (var i = 0; i < anchors.length; i++) {
+
+			var anchor = anchors[i];
+
+			if (anchor.getAttribute("href") &&
+
+					anchor.getAttribute("rel") == "external")
+
+				anchor.target = "_blank";
+
+		}
+
+	}
+	function check_val(){
+		val=$("input[name='is_authentication']:checked").val();
+		if(val==0){
+			return false;
+		}else{
+			if(val==2){
+				return confirm('确认将审核通过该用户，确认吗？');
+			}
+			if(val==3){
+				return confirm('确认将审核不通过该用户，确认吗？');
+			}
+		}
+
+	}
+
+
+</script>

@@ -1,0 +1,173 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page-shop-virtual_shop_order_details .bar-tab {
+  z-index: 20;
+}
+.page-shop-virtual_shop_order_details .content {
+  bottom: 2.5rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+.page-shop-virtual_shop_order_details .content .content-block .status_info {
+  background: #ff7552;
+  padding: 1.5rem 0.5rem;
+  color: #fff;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed {
+  display: flex;
+  display: -webkit-flex;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 0.6rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed .icon {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed .icon i {
+  font-size: 1rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed .address-info {
+  flex: 1;
+  -webkit-flex: 1;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed .address-info p.user-info {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.page-shop-virtual_shop_order_details .content .content-block .addressed .address-info p {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card:last-child {
+  margin-bottom: 0;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner {
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  background: #f1f1f1;
+  display: flex;
+  display: -webkit-flex;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner:last-child {
+  margin-bottom: 0;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .goods-img {
+  display: flex;
+  display: -webkit-flex;
+  margin-right: 0.25rem;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .goods-img img {
+  width: 100%;
+  height: 100%;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .card {
+  background: #f1f1f1;
+  flex: 1;
+  -webkit-flex: 1;
+  padding: 0.5rem;
+  position: relative;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .card .card-content-inner {
+  padding: 0;
+  margin: 0;
+  line-height: 0.8rem;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .card .card-content-inner p {
+  margin-bottom: 0.35rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .card .card-footer {
+  padding: 0;
+  min-height: 0;
+  line-height: 0.8rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-content-inner .card .card-footer i {
+  vertical-align: top;
+  line-height: 0.9rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-footer {
+  background: #f1f1f1;
+  margin-bottom: 0.5rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-content .card-footer .footer-input {
+  -webkit-flex: 1;
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: #f1f1f1;
+  word-wrap: break-word;
+  display: block;
+  overflow: hidden;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-footer .pay {
+  color: #74bc3f;
+}
+.page-shop-virtual_shop_order_details .content .content-block .card .card-footer .goods-all-money {
+  text-align: right;
+  width: 100%;
+}
+.page-shop-virtual_shop_order_details .content .content-block .goods-money {
+  color: #ff7552;
+  font-size: 0.7rem;
+}
+.page-shop-virtual_shop_order_details .content .content-block .goods-money i {
+  font-size: 0.8rem;
+}
+.page-shop-virtual_shop_order_details .content .list-block .item-subtitle {
+  font-size: 0.68rem;
+}
+.page-shop-virtual_shop_order_details .content .list-block .item-inner {
+  font-size: 0.68rem;
+}
+.page-shop-virtual_shop_order_details .content .list-block .good_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: initial;
+  line-height: 1.2;
+  margin: 0.4rem 0;
+  font-size: 0.68rem;
+}
+.page-shop-virtual_shop_order_details .content .footer_btn {
+  background-color: #fff;
+}
+.page-shop-virtual_shop_order_details .content .footer_btn .btn {
+  background-color: #fff;
+}

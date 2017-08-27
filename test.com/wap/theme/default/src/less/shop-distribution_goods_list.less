@@ -1,0 +1,117 @@
+@import (once) "public/variable.less";
+.page-shop-distribution_goods_list {
+    .searchbar{
+        position: absolute;
+        width: 100%;
+        padding: 0.5rem;
+        left: 0;
+        right: 0;
+        margin: 0;
+        z-index: 999;
+        .search-input{
+            margin: 0;
+            width: 85%;
+        }
+    }
+    .shop-nav {
+        background: #fff;
+        height: 40px;
+        line-height: 40px;
+        display: box;
+        display: -webkit-box;
+        display: -moz-box;
+        box-orient: horizontal;
+        -webkit-box-orient: horizontal;
+        -moz-box-orient: horizontal;
+        top: 2.4rem;
+        select {
+            -webkit-appearance: none;
+            padding: 0px 27px;
+            border: 0;
+            font-size: 0.7rem;
+            background: none;
+        }
+        a {
+            box-flex: 1;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            .iconfont {
+                font-size: 0.6rem;
+                margin-left: 0.25rem;
+            }
+            &.active {
+                color: @fontcolortheme;
+            }
+        }
+    }
+    .bar-nav ~ .content{
+        top: 2.4rem;
+    }
+    .shop-list {
+        margin: 0.5rem 0;
+        background: #fff;
+        padding: 0 0.5rem;
+        .shop-item {
+            display: -webkit-box;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #dedede;
+            .item-image {
+                width: 4.5rem;
+                height: 4.5rem;
+                margin-right: 0.5rem;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .item-info {
+                font-size: 0.7rem;
+                -webkit-box-flex: 1;
+                p {
+                    line-height: 1.2;
+                    margin-top: 0.2rem;
+                }
+                .item-info-title {
+                    font-size: 0.75rem;
+                    height: 1.8rem;
+                }
+                .item-info-price {
+                    display: flex;
+                    -webkit-box-pack: justify;
+                    -webkit-justify-content: space-between;
+                    justify-content: space-between;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    color: @fontcolorstress;
+                    .s-r {
+                        font-size: 0.6rem;
+                    }
+                }
+                .item-info-btn {
+                    color: @fontcolortheme;
+                    display: flex;
+                    -webkit-box-pack: justify;
+                    -webkit-justify-content: space-between;
+                    justify-content: space-between;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    .s-l {
+                        margin-top: -0.5rem;
+                    }
+                    .button {
+                        display: inline-block;
+                        font-size: 0.65rem;
+                    }
+                }
+            }
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+}

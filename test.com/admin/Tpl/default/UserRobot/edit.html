@@ -1,0 +1,286 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>	
+<load href='__TMPL__Common/js/user_edit.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("UserRobot/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data"  onsubmit="return submit_check();">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">{%ID}:</td>
+        <td class="item_input">{$vo.id}</td>
+    </tr>
+    <tr>
+        <td class="item_title">{%CREATE_TIME}:</td>
+        <td class="item_input">{$vo.create_time}</td>
+    </tr>
+	<tr>
+		<td class="item_title">{%NICK_NAME}:</td>
+		<td class="item_input"><input type="text" name="nick_name" class="textbox" value="{$vo.nick_name}"  /></td>
+	</tr>
+    <tr>
+        <td class="item_title">{%USER_HEADIMAGE}:</td>
+        <td class="item_input"><html:imgUpload name = 'head_image' id='head_image' value="$vo.head_image"/>
+            <span class='tip_span'></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">是否系统管理员:</td>
+        <td class="item_input">
+            <label>否<input type="radio" name="is_admin" value="0" <if condition="$vo['is_admin'] eq 0">checked="checked"</if>  /></label>
+            <label>是<input type="radio" name="is_admin" value="1" <if condition="$vo['is_admin'] eq 1">checked="checked"</if> /></label>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%USER_MOBILE}:</td>
+		<td class="item_input"><input type="text" value="{$vo.mobile}" class="textbox" name="mobile" /></td>
+	</tr>	
+	<tr>
+		<td class="item_title">所属地区:</td>
+		<td class="item_input">
+			<select name="province">				
+			<option value="" rel="0">请选择省份</option>
+			<foreach name="region_lv2" item="region">
+				<option value="{$region.name}" rel="{$region.id}" <if condition="$region['selected']">selected="selected"</if>>{$region.name}</option>
+			</foreach>
+			</select>
+			
+			<select name="city">				
+			<option value="" rel="0">请选择城市</option>
+			<foreach name="region_lv3" item="region">
+				<option value="{$region.name}" rel="{$region.id}" <if condition="$region['selected']">selected="selected"</if>>{$region.name}</option>
+			</foreach>
+			</select>
+
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">性别:</td>
+		<td class="item_input">
+			<label>女<input type="radio" name="sex" value="2" <if condition="$vo['sex'] eq 2">checked="checked"</if> /></label>
+			<label>男<input type="radio" name="sex" value="1" <if condition="$vo['sex'] eq 1  or $vo['sex'] eq 0">checked="checked"</if>/></label>
+		</td>
+	</tr>
+	<!--<tr>
+		<td class="item_title">会员类型:</td>
+		<td class="item_input">
+			<select name="user_type">
+				<option value="0" <if condition="$vo['user_type'] eq 0">selected="selected"</if>>普通用户</option>
+				<option value="1" <if condition="$vo['user_type'] eq 1">selected="selected"</if>>企业会员</option>
+			</select>
+		</td>
+	</tr>-->
+	<tr>
+		<td class="item_title">会员等级:</td>
+		<td class="item_input">
+			<select name="user_level">
+				<foreach name="user_level" item="level">
+					<option value="{$level.level}" <if condition="$vo['user_level'] eq $level['level']">selected="selected"</if>>{$level.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">个性签名:</td>
+		<td class="item_input">
+            <input type="text" value="{$vo.signature}" class="textbox" name="signature" style="width: 450px;" maxlength="32"/>
+		</td>
+	</tr>
+	
+
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if>  /></label>
+			<label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></label>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">{%IS_BAN}:</td>
+        <td class="item_input">
+            <label>{%IS_BAN_0}<input type="radio" name="is_ban" value="0" <if condition="$vo['is_ban'] eq 0">checked="checked"</if>  /></label>
+            <label>{%IS_BAN_1}<input type="radio" name="is_ban" value="1" <if condition="$vo['is_ban'] eq 1">checked="checked"</if> /></label>
+        </td>
+    </tr>
+    <tr id="show_ban_time">
+        <td class="item_title">{%BAN_TIME}:</td>
+        <td class="item_input">
+            <input type="text" class="textbox" name="ban_time" id="ban_time" value="{$vo.ban_time}" onfocus="this.blur(); return showCalendar('ban_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_ban_time');" />
+            <input type="button" class="button" id="btn_ban_time" value="{%SELECT_TIME}" onclick="return showCalendar('ban_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_ban_time');" />
+            <input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#ban_time').val('');" />
+            <span class='tip_span'>时间为空的话，直播状态正常；否则结束时间之前禁播。</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">认证审核：</td>
+        <td class="item_input">
+            <input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 0">checked="checked"</if> value="0">未认证(取消认证)
+            <input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 1">checked="checked"</if> value="1">待审核
+            <input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 2">checked="checked"</if> value="2">已认证
+            <input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 3">checked="checked"</if> value="3">审核不通过
+        </td>
+    </tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+<div class="blank5"></div>
+	<table class="form" cellspacing=0  cellpadding=0>
+		<tr><td colspan=2 class="topTd"></td></tr>
+
+
+			
+		
+	</table>
+<div class="blank5"></div>
+<table class="form identify_info" cellspacing=0 cellpadding=0 id="identify_info_1" <if condition="$vo.is_authentication eq 0">style="display:block"</if>>
+    <tr>
+        <td class="item_title">认证类型：</td>
+        <td class="item_input">
+            <select name="authentication_type"  id="authentication_type">
+                <option value="0">请选择类型</option>
+                <foreach name="authent_list" item="authent">
+                    <option value="{$authent.name}" <if condition="$vo['authentication_type'] eq $authent['name']">selected="selected"</if>>{$authent.name}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">真实姓名:</td>
+        <td class="item_input"><input type="text" name="authentication_name" class="textbox" value="{$vo.authentication_name}"  /></td>
+    </tr>
+    <tr>
+        <td class="item_title">联系方式:</td>
+        <td class="item_input"><input type="text" name="contact" class="textbox" value="{$vo.contact}"  /></td>
+    </tr>
+    <tr>
+        <td class="item_title">+v认证说明：</td>
+        <td class="item_input">
+            <input type="text" value="{$vo.v_explain}" name="v_explain" class="textbox" style="width:500px;" maxlength="16"/>
+            <span class='tip_span'>&nbsp;最大长度为16</span>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">身份证正面:</td>
+		<td class="item_input"><html:imgUpload name="identify_positive_image" id="identify_positive_image" value="$vo.identify_positive_image" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">身份证反面:</td>
+		<td class="item_input"><html:imgUpload name="identify_nagative_image" id="identify_nagative_image" value="$vo.identify_nagative_image" /></td>
+	</tr>
+	<tr>
+        <td class="item_title">手持身份证正面:</td>
+        <td class="item_input"><html:imgUpload name="identify_hold_image" id="identify_hold_image" value="$vo.identify_hold_image" /></td>
+    </tr>
+	<tr>
+        <td class="item_title">身份证号码:</td>
+        <td class="item_input"><input type="text"  id="identify_number" value="{$vo.identify_number}" class="textbox" name="identify_number" /></td>
+    </tr>
+</table>
+<script>
+	$(function(){
+        if($("input[name='is_ban']:checked").val()==1){
+            $('#show_ban_time').hide();
+        }else{
+            $('#show_ban_time').show();
+        }
+
+        $("input[name='is_ban']").bind("click",function(){
+            var is_ban=$(this).val();
+            if(is_ban==1){
+                $('#show_ban_time').hide();
+            }else{
+                $('#show_ban_time').show();
+            }
+        });
+
+        if($("input[name='is_authentication']:checked").val()>0){
+            $('#identify_info_1').show();
+        }else{
+            $('#identify_info_1').hide();
+        }
+
+        $("input[name='is_authentication']").bind("click",function(){
+            var num = $(this).val();
+            if(num==0){
+                $('#identify_info_1').hide();
+            }else{
+                $('#identify_info_1').show();
+            }
+        });
+	});
+    function submit_check(){
+        if($.trim($("input[name='head_image']").val())==''){
+            alert("请上传头像");
+            return false;
+        }
+        if($("input[name='is_authentication']:checked").val()==2 || $("input[name='is_authentication']:checked").val()==1){
+            if($('#authentication_type option:selected') .val()==0){
+                alert("请选择认证类型");
+                return false;
+            }
+            if($.trim($("input[name='authentication_name']").val())==''){
+                alert("请输入真实名称");
+                return false;
+            }
+            if($.trim($("input[name='contact']").val())==''){
+                alert("请输入联系方式");
+                return false;
+            }
+            if($.trim($("input[name='identify_positive_image']").val())==''){
+                alert("请输入身份证正面");
+                return false;
+            }
+            if($.trim($("input[name='identify_nagative_image']").val())==''){
+                alert("请输入身份证反面");
+                return false;
+            }
+            if($.trim($("input[name='identify_hold_image']").val())==''){
+                alert("请输入手持身份证正面");
+                return false;
+            }
+            if($.trim($("input[name='identify_number']").val())==''){
+                alert("请输入身份证号码");
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="UserRobot" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+ 			<input type="hidden" name="wx_openid" value="{$vo.wx_openid}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>
+</div>
+<include file="Public:footer" />

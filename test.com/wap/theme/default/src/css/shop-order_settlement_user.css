@@ -1,0 +1,182 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page-shop-order_settlement_user .content {
+  bottom: 2.25rem;
+}
+.page-shop-order_settlement_user .address {
+  height: 4rem;
+  line-height: 4rem;
+  background: #fff;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.page-shop-order_settlement_user .address a {
+  color: #ff0000;
+}
+.page-shop-order_settlement_user .addressed {
+  display: flex;
+  display: -webkit-flex;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+}
+.page-shop-order_settlement_user .addressed .icon {
+  width: 2rem;
+  line-height: 2.5rem;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-shop-order_settlement_user .addressed .icon i {
+  font-size: 1.2rem;
+}
+.page-shop-order_settlement_user .addressed .address-info {
+  flex: 1;
+  -webkit-flex: 1;
+}
+.page-shop-order_settlement_user .addressed .address-info p.user-info {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.page-shop-order_settlement_user .addressed .address-info p {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-shop-order_settlement_user .list-block {
+  margin: 0;
+}
+.page-shop-order_settlement_user .list-block .item-content {
+  padding-left: 1rem;
+}
+.page-shop-order_settlement_user .list-block .m-order-info {
+  background: #e4e4e4;
+}
+.page-shop-order_settlement_user .card {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+.page-shop-order_settlement_user .card:last-child {
+  margin-bottom: 0;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner {
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  background: #f1f1f1;
+  display: flex;
+  display: -webkit-flex;
+  margin-bottom: 0.5rem;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner:last-child {
+  margin-bottom: 0;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .goods-img {
+  display: flex;
+  display: -webkit-flex;
+  margin-right: 0.25rem;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .goods-img img {
+  width: 100%;
+  height: 100%;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card {
+  background: #f1f1f1;
+  flex: 1;
+  -webkit-flex: 1;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card .card-content-inner {
+  padding: 0;
+  margin: 0;
+  line-height: 0.8rem;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card .card-content-inner .inner-text {
+  min-height: 0.8rem;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card .card-content-inner p {
+  margin-bottom: 0.35rem;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card .card-footer {
+  padding: 0;
+  min-height: 0;
+  line-height: 0.8rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+.page-shop-order_settlement_user .card .card-content .card-content-inner .card .card-footer i {
+  vertical-align: top;
+  line-height: 0.9rem;
+}
+.page-shop-order_settlement_user .card .card-footer .footer-input {
+  -webkit-flex: 1;
+  flex: 1;
+  width: 100%;
+  border: 0;
+  line-height: 0.7rem;
+}
+.page-shop-order_settlement_user .card .card-footer .goods-all-money {
+  text-align: right;
+  width: 100%;
+}
+.page-shop-order_settlement_user .goods-money {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+.page-shop-order_settlement_user .goods-money i {
+  font-size: 0.8rem;
+}
+.page-shop-order_settlement_user nav {
+  display: flex;
+  display: -webkit-flex;
+  height: 2.25rem;
+  background: #fff;
+  font-size: 0.7rem;
+}
+.page-shop-order_settlement_user nav .all-goods-money {
+  width: 11.7rem;
+  text-align: right;
+  padding-right: 0.75rem;
+  line-height: 2.25rem;
+}
+.page-shop-order_settlement_user nav .all-goods-money .goods-money i {
+  line-height: 2.25rem;
+  font-size: 0.8rem;
+}
+.page-shop-order_settlement_user nav .m-button {
+  flex: 1;
+  -webkit-flex: 1;
+}
+.page-shop-order_settlement_user nav .m-button a {
+  height: 100%;
+  border: 0;
+  line-height: 2.25rem;
+  color: #fff;
+  top: 0;
+  border-radius: 0;
+  background: #ff9900;
+}

@@ -1,0 +1,61 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script>
+	function del(id)
+	{
+		if(!id)
+		{
+			idBox = $(".key:checked");
+			if(idBox.length == 0)
+			{
+				alert(LANG['DELETE_EMPTY_WARNING']);
+				return;
+			}
+			idArray = new Array();
+			$.each( idBox, function(i, n){
+				idArray.push($(n).val());
+			});
+			id = idArray.join(",");
+		}
+		if(confirm(LANG['CONFIRM_DELETE']))
+			$.ajax({
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_admin&id="+id,
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					alert(obj.info);
+					func();
+					function func(){
+						if(obj.status==1){
+							location.href=location.href;
+						}
+					}
+				}
+			});
+	}
+</script>
+<div class="main">
+	<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+	<div class="blank10"></div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="role"
+			checkbox="true"
+			action="true"
+			datasource="list"
+			show="id:{%ID}|90px,name:{%NAME}:edit,is_effect|get_is_effect=$role['id']:{%IS_EFFECT}"
+			actionlist="edit:{%EDIT}, del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+		<td colspan="7">
+			<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+			<input type="button" class="button button-del" value="{%DEL}" onclick="del();" />
+		</td>
+		</tbody>
+	</table>
+	<div class="blank5"></div>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

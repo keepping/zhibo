@@ -1,0 +1,236 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>	
+<load href='__TMPL__Common/js/user_edit.js' />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("UserGeneral/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NICK_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="nick_name" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_MOBILE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="mobile" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">所属地区:</td>
+		<td class="item_input">
+			<select name="province">				
+			<option value="" rel="0">请选择省份</option>
+			<foreach name="region_lv2" item="region">
+				<option value="{$region.name}" rel="{$region.id}">{$region.name}</option>
+			</foreach>
+			</select>
+			
+			<select name="city">				
+			<option value="" rel="0">请选择城市</option>
+			</select>
+			<script type="text/javascript">
+				load_city();
+			</script>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">性别:</td>
+		<td class="item_input">
+			<label>女<input type="radio" name="sex" value="2"/></label>
+			<label>男<input type="radio" name="sex" value="1"/></label>
+			<label>未知<input type="radio" name="sex" value="0"/></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">会员类型:</td>
+		<td class="item_input">
+			<select name="user_type">
+				<option value="0" >普通用户</option>
+				<option value="1" >企业会员</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">会员等级:</td>
+		<td class="item_input">
+			<select name="user_level">
+				<option value="0">请选择等级</option>
+				<foreach name="user_level" item="level" key="kk">
+					<option value="{$level.id}" >{$level.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">简介:</td>
+		<td class="item_input">
+			<textarea name="intro" class="textarea"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></label>
+			<label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+<div class="blank5"></div>
+	<!--<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title">真实姓名：</td>
+			<td class="item_input">
+			<input type="text" value="" name="ex_real_name" class="textbox" />
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">开户行：</td>
+			<td class="item_input">
+			<input type="text" value="" name="ex_account_bank" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">银行帐号：</td>
+			<td class="item_input">
+			<input type="text" value="" name="ex_account_info" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">联系电话：</td>
+			<td class="item_input">
+			<input type="text" value="" name="ex_contact" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">联系QQ：</td>
+			<td class="item_input">
+			<input type="text" value="" name="ex_qq" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> -->
+	<div class="blank5"></div>
+	<table class="form" cellspacing=0  cellpadding=0>
+		<tr><td colspan=2 class="topTd"></td></tr>
+		<tr>
+			<td class="item_title">认证审核：</td>
+			<td class="item_input">
+				<input type="radio" name="is_authentication"  value="0">未认证
+				<input type="radio" name="is_authentication"  value="1">待审核
+				<input type="radio" name="is_authentication"  value="2">已认证
+				<input type="radio" name="is_authentication"  value="3">审核不通过
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">认证类型：</td>
+			<td class="item_input">
+				<input type="radio" name="authentication_type"   value="0"> 普通用户
+				<input type="radio" name="authentication_type"   value="1"> 投资人
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">认证类型：</td>
+			<td class="item_input">
+				<input type="text" name="authentication_type" value="" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">+v认证说明：</td>
+			<td class="item_input">
+				<input type="text" value="" name="v_explain" class="textbox" style="width:500px;" />
+			</td>
+		</tr>
+	</table>
+<div class="blank5"></div>
+<table class="form identify_info" cellspacing=0 cellpadding=0 id="identify_info_1" <if condition="$vo.is_authentication eq 0">style="display:0"</if>>
+	<if condition="app_conf('IDENTIFY_POSITIVE') eq 1">
+	<tr>
+		<td class="item_title">身份证正面:</td>
+		<td class="item_input"><html:imgUpload name="identify_positive_image" id="identify_positive_image" value="" /></td>
+	</tr>
+	</if>
+	<if condition="app_conf('IDENTIFY_NAGATIVE') eq 1">
+	<tr>
+		<td class="item_title">身份证反面:</td>
+		<td class="item_input"><html:imgUpload name="identify_nagative_image" id="identify_nagative_image" value="" /></td>
+	</tr>
+	</if>
+	<tr>
+        <td class="item_title">身份证号码:</td>
+        <td class="item_input"><input type="text"  id="identify_number" value="" class="textbox" name="identify_number" /></td>
+    </tr>
+</table>
+
+	
+<script>
+	$(function(){
+		$("input[name='is_investor']").bind("click",function(){
+ 			num=$(this).val();
+			if(num==2 || num==4 || num==5 || num==6){
+				$("#identify_info_2").show("slow");
+				$(".identify_info_3").hide();
+			}else{
+				if(num==0){
+					$("#identify_info_1").hide();
+				}else{
+					$("#identify_info_1").show("slow");
+					$(".identify_info_3").show("slow");
+				}
+				$("#identify_info_2").hide("slow");
+			}
+		});
+		
+		if($("input[name='is_investor']:checked").val()==0){
+			$("#identify_info_2").hide();
+			$("#identify_info_3").hide();
+			$("#identify_info_1").hide();
+		}else{
+			if($("input[name='is_investor']:checked").val()==1 || $("input[name='is_investor']:checked").val()==3 || $("input[name='is_investor']:checked").val()==7){
+				$("#identify_info_1").show("slow");
+				$(".identify_info_3").show("slow");
+				$("#identify_info_2").hide();
+			}else{
+				$("#identify_info_2").show("slow");
+				$(".identify_info_3").hide();
+			}
+		}
+	});
+</script>
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="UserGeneral" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<input type="hidden" name="member_type" value="1" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>
+</div>
+<include file="Public:footer" />

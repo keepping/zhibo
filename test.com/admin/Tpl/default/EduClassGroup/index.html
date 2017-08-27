@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<PHP>
+	function get_course_title($course_id) {
+		return $GLOBALS['db']->getOne("select title from ".DB_PREFIX."edu_courses where id=".$course_id);
+	}
+
+	function get_classes($a, $id) {
+		return "<a href='".u("EduClass/index",array("group_id"=>$id))."'>查看课时</a>";
+	}
+</PHP> 
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduClassGroup" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="hidden" value="course_id" name="{$course_id}" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="group"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:目录名称:edit,course_id|get_course_title:课程,sort|get_sort=$group['id']:{%SORT}"
+	actionlist="add_class:添加课时,view_class:课时列表,del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add_group({$course_id});" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<script>
+	function add_group(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClassGroup&"+VAR_ACTION+"=add&course_id="+id;
+	}
+	
+	function add_class(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClass&"+VAR_ACTION+"=add&group_id="+id;
+	}
+	
+	function view_class(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClass&"+VAR_ACTION+"=index&group_id="+id;
+	}
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,145 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Course/view",array('id'=>$pid))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data" style="display: none;">
+<table class="form" cellpadding=0 cellspacing=0>
+    <tr>
+        <td colspan=2 class="topTd"></td>
+    </tr>
+    <tr>
+        <td class="item_title">课程编号:</td>
+        <td class="item_input">{$vo.id}</td>
+        <input type="hidden" name="pid" value="{$pid}"/>
+    </tr>
+    <tr>
+        <td class="item_title">课程名称:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="title" value="{$vo.title}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">封面:</td>
+        <td class="item_input"><html:imgUpload  name="image" id='image' value="$vo.img"/>
+            <span class='tip_span'>&nbsp;[封面规格为：??px*??px]</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">课程视频:</td>
+        <td class="item_input">
+            <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>注意：</strong>根据腾讯云提供的服务，您的浏览器如出现<img src="/admin/Tpl/default/Common/img/flash_error.png"/>提示，请始终允许本站运行flash！
+            </div>
+            <video id="video" controls="controls" src="{$video_url}" class="img-thumbnail">
+            </video>
+            <div class="progress" style="display: none;" id="progress">
+                <div id="up" class="progress-bar progress-bar-success progress-bar-striped active">
+                    <span></span>
+                </div>
+                <div id="sha" class="progress-bar progress-bar-warning progress-bar-striped active">
+                    <span></span>
+                </div>
+            </div>
+            <div class="input-group file-caption-main">
+                <div tabindex="500" class="form-control file-caption  kv-fileinput-caption" id="file_name">
+                </div>
+                <div class="input-group-btn">
+                    <button class="btn btn-default fileinput-upload fileinput-upload-button" type="button" id="start_upload" style="display: none;"><i class="glyphicon glyphicon-upload"></i>&nbsp;  <span class="hidden-xs">上传</span></button>
+                    <button class="btn btn-primary fileinput-upload fileinput-upload-button" type="button" id="btn_upload2"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;  <span class="hidden-xs">选择 …</span></button>
+                </div>
+            </div>
+            <button type="button" id="btn_upload" style="display: none;"></button>
+        </td>
+    </tr>
+    <tr  id="general">
+        <td class="item_title">音频:</td>
+        <td class="item_input">
+            <audio id="audio" controls="controls" src="{$vo.sound_url}">
+            </audio>
+            <div id="errorBlock" class="help-block">
+            </div>
+            <input type="file" class="file" id="test-upload"/>
+        </td>
+    </tr>
+    <tr  id="general">
+        <td class="item_title">内容:</td>
+        <td class="item_input">
+             <html:editor id="editor" name="content" type="KINDEDITOR" content="{$vo.content}" />
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">集数:</td>
+        <td class="item_input"><input type="text" class="textbox" name="season" value="{$vo.season}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">要求等级:</td>
+        <td class="item_input"><input type="text" class="textbox" name="is_vip" value="{$vo.is_vip}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title"></td>
+        <td class="item_input">
+            <input type="hidden" name="file_id" id="file_id" value="{$vo.video_url}"/>
+            <input type="hidden" name="sound_url" id="sound_url" value="{$vo.sound_url}"/>
+            <!--隐藏元素-->
+            <input type="hidden" name="{:conf("VAR_MODULE")}" value="Course" />
+            <input type="hidden" name="{:conf("VAR_ACTION")}" value="updateSeason" />
+            <input type="hidden" name="id" value="{$vo.id}" />
+            <!--隐藏元素-->
+            <input type="button" class="button" value="{%EDIT}"
+            onclick="insert_video_tx();"/>
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+</table>
+
+</form>
+</div>
+<script>
+qcloud_secret_id = '{$qcloud_secret_id}';
+qcloud_secret_key = '{$qcloud_secret_key}';
+APP_ROOT = '<?php echo get_domain(); ?>/';
+</script>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/js/vod/sdk/uploaderh5.js" charset="utf-8"></script>
+<load href='__TMPL__Common/js/course.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/fileinput.min.js' />
+<load href='__TMPL__Common/js/locales/zh.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<load href='__TMPL__Common/css/bootstrap.min.css' />
+<load href='__TMPL__Common/css/fileinput.min.css' />
+<script>
+    function insert_video_tx() {
+        var form_data = $("form").serialize();
+        $.post("{:u('Course/updateSeason')}", form_data, function(result) {
+            if (result.status == '1') {
+                alert(result.error);
+                location.href = "{:u('Course/view',array('id'=>$pid))}";
+            } else {
+                alert(result.error);
+            }
+        }, 'json');
+    }
+    $("#test-upload").fileinput({
+        uploadUrl: "{:u('Course/upload',array('dir'=>'media'))}",
+        language: 'zh',
+        showPreview: false,
+        allowedFileTypes: ['audio'],
+        elErrorContainer: '#errorBlock'
+    }).on('fileuploaded', function(event, data) {
+        if (data.response) {
+            $('#sound_url').val(data.response.url);
+            $('#audio').attr("src", data.response.url);
+        }
+    });
+    $('#btn_upload2').on('click', function() {
+        $('#btn_upload').click();
+    })
+    $(window).ready(function() {
+        $('form').show();
+        $('.alert').on('click', '.close', function () {
+            $(this).parent().hide('slow')
+        })
+    })
+</script>
+<include file="Public:footer" />

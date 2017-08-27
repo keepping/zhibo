@@ -1,0 +1,119 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.help-list .help-list-title {
+  margin-top: .5rem;
+  color: #333;
+  padding-left: .75rem;
+  font-size: 0.8rem;
+}
+.help-list .help-list-block {
+  margin: .5rem 0;
+  min-height: 2.75rem;
+}
+.help-list .help-list-block-all {
+  width: 100%;
+  background-color: #fff;
+  margin-top: .5rem;
+}
+.help-list .help-list-block-all:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+.help-list .help-list-block-all .help-list-block-all-a {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  float: left;
+  border-bottom: .1rem solid #f0f0f0;
+}
+.help-list .help-list-block-all .help-list-block-all-a:nth-child(2n):after {
+  display: block;
+  content: "";
+  width: .1rem;
+  height: 100%;
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 0;
+  left: -0.05rem;
+}
+.help-list .help-list-block-all .help-list-block-all-a:nth-last-of-type(1) {
+  border-bottom: none;
+}
+.help-list .help-list-block-all .help-list-block-all-a:nth-last-of-type(2) {
+  border-bottom: none;
+}
+.help-list .help-list-block-all .help-list-block-all-a i {
+  font-size: 1rem;
+  margin-right: .3rem;
+  color: #ff7552;
+}
+.help-list .help-list-block-all .help-list-block-all-a span {
+  color: #999;
+}
+.help-main {
+  padding: .75rem;
+  background-color: #fff;
+  color: #828e92;
+}
+.help-main .help-main-title {
+  line-height: 1.2;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+.help-main .help-main-title .help-main-content img {
+  max-width: 100%;
+}
+.page-faq_show .m-article {
+  padding-right: .75rem;
+  padding-left: .75rem;
+  margin-top: .2rem;
+  background: #fff;
+  padding-bottom: 1rem;
+  color: #fontcolorstress;
+}
+.page-faq_show .m-article .article-title {
+  height: 2.7rem;
+  line-height: 2.7rem;
+  border-bottom: 1px solid #eee;
+  font-size: .75rem;
+  font-weight: bold;
+}
+.page-faq_show .m-article .article-info {
+  padding: .5rem 0;
+  line-height: 1.45rem;
+  font-size: .75rem;
+  word-break: break-all;
+  min-height: 10rem;
+}
+.page-faq_show .m-article .question {
+  font-size: .65rem;
+  text-align: center;
+}
+.page-faq_show .m-article .question a {
+  color: #ff7552;
+}

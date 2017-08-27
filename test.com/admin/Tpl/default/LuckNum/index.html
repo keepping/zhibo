@@ -1,0 +1,129 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<include file="Public:new" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>靓号列表</div>
+<php>
+	function get_is_sales($tag,$id)
+	{
+		if($tag)
+		{
+			return "<span class='is_effect'>".l("IS_SALE_1")."</span>";
+		}
+		else
+		{
+			return "<span class='is_effect'>".l("IS_SALE_0")."</span>";
+		}
+	}
+
+	function insert_or_edit($id,$tag)
+	{
+		if($tag)
+		{
+			return "已售出";
+		}
+		else
+		{
+			return "<a href='javascript:user_edit(".$id.");'>卖出</a>";
+		}
+	}
+
+	function get_price($price,$id){
+		return "<span onclick='set_price(".$id.",".$price.",this);'>".$price."</span>";
+	}
+</php>
+
+<script type="text/javascript">
+	function user_edit(id){
+		location.href = ROOT+"?"+VAR_MODULE+"=LuckNum&"+VAR_ACTION+"=edit&id="+id;
+	}
+
+	function set_price(id,price,domobj){
+		$(domobj).html("<input type='text' value='"+price+"' id='set_price' class='require' />");
+		$("#set_price").select();
+		$("#set_price").focus();
+		$("#set_price").bind("blur",function(){
+			var newprice = $(this).val();
+			$.ajax({
+				url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"="+"set_price"+"&id="+id+"&price="+newprice,
+				dataType:"json",
+				success:function(result){
+					if (result.status) {
+						$(domobj).html(newprice);
+					}else{
+						$(domobj).html(price);
+					}
+				}
+			});
+		});
+	}
+
+	//售出状态
+//	function change_sale(id,domobj){
+//		$.ajax({
+//			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=change_sale&id="+id,
+//			data: "",
+//			dataType: "json",
+//			success: function(obj){
+//				if(obj.data=='1')
+//				{
+//					$(domobj).html(LANG['IS_SALE_1']);
+//				}
+//				else if(obj.data=='0')
+//				{
+//					$(domobj).html(LANG['IS_SALE_0']);
+//				}
+//				else if(obj.data=='')
+//				{
+//
+//				}
+//				$("#info").html(obj.info);
+//			}
+//		});
+//	}
+
+</script>
+
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		靓号ID：<input type="text" class="textbox" name="luck_num" value="{:trim($_REQUEST['luck_num'])}" style="width:100px;" />
+		主播昵称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" />
+        是否已卖出：<select name="is_sale">
+        <option value="">全部</option>
+        <option value="1" <if condition="$_REQUEST['is_sale'] eq 1">selected="selected"</if>>是</option>
+        <option value="0" <if condition="$_REQUEST['is_sale']!='' && $_REQUEST['is_sale'] eq 0">selected="selected"</if>>否</option>
+        </select>
+		<input type="hidden" value="LuckNum" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="luck_num"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="luck_num:{%LUCK_NUM}
+		,user_id:用户id
+		,nick_name:{%NICK_NAME}
+		,is_sale|get_is_sales=$luck_num['id']:{%IS_SALE}
+		,price|get_price=$luck_num['id']:售价"
+	actionlist="id|insert_or_edit=$luck_num['is_sale']" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="5">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

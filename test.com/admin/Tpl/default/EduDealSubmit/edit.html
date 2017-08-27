@@ -1,0 +1,182 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{$vo.title}(ID：{$vo.id}){%EDIT} <a href="{:u("EduDealSubmit/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data" onsubmit="return check();">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">项目名称:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}"  /></td>
+	</tr>
+	<tr>
+		<td class="item_title">发起人id:</td>
+		<td class="item_input">{$vo.user_id}</td>
+	</tr>
+	<tr>
+		<td class="item_title">项目图片:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'image' id='image'  value='$vo.image' />
+			<span class='tip_span'></span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">项目分类:</td>
+		<td class="item_input">
+			<select name="cate_id" class="require">
+				<option value="0">请选择</option>
+				<foreach name="cate_list" item="cate_item">
+					<option value="{$cate_item.id}" <if condition="$vo['cate_id'] eq $cate_item['id']">selected="selected"</if> >{$cate_item.title}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">项目开始时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="begin_time" id="begin_time" value="{$vo.begin_time}" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />
+			<span class='tip_span'>开始时间：开始时间当天0点</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">项目结束时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="end_time" id="end_time" value="{$vo.end_time}" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+			<span class='tip_span'>结束时间：结束时间当天24点</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">直播开始时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="video_begin_time" id="video_begin_time" value="{$vo.video_begin_time}" onfocus="this.blur(); return showCalendar('video_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_video_begin_time');" />
+			<input type="button" class="button" id="btn_video_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('video_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_video_begin_time');" />
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#video_begin_time').val('');" />
+
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">目标数量:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="limit_num" value="{$vo.limit_num}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">支持价格:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="price"  value="{$vo.price}"/></td>
+	</tr>
+	<!--
+	<tr>
+		<td class="item_title">佣金比例:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="pay_radio"  value="{$vo.pay_radio}"/>
+			<span class='tip_span'>佣金比例为0的话，按系统的佣金比例{$default_pay_radio}来算，不是0的话按这里的佣金比例来算</span>
+
+		</td>
+	</tr>
+	-->
+	<tr>
+		<td class="item_title">项目排序:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$new_sort}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">项目详情:</td>
+		<td class="item_input">
+			<html:editor id="description" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">审核状态:</td>
+		<td class="item_input">{$vo.deal_status_name}</td>
+	</tr>
+	<tr>
+		<td class="item_title">审核操作:</td>
+		<td class="item_input">
+			<lable>通过<input type="radio" name="deal_status" value="1" <if condition="$vo['deal_status'] eq 1">checked="checked"</if> /></lable>
+			<lable>不通过<input type="radio" name="deal_status" value="3" <if condition="$vo['deal_status'] eq 3">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<tr id="is_effect_box" <if condition="$vo['deal_status'] neq 1">style="display:none;"</if>>
+		<td class="item_title" >是否上架:</td>
+		<td class="item_input">
+			<lable>是<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+			<lable>否<input type="radio" name="is_effect" value="0" /></lable>
+		</td>
+	</tr>
+	<tr id="deal_status_reason" <if condition="$vo['deal_status'] neq 3">style="display:none;"</if> >
+	<td class="item_title">未通过理由:</td>
+	<td class="item_input">
+		<textarea name="no_pass_memo" class="textarea">{$vo.no_pass_memo}</textarea>
+	</td>
+	</tr>
+	<script>
+        $(function(){
+            $("input[name='deal_status']").bind("click",function(){
+                var val=$("input[name='deal_status']:checked").val();
+                if(val==3){
+                    $("#deal_status_reason").show();
+                }else{
+                    $("#deal_status_reason").hide();
+                }
+                if(val==1){
+                    $("#is_effect_box").show();
+                }else{
+                    $("#is_effect_box").hide();
+                }
+
+            });
+
+        });
+	</script>
+</table><tr>
+	<td class="item_title"></td>
+	<td class="item_input">
+		<!--隐藏元素-->
+		<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduDealSubmit" />
+		<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+		<input type="hidden" name="id" value="{$vo.id}" />
+		<!--隐藏元素-->
+		<input type="submit" class="button" value="{%EDIT}" />
+		<input type="reset" class="button" value="{%RESET}" />
+	</td>
+</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</form>
+	<script>
+		$(document).ready(function(){
+            <if condition="$vo['deal_status'] eq 2 || $vo['deal_status'] eq 3">remove_require();</if>
+            $("input[name=deal_status]").bind("change",function(){
+                var value = $("input[name=deal_status]:checked").val();
+                if(value == 1){
+                    add_require()
+                }else{
+                    remove_require()
+                }
+
+            });
+		});
+
+        function remove_require(){
+            $("#begin_time").removeClass("require");
+            $("#end_time").removeClass("require");
+            $("#video_begin_time").removeClass("require");
+        }
+        function add_require(){
+            $("#begin_time").addClass("require");
+            $("#end_time").addClass("require");
+            $("#video_begin_time").addClass("require");
+        }
+
+	</script>
+</div>
+<include file="Public:footer" />

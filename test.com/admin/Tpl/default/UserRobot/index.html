@@ -1,0 +1,134 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<include file="Public:new" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script>
+	function roboter(id){
+		$.ajax({
+			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=roboter&id="+id,
+			data: "",
+			dataType: "json",
+			success: function(obj){
+				if(obj.status==1)
+					location.href = location.href;
+				else{
+					alert(obj.info);
+				}
+			}
+		});
+	}
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>机器人列表</div>
+<php>
+	function get_level($level){
+		$user_level = $GLOBALS['db']->getOne("select `name` from ".DB_PREFIX."user_level where level = '".intval($level)."'");
+		return $user_level;
+	}
+	function head_image($head_image){
+		return "<img src='".$head_image."' style='height:35px;width:35px;'/>";
+	}
+    function get_online($is_online){
+        if($is_online==1){
+            return '是';
+        }else{
+            return '否';
+        }
+    }
+	function is_roboter($roboter,$id){
+	if($roboter)
+	{
+	return "<span class='is_effect' onclick='roboter(".$id.",this);'>".l("开启")."</span>";
+	}
+	else{
+	return "<span class='is_effect' onclick='roboter(".$id.",this);'>".l("关闭")."</span>";
+	}
+	}
+</php>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>主播ID：<input type="text" class="textbox" name="id" value="{:trim($_REQUEST['id'])}" style="width:100px;" /></div>
+        <div>主播昵称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" /></div>
+        <div>系统管理员：
+        <select name="is_admin">
+	        <option value="">全部</option>
+	        <option value="1" <if condition="$_REQUEST['is_admin'] eq 1">selected="selected"</if>>是</option>
+	        <option value="0" <if condition="$_REQUEST['is_admin']!='' && $_REQUEST['is_admin'] eq 0">selected="selected"</if>>否</option>
+	    </select>
+	    </div>
+        <div>注册时间：
+        	<span>
+        		<input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" />
+        		<input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" />
+        		</span> - <span>
+        			<input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" />
+        			<input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" />
+    			</span>
+        	<input type="hidden" value="UserRobot" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+    	</div>
+	</form>
+</div>
+	<if condition="robot_gifts eq 1">
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="user"
+				action="true"
+				datasource="list"
+				show="id:主播ID
+			,nick_name:{%NICK_NAME}:edit
+			,head_image|head_image:{%USER_HEADIMAGE}
+			,diamonds:{%DIAMONDS}
+			,use_diamonds:{%USER_DIAMONDS}
+			,ticket:{%USER_TICKET}
+			,useable_ticket:{%USEABLE_TICKET}
+			,u_score:{%USER_SCORE}
+			,focus_count:{%USER_FOCUS}:focus_list
+			,fans_count:{%USER_FANS}:fans_list
+			,user_level|get_level=$user['user_level']:{%LEVEL}
+			,is_ban|get_is_ban=$user['id']:{%IS_BAN}
+			,is_effect|get_is_effect=$user['id']:{%IS_EFFECT}
+			,roboter|is_roboter=$user['id']:送礼物特权"
+				actionlist="edit:{%EDIT}, account:{%USER_ACCOUNT},account_detail:{%USER_ACCOUNT_DETAIL},contribution_list:{%TICKET_CONTRIBUTION},prop:{%USER_PROP_DETAIL}" />
+		<else/>
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="user"
+				action="true"
+				datasource="list"
+				show="id:主播ID
+			,nick_name:{%NICK_NAME}:edit
+			,head_image|head_image:{%USER_HEADIMAGE}
+			,diamonds:{%DIAMONDS}
+			,use_diamonds:{%USER_DIAMONDS}
+			,ticket:{%USER_TICKET}
+			,useable_ticket:{%USEABLE_TICKET}
+			,u_score:{%USER_SCORE}
+			,focus_count:{%USER_FOCUS}:focus_list
+			,fans_count:{%USER_FANS}:fans_list
+			,user_level|get_level=$user['user_level']:{%LEVEL}
+			,is_ban|get_is_ban=$user['id']:{%IS_BAN}
+			,is_effect|get_is_effect=$user['id']:{%IS_EFFECT}"
+				actionlist="edit:{%EDIT}, account:{%USER_ACCOUNT},account_detail:{%USER_ACCOUNT_DETAIL},contribution_list:{%TICKET_CONTRIBUTION},prop:{%USER_PROP_DETAIL}" />
+	</if>
+    <!--  del:{%DEL}, -->
+	<table class="dataTable">
+		<tbody>
+			<td colspan="14">
+                <input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+                <!--<input type="button" class="button button-del" value="{%DEL}" onclick="del();" />-->
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

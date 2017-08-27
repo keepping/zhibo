@@ -1,0 +1,141 @@
+@import (once) "public/variable.less";
+.page-shop-shop_goods_list{
+	.searchbar{
+        position: absolute;
+        width: 100%;
+        padding: 0.5rem;
+        left: 0;
+        right: 0;
+        margin: 0;
+        z-index: 5;
+        height: 2.4rem;
+        .search-input{
+            margin: 0;
+            width: 85%;
+        }
+    }
+	.content{
+		bottom: 2.25rem;
+		top: 0;
+	}
+	.content-block{
+		margin: 0;
+		padding: 0;
+		margin-top:0.25rem;
+		padding: 0.25rem 0.5rem; 
+		display: flex;
+		display:-webkit-flex;
+		border: 1px solid #d7d7d7;
+		background: #fff;
+		border-radius: 0.2rem;
+		&:last-child{
+			margin-bottom: 0.25rem;
+		}
+		.block-goods-img{
+			width: 4.2rem;
+    		height: 4.2rem;
+    		margin-right: 0.5rem;
+    		img{
+    			width: 100%;
+    			height: 100%;
+    		}
+		}
+		.card{
+			flex:1;
+			-webkit-flex:1;
+			margin: 0;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-direction: column;
+			flex-direction: column;
+		    -webkit-justify-content: space-between;
+		    justify-content: space-between;
+		    
+			.card-content{
+				.card-content-inner{
+					padding: 0;
+					word-wrap:break-word;
+					word-break:break-all;
+					font-size: 0.7rem;
+					color: #333;
+				}
+				.card-footer{
+					-webkit-justify-content: flex-end;
+    				justify-content: flex-end;
+    				a{
+    					color: #f33;
+    				}
+    				&:before{
+    					display: none;
+    				}
+				}
+			}
+			.card-footer{
+				padding: 0;
+				min-height: 0;
+				.goods-money{
+					i{
+						color: #949494;
+						font-size: 0.7rem;
+						margin-right: 0.2rem;
+					}
+					span{
+						color: #666;
+					}
+				}
+				.goods-numb{
+					width: 6.1rem;
+					display: flex;
+					display: -webkit-flex;
+					span{
+						width: 1.8rem;
+						height: 1.1rem;
+						line-height: 1rem;
+						border: 1px solid #797979;
+						-webkit-box-sizing: border-box;
+						box-sizing: border-box;
+						text-align: center;
+					}
+					input{
+						-webkit-box-sizing: border-box;
+						box-sizing: border-box;
+						border: 1px solid #797979;
+						text-align: center;
+						width: 2.25rem;
+						height: 1.1rem;
+						line-height: 1.1rem;
+						margin: 0 0.1rem;
+						-webkit-flex-shrink: 0;
+						flex-shrink: 0;
+					}
+				}
+			}
+		}
+	}
+	nav{
+		display: flex;
+		display: -webkit-flex;
+		height: 2.25rem;
+		div{
+			width: 50%;
+			a.button{
+				height: 100%;
+				border: 0;
+				line-height: 2.25rem;
+				color: #fff;
+				top: 0;
+				border-radius: 0;
+			}
+		}
+		.left{
+			a{
+				background: #ff9900;
+			}
+		}
+		.right{
+			a{
+				background: #ff3333;
+			}
+		}
+	}
+}

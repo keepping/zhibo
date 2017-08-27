@@ -1,0 +1,41 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	function edit_sms(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=PromoteMsgSms&"+VAR_ACTION+"=edit_sms&id="+id;
+	}
+	function view_result(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=PromoteMsgSms&"+VAR_ACTION+"=index&msg_id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{%PROMOTEMSG_SMS_INDEX}</div>
+<div class="blank10"></div>
+<div class="button_row">
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="sms"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,content|msubstr:{%SMS_CONTENT}
+	,send_time|to_date:{%SEND_TIME}
+	,send_status|get_send_status:{%SEND_STATUS}
+	,send_type|get_send_type:{%SMS_SEND_TYPE}"
+	actionlist="edit_sms:{%EDIT}, foreverdel:{%FOREVERDEL}" /><!--,view_result:{%VIEW_PROCESS}-->
+	<table class="dataTable">
+		<tbody>
+			<td colspan="7">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="location.href='{:u("PromoteMsgSms/add_sms")}';" />
+				<input type="button" class="button button-del" value="{%FOREVERDEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

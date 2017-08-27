@@ -1,0 +1,109 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<php>
+	function buy_type($buy_type){
+	if($buy_type){
+	return '送主播';
+	}else{
+	return '买给自己';
+	}
+	}
+</php>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>订单列表</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		订单编号：
+		<input type="text" class="textbox" name="order_sn" id="order_sn" value="{$param.order_sn}"  />&nbsp;
+		订单状态：
+		<select name="order_status">
+			<option value="-1" <if condition="$param['order_status'] eq -1">selected="selected"</if> >所有</option>
+			<option value="1" <if condition="$param['order_status'] eq 1">selected="selected"</if>>待付款</option>
+			<option value="2" <if condition="$param['order_status'] eq 2">selected="selected"</if>>待发货</option>
+			<option value="3" <if condition="$param['order_status'] eq 3">selected="selected"</if>>待收货</option>
+			<option value="4" <if condition="$param['order_status'] eq 4">selected="selected"</if>>已收货</option>
+			<option value="5" <if condition="$param['order_status'] eq 5">selected="selected"</if>>已退货</option>
+			<option value="6" <if condition="$param['order_status'] eq 6">selected="selected"</if>>超时关闭</option>
+		</select>&nbsp;
+		下单时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" value="PodcastOrder" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_dd();" />
+	</form>
+</div>
+	<if condition="PAI_REAL_BTN eq 0 && SHOPPING_GOODS eq 1">
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="goods_order"
+				action="true"
+				datasource="list"
+				show="id:{%ID}|50px
+		,podcast_name:主播
+		,order_sn:订单编号:edit
+		,order_type:订单类型
+		,order_source:订单来源
+		,number:商品总数量
+		,total_diamonds:总金额
+		,no_refund_format:是否允许退款
+		,pai_name:购买人
+		,create_date:下单时间
+		,order_status_format:订单状态
+		,buy_type|buy_type:下单状态
+		,delivery_time:发货时间"
+				actionlist="edit:订单详情" />
+	<else/>
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="goods_order"
+				action="true"
+				datasource="list"
+				show="id:{%ID}|50px
+		,podcast_name:主播
+		,order_sn:订单编号:edit
+		,order_type:订单类型
+		,order_source:订单来源
+		,number:商品总数量
+		,goods_diamonds:竞拍价
+		,total_diamonds:总金额
+		,no_refund_format:是否允许退款
+		,pai_name:购买人
+		,create_date:下单时间
+		,order_status_format:订单状态
+		,buy_type|buy_type:下单状态
+		,delivery_time:发货时间"
+				actionlist="edit:订单详情" />
+	</if>
+
+<div class="page">{$page}</div>
+</div>
+<script>
+	function export_dd(){
+		var inputs = $(".search_row").find("input");
+		var selects = $(".search_row").find("select");
+		var param = '';
+		for(i=0;i<inputs.length;i++)
+		{
+			if(inputs[i].name!='m'&&inputs[i].name!='a')
+				param += "&"+inputs[i].name+"="+$(inputs[i]).val();
+		}
+		for(i=0;i<selects.length;i++)
+		{
+			param += "&"+selects[i].name+"="+$(selects[i]).val();
+		}
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_dd";
+		location.href = url+param;
+	}
+</script>
+<include file="Public:footer" />

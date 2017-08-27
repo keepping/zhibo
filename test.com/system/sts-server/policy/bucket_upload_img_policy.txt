@@ -1,0 +1,13 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "oss:PutObject",
+        "oss:AbortMultipartUpload"
+      ],
+      "Effect": "Allow",
+      "Resource": ["acs:oss:*:*:REPLACE_BUCKET_NAME/*", "acs:oss:*:*:REPLACE_BUCKET_NAME"]
+    }
+  ],
+  "Version": "1"
+}

@@ -1,0 +1,48 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+
+	function image($image){
+		return "<img src='".$image."' style='height:35px;width:35px;'/>";
+	}
+
+
+
+</php>
+
+<script>
+
+
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>主播小店商品列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+			主播ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" />
+            商品名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+        </select>
+            <input type="hidden" value="PodcastGoods" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="PodcastGoods"
+			datasource="list"
+			show="id:{%ID}
+			,user_id:主播ID
+			,name:商品名称
+			,imgs|image:商品主图片
+			,price:商品价格(人民币)
+			,url:商品链接|350px
+			,description:商品描述|350px
+			,is_effect|get_is_effect=$PodcastGoods['id']:{%IS_EFFECT}"
+	/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

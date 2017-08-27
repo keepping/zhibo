@@ -1,0 +1,88 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_goods_list.css";
+	$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_goods_list.css";
+?>
+    <link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+    <div class="page page-current page-shop-shop_goods_list" id="page-shop-shop_goods_list">
+        <div class="searchbar row">
+            <div class="search-input col-85">
+              <input type="search" id='search' value="{$data.content}" placeholder='输入关键字...'/>
+            </div>
+            <a href="javascript:void(0)" class="button button-fill button-primary col-15 J-search"><span class="icon icon-search"></span></a>
+        </div>
+        <div class="content infinite-scroll pull-to-refresh-content">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="goods-list">
+                {foreach from=$data.goods item=item key=key name=item_name}
+                <div class="content-block goods-item">
+                    <a href='javascript:void(0)' data-id='{$item.goods_id}' class="J-details">
+                        <div class="block-goods-img">
+                            <img src="{$item.imgs}">
+                        </div>
+                    </a>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <span>{$item.name}</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="javascript:void(0)" data-id='{$item.goods_id}' class="J-add_shopping_cart">加入购物车</a>
+                            </div>
+                        </div>
+                        <div class="card-footer no-border">
+                            <div class="goods-money">
+                                <span>&yen;{$item.price}</span>
+                            </div>
+                            <div class="goods-numb">
+                                <span class="lost" data-id='{$item.goods_id}'>-</span>
+                                <input type="number" name="amount" value="0" class="input input-goods-num" data-id='{$item.goods_id}'>
+                                <span class="add" data-id='{$item.goods_id}'>+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {foreachelse}
+                <div class="null-data">暂无数据</div>
+                {/foreach}
+                <input type="hidden" name="total_page" value="{$data.page.count}" />
+            </div>
+        </div>
+        {if $data.goods}
+        <div id="vscope-paging">
+            <!-- 加载提示符 -->
+            <div class="infinite-scroll-preloader" v-if="total_page>1 && page<=total_page">
+                <div class="preloader"></div>
+            </div>
+            <div class="infinite-scroll-preloader data-null" v-if="page>total_page">
+                <span style="color:#999;font-size:0.75rem;">无更多数据</span>
+            </div>
+        </div>
+        {/if}
+        <nav class="bar bar-tab">
+            <div class="left">
+                <a href="javascript:void(0)" class="button button-light J-anchor">送主播</a>
+            </div>
+            <div class="right">
+                <a href="javascript:void(0)" class="button button-light J-oneself">买给自己</a>
+            </div>
+        </nav>
+    </div>
+    <script type="text/javascript">
+    var data = {
+        goods_id: '{$data.goods.goods_id}',
+        podcast_id: '{$data.podcast_id}',
+        number: 0,
+        page:'{$data.page.page}'
+    };
+    var paramet = {
+            podcast_id: GetQueryString("podcast_id")
+            // content:encodeURI(GetQueryString("content")),
+            // page:GetQueryString("page")
+        },ajax_url, new_paramet, page = 2,loading = false,total_page = Number('{$data.page.count}');
+    </script>
+    {include file="inc/footer.html"}

@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+    <php>
+        function related_user($user_id){
+            if($user_id>0){
+                $nick_name = $GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id = '".intval($user_id)."'");
+                return "<a href=\"".u("Video/online_index",array("user_id"=>$user_id,"nick_name"=>$nick_name))."\">".$nick_name."</a>";
+            }else{
+                return "";
+            }
+        }
+        /*function image($image){
+            if($image){
+                return "<img src='".$image."' style='height:35px;width:35px;'/>";
+            }else{
+                return "";
+            }
+        }*/
+    </php>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get" class="clearfix">
+            <div>分类名称：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" style="width:100px;" /></div>
+            <div>创建时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span> - <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span><input type="hidden" value="VideoCate" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" /></div>
+        </form>
+    </div>
+<html:tree_list
+	id="dataTable"
+	style="dataTable"
+	name="cate"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID},title:{%TITLE_SHOW}:edit,num:当前直播数量,create_time|to_date:{%CREATE_TIME},desc:描述|300px,sort|get_sort=$cate['id']:{%SORT}"
+	actionlist="edit:{%EDIT}, foreverdel:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="5">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

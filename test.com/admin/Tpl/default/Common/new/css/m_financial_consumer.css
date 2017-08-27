@@ -1,0 +1,144 @@
+﻿/*// 主题色*/
+/*字体主色调*/
+/*线条主色调*/
+/*按钮主色调*/
+/*底纹色*/
+.financialtit {
+  line-height: 60px;
+  height: 60px;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+.financialtit em {
+  font-size: 24px;
+}
+.financialtit span {
+  line-height: 30px;
+}
+.financialtit .btn {
+  margin-left: 8px;
+  margin-top: 15px;
+}
+.flowbox {
+  position: relative;
+}
+.flow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  width: 500px;
+  height: 0;
+  overflow: hidden;
+}
+.flow.active {
+  height: 58px;
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+.flow .input-wrap {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.flow .btn {
+  float: left;
+  margin-top: 10px;
+}
+.line1 {
+  display: inline-block;
+  margin: 0 8px;
+  margin-top: 5px;
+  height: 12px;
+  line-height: 12px;
+  border-left: 1px solid #D6D6D6;
+}
+.financialist1 {
+  border-bottom: 1px solid #eceff4;
+}
+.financialist1 select {
+  margin-right: 10px;
+}
+.financialist1 .list {
+  margin-right: 12px;
+}
+.financialist1 .list > span.lh {
+  display: inline-block;
+  line-height: 37px;
+}
+.financialist1 .list i {
+  vertical-align: middle;
+  margin-left: 3px;
+}
+.financialist1,
+.financialist2 {
+  width: 100%;
+  padding: 15px;
+}
+.financialist2 {
+  color: #000;
+}
+.financialist2 em {
+  font-weight: bold;
+}
+.financialist3 .table > thead th {
+  color: #999999;
+  font-weight: normal;
+}
+.financialist4 {
+  text-align: right;
+  padding: 15px 8px;
+}
+.financialist4 .pagination {
+  margin: 0 10px;
+}
+.financialist4 span.f_garycolor {
+  line-height: 42px;
+}
+.financialist4 .input-wrap {
+  width: 40px;
+  margin-right: 10px;
+}
+.percent50 {
+  width: 50%;
+}
+.percent30 {
+  width: 30%;
+}
+.financialtab .tab {
+  width: 100%;
+  padding: 10px 0;
+}
+.financialtab .tab li {
+  display: inline-block;
+  padding: 0 10px;
+  position: relative;
+}
+.financialtab .tab li:after {
+  content: "";
+  display: block;
+  height: 12px;
+  border-left: 1px solid #435561;
+  position: absolute;
+  left: -0.5px;
+  top: 5px;
+}
+.financialtab .tab li.first:after {
+  height: 0;
+}
+.financialtab .tab li a {
+  display: inline-block;
+  padding-bottom: 2px;
+}
+.financialtab .tab li.active a {
+  color: #389ee1;
+  font-weight: bold;
+  border-bottom: 2px solid #389ee1;
+}
+.lh37 {
+  line-height: 37px;
+}
+.zhi {
+  padding: 0 8px;
+}

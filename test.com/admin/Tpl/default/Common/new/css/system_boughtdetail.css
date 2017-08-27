@@ -1,0 +1,16 @@
+﻿/*// 主题色*/
+/*字体主色调*/
+/*线条主色调*/
+/*按钮主色调*/
+/*底纹色*/
+.redtit {
+  width: 100%;
+  padding: 15px 0;
+  position: relative;
+}
+.redtit > span {
+  padding-left: 5px;
+  border-left: 3px solid #e47470;
+  font-size: 17px;
+  color: #000;
+}

@@ -1,0 +1,486 @@
+/*1. @import (reference) "文件路径"; 
+　　将引入的文件作为样式库使用，因此文件中样式不会被直接编译为css样式规则。当前样式文件通过extend和mixins的方式引用样式库的内容。
+2. @import (inline) "文件路径"; 
+　　用于引入与less不兼容的css文件，通过inline配置告知编译器不对引入的文件进行编译处理，直接输出到最终输出。注意：引入的文件和当前文件会被编译为一个样式样式
+3. @import (less) "文件路径"; 
+　　默认使用该配置项，表示引入的文件为less文件。
+4. @import (css) "文件路径"; 
+　　表示当前操作为CSS中的@import操作。当前文件会输出一个样式文件，而被引入的文件自身为一个独立的样式文件
+5. @import (once) "文件路径"; 
+　　默认使用该配置项，表示对同一个资源仅引入一次。
+6. @import (multiple) "文件路径"; 
+　　表示对同一资源可引入多次。*/
+
+@import (once) "public/variable.less";
+ul,
+li,
+dl,
+dd,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+}
+
+i,
+em {
+    font-style: normal
+}
+
+button {
+    border: none
+}
+
+a {
+    color: @fontcolor;
+    text-decoration: none;
+}
+
+a:active {
+    color: @fontcolor;
+}
+
+
+/*  @font-face {
+   font-family: "iconfont";
+ src: url('../images/iconfont/iconfont.eot');
+ src: url('../images/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+ url('../images/iconfont/iconfont.woff') format('woff'),
+ url('../images/iconfont/iconfont.ttf') format('truetype'),
+ url('../images/iconfont/iconfont.svg#iconfont') format('svg');
+}  */
+
+@font-face {
+  font-family: 'iconfont';  /* project id 95393 */
+  src: url('//at.alicdn.com/t/font_r9eyognyozf9wwmi.eot');
+  src: url('//at.alicdn.com/t/font_r9eyognyozf9wwmi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_r9eyognyozf9wwmi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_r9eyognyozf9wwmi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_r9eyognyozf9wwmi.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: baseline;
+}
+
+body,
+.page,
+.page-group {
+    background: @backgroundcolor;
+    color: @fontcolor;
+}
+
+.bar .button-link {
+    color: @themecolor;
+}
+
+.bar .icon {
+    font-size: .9rem;
+}
+
+.title {
+    font-size: @fontsize1;
+    color: @fontcolortit;
+}
+
+//字体大小
+.f10 {
+    font-size: 0.5rem;
+}
+
+.f12 {
+    font-size: 0.6rem;
+}
+
+.f14 {
+    font-size: 0.7rem;
+}
+
+.f15 {
+    font-size: 0.75rem;
+}
+
+.f16 {
+    font-size: 0.8rem;
+}
+
+.f18 {
+    font-size: 0.9rem;
+}
+
+.f20 {
+    font-size: 1rem;
+}
+
+// 字体颜色
+.f_theme {
+    color: @themecolor;
+}
+
+.f_green {
+    color: @green;
+}
+
+.f_999 {
+    color: @fontcolorinfo;
+}
+
+.f_555 {
+    color: @fontcolorstress;
+}
+
+// 背景颜色
+.bg_theme {
+    background-color: @themecolor;
+}
+
+.pl0 {
+    padding-left: 0 !important;
+}
+
+.pr0 {
+    padding-right: 0 !important;
+}
+
+.m0 {
+    margin: 0 !important;
+}
+
+.mt0 {
+    margin-top: 0 !important;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+.tc {
+    text-align: center;
+}
+
+// sui
+
+/* 按钮组 开始 */
+
+.title {
+    background-color: #fff;
+}
+
+.bar:after,
+.bar-tab:before {
+    background-color: @borderdeepcolor;
+}
+
+.content-block {
+    margin: 0.75rem 0;
+}
+
+.container {
+    padding: 0.75rem;
+}
+
+.button {
+    border: 1px solid #cdcdcd;
+    color: @fontcolorstress;
+}
+
+.button:active {
+    border-color: darken(hsl(0, 0, 82%), 10%);
+    color: darken(@fontcolorstress, 10%);
+}
+
+.button-theme {
+    color: @themecolor;
+    border-color: @themecolor;
+}
+
+.button-theme.active,
+.button-theme:active {
+    color: darken(@themecolor, 10%);
+    border-color: darken(@themecolor, 10%);
+}
+
+.button-theme.button-fill,
+.button.button-fill {
+    background: @themecolor;
+    border-color: transparent;
+}
+
+.button-theme.button-fill.active,
+.button-theme.button-fill:active {
+    background: darken(@themecolor, 10%);
+    color: #fff;
+}
+
+.button.button-middle,
+.button.button-fill.button-middle {
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+
+.button.button40 {
+    width: 40%;
+    display: inline-block;
+}
+
+
+/* 按钮组 结束 */
+
+.card-header {
+    font-size: @fontsize3;
+}
+
+.list-block {
+    margin: 0.5rem 0;
+    font-size: 0.75rem;
+}
+
+.list-block ul {
+    padding-left: 0 !important;
+}
+
+.card {
+    margin: 0.5rem 0;
+    box-shadow: none;
+}
+
+.buttons-tab .button {
+    height: 2.2rem;
+    line-height: 2.2rem;
+}
+
+.buttons-tab .button.active {
+    color: @themecolor;
+    border-color: @themecolor;
+}
+
+.diamond {
+    position: relative;
+    padding-left: 20px;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+}
+
+.diamond:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    display: inline-block;
+    background: url(../images/diamond.png) left center no-repeat;
+    width: 26px;
+    height: 22px;
+    background-size: 60%;
+}
+
+// 复选框
+input[type=checkbox],
+input[type=radio] {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 0;
+    outline: 0!important;
+    background-color: transparent;
+    -webkit-appearance: none;
+}
+
+input[type=checkbox]:before,
+input[type=radio]:before {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    color: #aaa;
+    border-radius: 0;
+    background: 0 0;
+    font-family: "iconfont";
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+input[type=checkbox]:checked:before,
+input[type=radio]:checked:before {
+    color: @themecolor;
+}
+
+input[type=checkbox]:before {
+    content: '\e663';
+}
+
+input[type=checkbox]:checked:before {
+    content: '\e65f';
+}
+
+//单选框
+& input[type=radio] {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    left: 0;
+    &:before {
+        font-family: "iconfont";
+        font-size: 0.7rem;
+        font-weight: 400;
+        line-height: 1;
+        text-decoration: none;
+        color: #aaa;
+        border-radius: 0;
+        background: 0 0;
+        -webkit-font-smoothing: antialiased;
+        content: '\e678';
+    }
+}
+
+input[type=radio]:checked:before {
+    content: '\e679';
+    color: @themecolor;
+}
+
+.list-block.media-list .item-title {
+    font-weight: normal;
+}
+
+.list-block .item-media+.item-inner {
+    margin-left: .5rem;
+}
+
+.list-block .item-link.active-state,
+html:not(.watch-active-state) .list-block .item-link:active {
+    background-color: #e9e9e9;
+}
+
+// 状态
+.pai_status_out {
+    color: @fontcolorinfo;
+}
+
+.pai_status_wait_pay {
+    color: @themecolor;
+}
+
+.pai_status_inline {
+    color: @themecolor;
+}
+
+.pai_status_overtime_out {
+    color: @fontcolorinfo;
+}
+
+.pai_status_ing {
+    color: @themecolor;
+}
+
+.pai_status_success {
+    color: @themecolor;
+}
+
+.pai_status_liupai {
+    color: @fontcolorinfo;
+}
+
+.pai_status_fail {
+    color: @fontcolorinfo;
+}
+
+.order_status_wait_pay {
+    color: @themecolor;
+}
+
+.order_status_wait_date {
+    color: @themecolor;
+}
+
+.order_status_dated {
+    color: @themecolor;
+}
+
+.order_status_fail {
+    color: @fontcolorinfo;
+}
+
+.null-data {
+    &:before {
+        content: '';
+        background: url(../images/not-data.png) no-repeat;
+        width: 160px;
+        height: 160px;
+        display: block;
+        margin: 0 auto;
+        background-size: 100%;
+    }
+    padding:20px;
+    text-align:center;
+    color: @fontcolor;
+}
+
+.pull-to-refresh-layer {
+    -webkit-justify-content: center;
+    .preloader {
+        display: -webkit-flex;
+        -webkit-justify-content: center;
+    }
+}
+
+.button.button-fill {
+    &:active {
+        background: #ff4c1f;
+        color: #fff;
+    }
+}
+
+.modal {
+    top: 35%;
+    .modal-inner {
+        padding: 0.5rem;
+        padding-bottom: 0;
+        &:after {
+            display: none;
+        }
+        textarea {
+            width: 100%;
+            border: 0;
+            padding: .5rem;
+            outline: 0;
+            overflow: auto;
+            font-size: 0.7rem;
+        }
+    }
+    .modal-buttons {
+        padding: 0.5rem;
+        background: #e8e8e8;
+        border-radius: 0 0 0.35rem 0.35rem;
+        padding-top: 0;
+        .modal-button {
+            height: 1.7rem;
+            line-height: 1.7rem;
+            background: #f90;
+            color: #fff;
+            &:first-child {
+                &:last-child {
+                    border-radius: 0.2rem;
+                }
+            }
+        }
+    }
+}
+.toast{
+    height: auto;
+    max-width: 80%;
+}

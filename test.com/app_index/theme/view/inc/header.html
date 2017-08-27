@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{if $data.page_title neq ''}{$data.page_title}{else}{if $data.share}{$data.share.share_title}{/if}{/if}</title>
+	<link rel="stylesheet" href="{$TMPL}/dist/statics/css/main.min.css" />
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    	var APP_ROOT = '{$APP_ROOT}';
+    </script>
+</head>
+<body>
+	<!--<div class="nav">
+	    <div class="nav-list">
+	        <ul>
+	            <li {if $act eq 'index'}class="active"{/if}><a href='{url r="index#index"}'>首页</a></li>
+	            <li {if $act eq 'privacy'}class="active"{/if}><a href='{url r="index#privacy"}'>隐私政策</a></li>
+	           <<li {if $act eq 'service'}class="active"{/if}><a href='{url r="index#service"}'>服务条款</a></li>
+	            <li {if $act eq 'contact'}class="active"{/if}><a href='{url r="index#contact"}'>联系我们</a></li>
+	            <div class="blank0"></div>
+	        </ul>
+	    </div>
+	    <div class="blank0"></div>
+	</div>-->

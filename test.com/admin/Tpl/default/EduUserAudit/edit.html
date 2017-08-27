@@ -1,0 +1,209 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>	
+<load href='__TMPL__Common/js/user_edit.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("EduUserAudit/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">{%ID}:</td>
+        <td class="item_input">{$vo.id}</td>
+    </tr>
+	<tr>
+		<td class="item_title">{%NICK_NAME}:</td>
+		<td class="item_input">{$vo.nick_name}<input type="hidden" name="nick_name" value="{$vo.nick_name}"  /></td>
+	</tr>
+    <tr>
+        <td class="item_title">{%USER_MOBILE}:</td>
+        <td class="item_input"><input type="text" value="{$vo.mobile}" class="textbox" name="mobile" /></td>
+    </tr>
+	<tr>
+		<td class="item_title">所属地区:</td>
+		<td class="item_input">
+			<select name="province">				
+			<option value="" rel="0">请选择省份</option>
+			<foreach name="region_lv2" item="region">
+				<option value="{$region.name}" rel="{$region.id}" <if condition="$region['selected']">selected="selected"</if>>{$region.name}</option>
+			</foreach>
+			</select>
+			
+			<select name="city">				
+			<option value="" rel="0">请选择城市</option>
+			<foreach name="region_lv3" item="region">
+				<option value="{$region.name}" rel="{$region.id}" <if condition="$region['selected']">selected="selected"</if>>{$region.name}</option>
+			</foreach>
+			</select>
+
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">性别:</td>
+		<td class="item_input">
+			<label>女<input type="radio" name="sex" value="2" <if condition="$vo['sex'] eq 2">checked="checked"</if> /></label>
+			<label>男<input type="radio" name="sex" value="1" <if condition="$vo['sex'] eq 1">checked="checked"</if>/></label>
+			<label>未知<input type="radio" name="sex" value="0" <if condition="$vo['sex'] eq 0">checked="checked"</if> /></label>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">会员类型:</td>
+        <td class="item_input">
+            <select name="user_type">
+                <option value="0" <if condition="$vo['user_type'] eq 0">selected="selected"</if>>普通用户</option>
+                <option value="1" <if condition="$vo['user_type'] eq 1">selected="selected"</if>>企业会员</option>
+            </select>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">会员等级:</td>
+		<td class="item_input">
+			<select name="user_level">
+				<option value="0">请选择等级</option>
+				<foreach name="user_level" item="level">
+					<option value="{$level.level}" <if condition="$vo['user_level'] eq $level['level']">selected="selected"</if>>{$level.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">简介:</td>
+		<td class="item_input">
+			<textarea name="intro" class="textarea">{$vo.intro}</textarea>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if>  /></label>
+			<label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+<div class="blank5"></div>
+	<table class="form" cellspacing=0  cellpadding=0>
+		<tr><td colspan=2 class="topTd"></td></tr>
+		<tr>
+			<td class="item_title">认证审核:</td>
+			<td class="item_input">
+				<input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 0">checked="checked"</if> value="0">未认证
+				<input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 1">checked="checked"</if> value="1">未审核
+				<input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 2">checked="checked"</if> value="2">审核通过
+                <input type="radio" name="is_authentication" <if condition="$vo.is_authentication eq 3">checked="checked"</if> value="3">审核未通过
+			</td>
+		</tr>
+        <tr>
+            <td class="item_title">认证类型：</td>
+            <td class="item_input">
+                <select name="authentication_type">
+                    <option value="0">请选择类型</option>
+                    <foreach name="authent_list" item="authent">
+                        <option value="{$authent.name}" <if condition="$vo['authentication_type'] eq $authent['name']">selected="selected"</if>>{$authent.name}</option>
+                    </foreach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="item_title">认证名称：</td>
+            <td class="item_input">
+                <input type="text" name="authentication_name" value="{$vo.authentication_name}" class="textbox" style="width:500px;" />
+            </td>
+        </tr>
+		 
+	</table>
+<div class="blank5"></div>
+<table class="form identify_info" id="identify_info_0"  <if condition="$vo.is_authentication neq 0">style="display:none"</if>>
+	<tr></tr>
+</table>
+<table class="form identify_info" cellspacing=0 cellpadding=0 id="identify_info_1" <if condition="$vo.is_authentication eq 0">style="display:none"</if>>
+	<tr>
+		<td class="item_title">身份证正面:</td>
+		<td class="item_input"><html:imgUpload name="identify_positive_image" id="identify_positive_image" value="$vo.identify_positive_image" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">身份证反面:</td>
+		<td class="item_input"><html:imgUpload name="identify_nagative_image" id="identify_nagative_image" value="$vo.identify_nagative_image" /></td>
+	</tr>
+    <tr>
+        <td class="item_title">手持身份证正面:</td>
+        <td class="item_input"><html:imgUpload name="identify_hold_image" id="identify_hold_image" value="$vo.identify_hold_image" /></td>
+    </tr>
+    <tr>
+        <td class="item_title">+v认证说明：</td>
+        <td class="item_input">
+            <input type="text" value="{$vo.v_explain}" name="v_explain" class="textbox" style="width:500px;" />
+        </td>
+    </tr>
+</table>
+<script>
+	$(function(){
+		$("input[name='is_authentication']").bind("click",function(){
+ 			num=$(this).val();
+			if(num==0){
+				//$("#identify_info_2").show("slow");
+				//$(".identify_info_3").hide();
+                $("#identify_info_1").hide();
+			}else{
+                $("#identify_info_1").show("slow")
+				/*if(num==0){
+					$("#identify_info_1").hide();
+				}else{
+					$("#identify_info_1").show("slow");
+					$(".identify_info_3").show("slow");
+				}
+				$("#identify_info_2").hide("slow");*/
+			}
+			
+		});
+		
+		if($("input[name='is_investor']:checked").val()==0){
+			$("#identify_info_2").hide();
+			$("#identify_info_3").hide();
+			$("#identify_info_1").hide();
+		}else{
+			if($("input[name='is_investor']:checked").val()==1 || $("input[name='is_investor']:checked").val()==3){
+				$("#identify_info_1").show("slow");
+				$(".identify_info_3").show("slow");
+				$("#identify_info_2").hide();
+			}else{
+				$("#identify_info_2").show("slow");
+				$(".identify_info_3").hide();
+			}
+		}
+	});
+</script>
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduUserAudit" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+ 			<input type="hidden" name="wx_openid" value="{$vo.wx_openid}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,81 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>
+<load href='__TMPL__Common/js/user_edit.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Society/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">公会ID:</td>
+        <td class="item_input">{$vo.id}</td>
+    </tr>
+	<tr>
+		<td class="item_title">公会名称:</td>
+		<td class="item_input"><input type="text" value="{$vo.name}" class="textbox" name="name" /></td>
+
+	</tr>
+	<tr>
+		<td class="item_title">公会LOGO:</td>
+		<td class="item_input"><html:imgUpload name="logo" id="logo" value="$vo.logo" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">公会宣言:</td>
+		<td class="item_input"><input type="text" value="{$vo.manifesto}" class="textbox" name="manifesto" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">公会提现比例:</td>
+		<td class="item_input"><input type="text" value="{$vo.refund_rate}" class="textbox" name="refund_rate" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">审核状态:</td>
+		<td class="item_input">
+			<select name="status"<if condition="$vo['status'] eq 1 "> disabled="disabled"</if>>
+				<option value="0"<if condition="$vo['status'] eq 0"> selected="selected"</if>>未审核</option>
+				<option value="1"<if condition="$vo['status'] eq 1"> selected="selected"</if>>审核通过</option>
+				<option value="2"<if condition="$vo['status'] eq 2"> selected="selected"</if>>拒绝通过</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">备注:</td>
+		<td class="item_input">
+			<textarea name="memo" class="textarea">{$vo.memo}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Society" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>
+</form>
+<include file="Public:footer" />

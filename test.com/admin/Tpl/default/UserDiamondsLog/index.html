@@ -1,0 +1,32 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>保证金记录</div>
+<php>
+</php>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>拍品名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" /></div>
+		<div>竞拍人：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" /></div>
+		<div>竞拍时间：<span><input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" /></span>
+		-
+		<span><input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /><input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /></span><input type="hidden" value="UserDiamondsLog" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" /></div>
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="pai_record"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,goods_name:拍品名称,nick_name:竞拍人,diamonds:变更数额,account_diamonds:账户余额,memo:备注,create_date:发生时间" actionlist="pai_id|edit|竞拍详情"/>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

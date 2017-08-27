@@ -1,0 +1,99 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+	<div class="main_title">{%ADD} <a href="<if condition="$vo['is_effect'] eq 1">{:u("Video/online_index")}<else />{:u("Video/list_virtual",array("id"=>$video['id']))}</if>" class="back_list">{%BACK_LIST}</a></div>
+
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">房间号:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" value="{$video.id}" name="room_id" disabled="disabled" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">主播ID:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" value="{$video.user_id}" name="user_id" disabled="disabled" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">主播昵称:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" value="{$video.nick_name}" name="nick_name" disabled="disabled" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">直播标题:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" value="{$video.title}" name="title" disabled="disabled" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">虚拟人数:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="virtual_num" value="{$vo.virtual_num}"/>
+			<span class='tip_span'>要添加的虚拟人数</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">开始时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="plan_start_time" value="{$vo.plan_start_time}"/>分钟
+			<span class='tip_span'>开始添加虚拟人数起始时间(直播开始多久以后开始添加)</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">结束时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="plan_end_time" value="{$vo.plan_end_time}"/>分钟
+			<span class='tip_span'>添加虚拟人数结束时间(直播开始多久以后结束添加)</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">添加方式:</td>
+		<td class="item_input">
+			<select name="add_type">
+ 				<option value="0" <if condition="$vo.add_type eq '' or  $vo.add_type eq 0 ">selected="selected"</if> >随机添加</option>
+				<option value="1" <if condition="$vo.add_type gt 0 ">selected="selected"</if> >固定间隔</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">固定间隔时间:</td>
+		<td class="item_input">			
+			<input type="text" class="textbox" name="interval_time" value="{$vo.interval_time}" style="width:30px;" /> 秒
+			<span class='tip_span'>每隔20秒左右加几个人</span>
+		</td>
+	</tr>
+</table>
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Video" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_virtual" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="room_id" value="{$video.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>	
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,53 @@
+@import (once) "public/variable.less";
+.page-shop-see_boring{
+	.content-padded{
+		margin:0;
+		padding:0.5rem 0.75rem;
+	}
+	.content-block-title{
+		margin:0.5rem 0.75rem;
+	}
+	.see_boring_hd{
+		margin-top:0.5rem;
+		background:#fff;
+		font-size:0.7rem;
+		p{
+			margin:0.25rem 0;
+		}
+	}
+	.see_boring_bd{
+		.see_boring_list{
+			position:relative;
+			padding:0.5rem 0.75rem;
+			background:#fff;
+			&:before{
+				position:absolute;
+				top:0;
+				left:1rem;
+				content:'';
+				display:block;
+				width:1px;
+				height:100%;
+				border-left:1px solid #dedede;
+			}
+			li{
+				display:flex;
+				font-size:0.6rem;
+				margin-bottom:0.5rem;
+				i{
+					position:relative;
+					width:0.5rem;
+					min-width:0.5rem;
+					height:0.5rem;
+					display:block;
+					border-radius:50%;
+					background:@themecolor;
+					margin-top:0.15rem;
+					margin-right:0.75rem;
+					z-index:1;
+				}
+			}
+			
+		}
+	}
+}

@@ -1,0 +1,159 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Prop/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="add" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+        <td class="item_title">名称:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="name" /></td>
+	</tr>
+    <tr>
+        <td class="item_title">图标:</td>
+        <td class="item_input"><html:imgUpload name = 'icon' id='icon' />
+            <span class='tip_span'>&nbsp;[普通礼物图标规格为：200px*200px]&nbsp;[gif礼物规格为：400px*250px]&nbsp;[大型动画礼物规格：咨询技术人员]</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">PC端图标:</td>
+        <td class="item_input"><html:imgUpload  name="pc_icon" id='pc_icon' value="$vo.pc_icon"/>
+            <span class='tip_span'>&nbsp;[礼物图标规格为：48px*48px]</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">PC端动态图标:</td>
+        <td class="item_input"><html:imgUpload  name="pc_gif" id='pc_gif' value="$vo.pc_gif"/>
+            <span class='tip_span'>&nbsp;[GIF礼物图标规格为：90px*90px]</span>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">积分:</td>
+        <td class="item_input"><input type="text" class="textbox" name="score"/></td>
+	</tr>
+    <tr>
+        <td class="item_title">消费钻石:</td>
+        <td class="item_input"><input type="text" class="textbox" name="diamonds"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">红包:</td>
+        <td class="item_input">
+            <label>是<input type="radio" name="is_red_envelope" value="1" /></label>
+            <label>否<input type="radio" name="is_red_envelope" value="0" checked="checked" /></label>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title" id="get_ticket">{%TICKET_NUMBER}:</td>
+        <td class="item_input">
+            <input type="text" class="textbox" name="ticket"/>
+            <span class="tip_span" id="tip_ticket">&nbsp;主播可以获得的{%TICKET_NUMBER}</span>
+        </td>
+    </tr>
+	<tr id="is_robot_diamonds" style="display:none;">
+        <td class="item_title" id="robot_diamonds">{%ROBOT_NUMBER}:</td>
+        <td class="item_input">
+            <input type="text" class="textbox" name="robot_diamonds"  value="0"/>
+            <span class="tip_span" id="tip_robot_diamonds">&nbsp;{%ROBOT_NUMBER}</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">可连续发送:</td>
+        <td class="item_input">
+            <label>是<input type="radio" name="is_much" value="1" /></label>
+            <label>否<input type="radio" name="is_much" value="0" checked="checked" /></label>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">展示动画:</td>
+        <td class="item_input">
+        	<label>普通礼物<input type="radio" name="is_animated" value="0" checked="checked" /></label>
+            <label>gif礼物<input type="radio" name="is_animated" value="1" /></label>
+			<label>大型动画礼物<input type="radio" name="is_animated" value="2"/></label>
+        </td>
+    </tr>
+	<tr id="is_animated_anim_type" style="display: none">
+        <td class="item_title">大型动画礼物类型:</td>
+        <td class="item_input">
+            <input type="text" class="textbox" name="anim_type"/>
+			<span class="tip_span" id="">&nbsp;礼物是大型道具是必填</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">{%IS_EFFECT}:</td>
+        <td class="item_input">
+            <label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked"/></label>
+            <label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></label>
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="item_title">动画播放地址:</td>
+        <td class="item_input"><input type="text" class="textbox" name="animated_url"/></td>
+    </tr>-->
+    <tr>
+        <td class="item_title">{%SORT}:</td>
+        <td class="item_input"><input type="text" class="textbox" name="sort" value="{$new_sort}" /></td>
+    </tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Prop" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+    <input name="ticket_name" id="ticket_name" type="hidden" value="{%TICKET_NUMBER}"/>
+</form>
+    <script>
+        $(function(){
+            var ticket_name = $("#ticket_name").val();
+            if($("input[name='is_red_envelope']:checked").val()==1){
+                $('#get_ticket').html('钻石数量');
+                $('#tip_ticket').html('&nbsp;主播可以单独获得的钻石数量，消费钻石扣除该数量后供观众抢');
+				$('#robot_diamonds').html('机器人获得钻石');
+                $('#tip_robot_diamonds').html('&nbsp;观众实际可抢钻石=diamonds(消费钻石)-主播独立获得-机器人获得 【直播没机器人,平台直接收取】');
+            }else{
+                $('#get_ticket').html(ticket_name);
+                $('#tip_ticket').html('&nbsp;主播可以获得的'+ticket_name);
+            }
+
+            $("input[name='is_red_envelope']").bind("click",function(){
+                var is_red_envelope=$(this).val();
+                if(is_red_envelope==1){
+                    $('#get_ticket').html('钻石数量');
+                    $('#tip_ticket').html('&nbsp;主播可以单独获得的钻石数量，消费钻石扣除该数量后供观众抢');
+					$('#robot_diamonds').html('机器人获得钻石');
+                	$('#tip_robot_diamonds').html('&nbsp;观众实际可抢钻石=diamonds(消费钻石)-主播独立获得-机器人获得 【直播没机器人,平台直接收取】');
+					$("#is_robot_diamonds").show();
+                    $("input[name='diamonds']").addClass('require');
+                }else{
+                    $('#get_ticket').html(ticket_name);
+                    $('#tip_ticket').html('&nbsp;主播可以获得的'+ticket_name);
+					$("#is_robot_diamonds").hide();
+                    $("input[name='diamonds']").removeClass('require');
+                }
+            });
+
+            $("input[name='is_animated']").bind("click",function(){
+                var val=$("input[name='is_animated']:checked").val();
+                if(val==2){
+                    $("#is_animated_anim_type").show();
+                }else{
+                    $("#is_animated_anim_type").hide();
+                }
+            });
+        });
+
+    </script>
+</div>
+<include file="Public:footer" />

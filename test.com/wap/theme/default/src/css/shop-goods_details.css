@@ -1,0 +1,101 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page-shop-goods_details .content {
+  bottom: 2.25rem;
+}
+.page-shop-goods_details .goods-img {
+  width: 100%;
+  height: 96vw;
+}
+.page-shop-goods_details .goods-img img {
+  width: 100%;
+  height: 100%;
+}
+.page-shop-goods_details .content-block {
+  margin: 0;
+  padding: 0;
+}
+.page-shop-goods_details .content-block .card {
+  margin: 0 0 0.25rem;
+  color: #333;
+}
+.page-shop-goods_details .content-block .card .card-content-inner {
+  padding: 0 0.5rem;
+}
+.page-shop-goods_details .content-block .card .card-footer {
+  min-height: 0;
+  padding: 0 0.5rem;
+  font-size: 0.6rem;
+}
+.page-shop-goods_details .content-block .card .card-footer .goods-money {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+.page-shop-goods_details .content-block .card .card-footer .goods-money i {
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+}
+.page-shop-goods_details .content-block .card .card-header {
+  font-size: 0.6rem;
+}
+.page-shop-goods_details .content-block .goods-info {
+  padding: 0.25rem 0;
+}
+.page-shop-goods_details .content-block .store {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+.page-shop-goods_details .content-block .store .item-inner {
+  justify-content: initial;
+  font-size: 0.6rem;
+}
+.page-shop-goods_details .content-block .store .item-inner .store-logo {
+  width: 2.3rem;
+  height: 2.3rem;
+  overflow: hidden;
+  border-radius: 50px;
+  margin-right: 0.5rem;
+}
+.page-shop-goods_details .content-block .store .item-inner .store-logo img {
+  width: 100%;
+  height: 100%;
+}
+.page-shop-goods_details .content-block .store .item-inner .store-info {
+  line-height: 1.15rem;
+}
+.page-shop-goods_details .content-block .facebook-card .card-header {
+  color: #ff0000;
+  font-size: 0.7rem;
+}
+.page-shop-goods_details nav {
+  height: 2.25rem;
+}
+.page-shop-goods_details nav a.button {
+  height: 100%;
+  border: 0;
+  line-height: 2.25rem;
+  color: #fff;
+  top: 0;
+  border-radius: 0;
+  background: #ff6633;
+}

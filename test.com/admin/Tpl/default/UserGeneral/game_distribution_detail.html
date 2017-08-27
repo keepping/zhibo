@@ -1,0 +1,71 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$user_info.nick_name} 分销日志</div>
+<?php
+function head_image($head_image)
+{
+    return "<img src='" . get_spec_image($head_image) . "' style='height:35px;width:35px;'/>";
+}
+function is_ticket($is_ticket)
+{
+    if($is_ticket)
+    {
+        return '印票';
+    } else {
+        return '游戏币';
+    }
+}
+?>
+<div class="blank5"></div>
+<div class="search_row">
+    <form name="search" action="__APP__" method="get" class="clearfix">
+        <input type="hidden" name="user_id" value="{$user_id}"/>
+        <!--主播ID：<input type="text" class="textbox" name="id" value="{:trim($_REQUEST['id'])}" style="width:100px;" />-->
+        日志类型：<select name="type">
+            <option value="0">分销</option>
+            <option value="1"<?php if ($_REQUEST['type']): ?> selected="selected"<?php endif ?>>收益</option>
+        </select>
+        <input type="hidden" value="UserGeneral" name="m" /><input type="hidden" value="game_distribution_detail" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+    </form>
+</div>
+<div class="blank5"></div>
+<?php if ($_REQUEST['type']): ?>
+<html:list
+    id="dataTable"
+    style="dataTable"
+    name="log"
+    datasource="list"
+    show="id:用户ID
+    ,nick_name:昵称
+    ,head_image|head_image:头像
+    ,sum:收益金额
+    ,is_ticket|is_ticket:单位
+    "/>
+<?php else: ?>
+<html:list
+    id="dataTable"
+    style="dataTable"
+    name="log"
+    datasource="list"
+    show="id:ID
+    ,room_id:直播间ID
+    ,game_log_id:游戏ID
+    ,money:总金额
+    ,is_ticket|is_ticket:单位
+    ,distreibution_money:分销收益金额
+    ,first_distreibution_id:一级分销人ID
+    ,first_distreibution_money:一级分销金额
+    ,second_distreibution_id:二级分销人ID
+    ,second_distreibution_money:二级分销金额
+    ,dec:描述
+    ,create_time|to_date:时间
+    ,create_time|to_date:时间
+    "/>
+<?php endif;?>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

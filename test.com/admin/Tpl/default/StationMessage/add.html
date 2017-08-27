@@ -1,0 +1,87 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	$(document).ready(function(){
+        var send_type = $("#send_type").val();
+        if(send_type==1 || send_type ==2){
+            $("#send_define_data").show();
+        }else{
+            $("#send_define_data").hide();
+        }
+
+        $("#send_type").bind("change",function(){
+            var send_type=$('#send_type').val();
+            if(send_type==1 || send_type==2){
+                $("#send_define_data").show();
+                $("#tip_span").html("请输入房间ID，用空格分隔");
+                if(send_type==1){
+                    $("#tip_span").html("请输入主播ID，用空格分隔");
+                }
+            }else{
+                $("#send_define_data").hide();
+            }
+        });
+	});
+</script>
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("StationMessage/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="add" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CONTENT}:</td>
+		<td class="item_input">
+			<textarea name="content" class="textarea require"></textarea>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">发送人:</td>
+        <td class="item_input">
+            <select name="send_user_id">
+                <foreach name="send_user" item="user">
+                    <option value="{$user.id}">{$user.nick_name}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%SEND_TYPE}:</td>
+		<td class="item_input">
+			 <select name="send_type" id="send_type">
+			 	<option value="0">{%SEND_TYPE_0}</option>
+                 <option value="2">{%SEND_TYPE_2}</option>
+				<option value="1">{%SEND_TYPE_1}</option>
+			 </select>
+		</td>
+	</tr>
+	
+	<tr id="send_define_data">
+		<td class="item_title">{%SEND_DEFINE_DATA}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="send_define_data" ></textarea>
+			<span class="tip_span" id="tip_span">请输入房间ID，用空格分隔</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="StationMessage" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />			
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%SEND_NOW}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

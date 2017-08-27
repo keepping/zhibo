@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function is_init($is_init){
+		if($is_init==1){
+			return '是';
+		}else{
+			return '否';
+		}
+	}
+	function is_effect($is_effect){
+		if($is_effect==1){
+			return '是';
+		}else{
+			return '否';
+		}
+	}
+</PHP>
+<div class="main">
+	<div class="main_title_list"><div class="list-line-ico"></div>加密KEY列表</div>
+	<div class="search_row">
+	</div>
+
+	<div class="blank10"></div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="key_list"
+			checkbox="true"
+			action="true"
+			datasource="list"
+			show="id:{%ID}|200px
+			,aes_key:加密KEY
+			,is_init|is_init:打包填写
+			,is_effect|is_effect:有效"
+			actionlist=" edit:{%EDIT},del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+		<td colspan="5">
+			<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="del();" />
+		</td>
+		</tbody>
+	</table>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

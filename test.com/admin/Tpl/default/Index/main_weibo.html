@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:app_conf("SITE_NAME")}{:l("ADMIN_PLATFORM")}</title>
+<script type="text/javascript" src="__ROOT__/public/runtime/admin/lang.js"></script>
+<script type="text/javascript">
+	var version = '{:app_conf("DB_VERSION")}';
+</script>
+<load href='__TMPL__Common/style/style.css' />
+<load href='__TMPL__Common/style/main.css' />
+	<load href='__TMPL__Common/js/jquery.js' />
+
+</head>
+
+<body>
+
+
+<!--
+	新版开始
+-->
+<div class="main">
+	<div class="main_title">
+		<!--{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")} {%HOME}--> 
+		<table width=100%>
+			<tr>
+				<td align=left>{$greet}，{$adm_session.adm_name}！{%APP_VERSION}:{:conf("DB_VERSION")}</td>
+				<td align=right>你的最后登录时间为:{$adm_session.login_time}{$login_time}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="notify_box">
+		<table>
+			<tr>
+				<!--<td class="statbox tuan_box">
+					<table>
+						<tr>
+							<th>会员审核</th>
+						</tr>
+						<tr>
+							<td>
+								<div class="row">
+					                <span class="t">个人会员待审核：</span>
+									<span class="bx"><a href="{:u("UserAudit/index")}" <if condition="$register_count eq 0">style="color:#000000;"</if>>{$register_count}</a></span>
+									<div class="blank0"></div>
+								</div>
+								&lt;!&ndash;<div class="row">
+					                <span class="t">企业会员审核：</span>
+									<span class="bx"><a href="{:u("UserBusinessAudit/index")}" <if condition="$company_register_count eq 0">style="color:#000000;"</if>>{$company_register_count}</a></span>
+									<div class="blank0"></div>
+								</div>&ndash;&gt;
+							</td>
+						</tr>
+					</table>
+				</td>-->
+				<td class="statbox tuan_box" style="padding:12px 10px 0">
+					<table>
+						<tr>
+							<th>会员认证审核</th>
+						</tr>
+						<tr>
+							<td>
+								<div class="row">
+					                <span class="t">个人会员认证待审核：</span>
+									<span class="bx"><a href="{:u("UserInvestor/index")}" <if condition="$user_authentica eq 0">style="color:#000000;"</if>>{$user_authentica}</a></span>
+									<div class="blank0"></div>
+								</div>
+								<!--<div class="row">
+					                <span class="t">企业会员认证：</span>
+									<span class="bx"><a href="{:u("UserBusinessInvestor/index")}" <if condition="$business_authentica eq 0">style="color:#000000;"</if>>{$business_authentica}</a></span>
+									<div class="blank0"></div>
+								</div>-->
+								<div class="row">
+					                <span class="t">个人认证审核未通过：</span>
+									<span class="bx"><a href="{:u("UserInvestorList/index")}" <if condition="$authentication_not_allow eq 0">style="color:#000000;"</if>>{$authentication_not_allow}</a></span>
+									<div class="blank0"></div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="statbox tuan_box">
+					<table>
+                        <tr>
+                            <th>充值提现</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <span class="t">充值单：</span>
+                                    <span class="bx">
+                                        <a href="{:u("RechargeNotice/index")}" <if condition="$pay_count eq 0">style="color:#000000;"</if>>{$pay_count}</a>
+                                    </span>
+                                    <div class="blank0"></div>
+                                </div>
+                               <!-- <div class="row">
+                                    <span class="t">提现待审核：</span>
+                                    <span class="bx"><a href="{:u("UserRefund/index")}" <if condition="$carry_count eq 0">style="color:#000000;"</if>>{$carry_count}</a></span>
+                                    <div class="blank0"></div>
+                                </div>
+                                <div class="row">
+                                    <span class="t">提现待确认：</span>
+                                    <span class="bx">
+                                        <a href="{:u("UserConfirmRefund/index")}" <if condition="$waitpay_carry_count eq 0">style="color:#000000;"</if>>{$waitpay_carry_count}</a>
+                                    </span>
+                                    <div class="blank0"></div>
+                                </div>-->
+                            </td>
+                        </tr>
+                    </table>
+				</td>
+				
+			
+			</tr>
+			<tr>
+                <td align="center"  colspan ="4">
+                    <div style="font-size:13px; background-color:#f8f9fb; height:40px;line-height: 40px; ">
+                        <span class="bx"><PHP> echo to_date(get_gmtime());</PHP></span> 数据实时指标
+                    </div>
+                    
+                </td>
+            </tr>
+            <tr>
+                
+                <td class="statbox tuan_box">
+                    <table>
+                        <tr>
+                            <th>会员统计</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <span class="t">普通用户：</span>
+                                    <span class="bx"><a href="{:u("UserGeneral/index")}" <if condition="$user_level eq 0">style="color:#000000;"</if>>{$user_level}</a></span>
+                                    <div class="blank0"></div>
+                                </div>
+                               <!--<div class="row">
+                                    <span class="t">企业会员：</span>
+                                    <span class="bx"><a href="{:u("UserBusiness/index")}" <if condition="$authentication eq 0">style="color:#000000;"</if>>{$authentication}</a></span>
+                                    <div class="blank0"></div>
+                                </div>-->
+                                <div class="row">
+                                    <span class="t">认证用户：</span>
+                                    <span class="bx"><a href="{:u("User/index")}" <if condition="$authentication eq 0">style="color:#000000;"</if>>{$authentication}</a></span>
+                                    <div class="blank0"></div>
+                                </div>
+
+                                <div class="row">
+                                    <span class="t">会员总数：</span>
+                                    <span class="bx"><a href="{:u("UserGeneral/index")}" <if condition="$user_count eq 0">style="color:#000000;"</if>>{$user_count}</a></span>
+                                    <div class="blank0"></div>
+                                </div>
+                    
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+            </tr>
+		</table>
+	</div>	
+	<div class="blank5"></div>
+	
+    <script type="text/javascript">
+	var nav_json_data = <php>echo json_encode($navs);</php>;
+	loadModule();
+	$("#J_nav").change(function(){
+		loadModule();
+	});
+	$("#J_m").change(function(){
+		loadAction();
+	});
+	function loadModule(){
+		var nav =$("#J_nav").val();
+		var html = "";
+		$.each(nav_json_data,function(i,v){
+			if(i==nav){
+				$.each(v.groups,function(ii,vv){
+					html += '<option value="'+ii+'">'+vv.name+'</option>';
+				});
+			}
+		});
+		
+		$("#J_m").html(html);
+		loadAction();
+	}
+	
+	function loadAction(){
+		var nav =$("#J_nav").val();
+		var m =  $("#J_m").val();
+		var a_html = '<option value="">请选择</option>';
+		$.each(nav_json_data,function(i,v){
+			if(i==nav){
+				$.each(v.groups,function(ii,vv){
+					if(ii==m){
+						$.each(vv.nodes,function(iii,vvv){
+							a_html += '<option value="'+vvv.action+'" module="'+vvv.module+'">'+vvv.name+'</option>';
+						});
+					}
+				});
+			}
+		});
+	
+		$("#J_a").html(a_html);
+	}
+	
+	$("#J_a").change(function(){
+		if($.trim($(this).val())!=""){
+			location.href = ROOT + '?m='+$(this).find("option:selected").attr("module")+'&a='+$(this).val();
+		}
+	})
+</script>
+</body>
+</html>

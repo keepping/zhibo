@@ -1,0 +1,355 @@
+﻿/*// 主题色*/
+/*字体主色调*/
+/*线条主色调*/
+/*按钮主色调*/
+/*底纹色*/
+/*个人中心布局*/
+.layout-header {
+  position: relative;
+  width: 100%;
+  height: 55px;
+  background: #fff;
+  border-bottom: 2px solid #cfcfcf;
+  min-width: 900px;
+}
+.layout-header .logo {
+  display: inline-block;
+  width: 220px;
+  height: 100%;
+  position: relative;
+  vertical-align: middle;
+  line-height: 100%;
+  border-right: 1px solid #eceff4;
+}
+.layout-header .c-left-nav {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  display: block;
+  width: 30px;
+  height: 55px;
+  line-height: 55px;
+  text-align: center;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.layout-header .c-left-nav:hover {
+  background: #f5f6fa;
+}
+.layout-header .logo a {
+  padding-top: 10px;
+  padding-left: 8px;
+  display: inline-block;
+}
+.layout-header .logo i {
+  border-radius: 2px;
+  color: #5775b5;
+  font-size: 14px;
+}
+.layout-header .logo i:before {
+  content: "\e60d";
+}
+.layout-header .nav,
+.layout-header .logo,
+.layout-header .navright {
+  height: 100%;
+}
+.layout-header .navright .navrightlist {
+  float: right;
+  line-height: 55px;
+  border-left: 1px solid #eceff4;
+  cursor: pointer;
+  position: relative;
+  width: 100px;
+  height: 100%;
+}
+.prl{
+  position: relative;
+  display: inline-block;
+}
+.pdl40{
+  padding: 0 18px;
+  padding-left: 25px;
+  text-align: right;
+
+}
+.layout-header .navright .navrightlist .hidenav {
+  position: absolute;
+  z-index: 9999999;
+  top: 0;
+  right: 0;
+  background: #fff;
+  height: 0;
+  width: 300px;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.layout-header .navright .navrightlist.active .hidenav {
+  height: auto;
+  opacity: 1;
+  transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.layout-header .navright .navrightlist .hidenav a {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 54px;
+  text-align: left;
+  white-space:nowrap;
+  float: right;
+}
+.layout-header .navright .navrightlist .hidenava:hover,
+.layout-header .navright .navrightlist .hidenav a:hover {
+  background: #f5f6fa;
+}
+.layout-header .navright .navrightlist i {
+  position: absolute;
+  top: 0;
+  left: 13px;
+  font-size: 13px;
+  padding-left: 5px;
+    transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.layout-header .navright .navrightlist.active i{
+      transform: rotate(-270deg);
+  -ms-transform: rotate(-270deg);
+  -webkit-transform: rotate(-270deg);
+  -o-transform: rotate(-270deg);
+  -moz-transform: rotate(-270deg);
+} 
+.layout-header .navright .navrightlist:hover {
+  background: #f5f6fa;
+}
+.layout-header .nav a {
+  display: inline-block;
+  float: left;
+  line-height: 55px;
+  padding: 0 18px;
+  height: 100%;
+  border-right: 1px solid #eceff4;
+}
+.layout-header .nav a.active {
+  font-weight: bold;
+}
+.layout-header .nav a.active,
+.layout-header .nav a:hover {
+  background: #f5f6fa;
+  color: #5775b5;
+}
+.layout-main {
+  z-index: 2;
+  padding-top: 55px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  
+}
+.layout-right {
+  position: fixed;
+  left: 220px;
+  right: 0;
+  top: 57px;
+  bottom: 0px;
+  background: #f7f7f7;
+}
+.layout-right iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #f7f7f7;
+}
+.layout-left {
+  width: 100%;
+  z-index: 2;
+  height: 100%;
+  float: left;
+}
+.layout-left .navlist i.basicdata:before {
+  content: "\e600";
+  position: relative;
+  z-index: 2;
+}
+.layout-left .navlist i.financialmanage:before {
+  content: "\e602";
+  position: relative;
+  z-index: 2;
+}
+.layout-left .navlist i.accountset:before {
+  content: "\e603";
+  position: relative;
+  z-index: 2;
+}
+.layout-left .navlist {
+  line-height: 44px;
+  width: 100%;
+  overflow: hidden;
+  height: 45px;
+}
+.layout-left .navlist.active{
+  background-color: #FAFBFF; 
+  overflow: visible;
+  height: auto;
+}
+.layout-left .navlist .navtwo{
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    -moz-transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+    -o-transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+    -webkit-transition: max-height 0.4s ease,opacity 0.4s ease;
+    -webkit-transition-delay: 0s,0s;
+    transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+}
+.layout-left .navlist.active .navtwo{
+    -moz-transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+    -o-transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+    -webkit-transition: max-height 0.4s ease,opacity 0.4s ease;
+    -webkit-transition-delay: 0s,0s;
+    transition: max-height 0.4s ease 0s,opacity 0.4s ease 0s;
+    overflow: visible;
+    max-height: 500px;
+    opacity: 1;
+}
+.layout-left .navlist > a ,
+.layout-left .navlist .navtwo > a{
+  position: relative;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #eceff4;
+}
+.layout-left .navlist > a > span,
+ .layout-left .navlist .navtwo > a> span{
+  float: left;
+  padding-left: 10px;
+}
+.layout-left .navlist .navtwo a i.left{
+  font-size: 8px;
+}
+.layout-left .navlist .navtwo a.active i.left, 
+.layout-left .navlist .navtwo a:hover i.left{
+ color: #999;
+}
+.layout-left .navlist i.left {
+  color: #999999;
+  border-right: 1px solid #eceff4;
+  line-height: 45px;
+  height: 44px;
+  width: 44px;
+  float: left;
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.layout-left .navlist i.right{
+  color: #999999;
+  border-right: 1px solid #eceff4;
+  line-height: 45px;
+  height: 44px;
+  float: right;
+  font-size: 8px;
+  padding-right: 10px;
+}
+.layout-left .navlist.hasmore > a  i.right:before{
+  content: "\e60c";
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+/*  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);*/
+  transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.layout-left .navlist.hasmore.active > a  i.right:before{    
+  transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.layout-left .navlist i.left > b {
+  position: absolute;
+  left: -42px;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  transition: left .25s;
+}
+.layout-left .navlist.active > a,
+.layout-left .navlist a.active,
+.layout-left .navlist a:hover {
+  background: #f5f6fa;
+}
+.layout-left .navlist a.active i.left > b,
+.layout-left .navlist a:hover i.left > b {
+  left: 0!important;
+}
+.layout-left .navlist a.active i.left,
+.layout-left .navlist a:hover i.left {
+  color: #fff;
+}
+.bg-success {
+  background-color: #8ec165;
+  color: #ebf4e4;
+}
+.bg-info {
+  background-color: #4cc0c1;
+  color: #d1efef;
+}
+.bg-danger {
+  background-color: #fb6b5b;
+  color: #fff;
+}
+.bg-warning {
+  background-color: #ffc333;
+  color: #fff8e5;
+}
+.layout-main.close .layout-left {
+  width: 60px;
+}
+.layout-main.close .layout-right {
+  left: 60px;
+}
+.layout-main.close .layout-left .navlist a i.left > b {
+  left: 0!important;
+  width: 59px;
+  height: 60px;
+}
+.layout-main.close .layout-left .navlist {
+  height: 60px;
+  line-height: 60px;
+}
+.layout-main.close .layout-left .navlist a i.left {
+  color: #fff;
+  line-height: 60px;
+  width: 59px;
+  font-size: 25px;
+}

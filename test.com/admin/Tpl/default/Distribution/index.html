@@ -1,0 +1,42 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>
+<load href='__TMPL__Common/js/user_edit.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<!-- 树状目录 -->
+<load href='__TMPL__Common/js/tree/tree.css' />
+<load href='__TMPL__Common/js/tree/tree.js' />
+<div class="main">
+	<div class="main_title_list">
+		<div class="list-line-ico"></div>分销列表
+	</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get" class="clearfix">
+            <div>主播ID：<input type="text" class="textbox" name="id" value="{:trim($_REQUEST['id'])}" style="width:100px;" /></div>
+            <div>手机号：<input type="text" class="textbox" name="mobile" value="{:trim($_REQUEST['mobile'])}" style="width:100px;" /></div>
+            <div>主播昵称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" /></div>
+            <input type="hidden" value="Distribution" name="m" /><input type="hidden" value="index" name="a" />
+            <input style="margin: 5px;" type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+	<!-- 树状目录 -->
+	<div class="tree well">
+        <ul>
+            <foreach name="user_list" item="vo">
+                <li class="parent_li">
+                     <i class="iconTree-minus-sign"></i><span title="Collapse this branch"><i class="iconTree-user"></i><a href="#">{$vo.nick_name}(ID:{$vo.id},子用户充值总额:{$vo.total_payment}元)</a></span>
+                    <ul>
+                        <foreach name="vo['list']" item="son">
+                            <li class="parent_li">
+                                <i class="iconTree-minus-sign"></i><span title="Collapse this branch"><i class="iconTree-user"></i><a href="#">{$son.nick_name}(ID:{$son.id},钻石:{$son.diamonds},消费钻石:{$son.use_diamonds},印票数:{$son.ticket},手机号:{$son.mobile})</a></span>
+                            </li>
+                        </foreach>
+                    </ul>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+</div>
+<include file="Public:footer" />

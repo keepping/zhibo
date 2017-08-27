@@ -1,0 +1,94 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Prop/prop_item",array("id"=>$prop_info['id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">动画图片:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'url' id='url' value='' />
+		</td>
+	</tr>
+	<tr class="type_class type2_class">
+		<td class="item_title">播放次数:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="play_count" />（次）
+		<span class="tip_span">play_count>1时duration无效</span>
+		</td>
+	</tr>
+	<tr class="type_class">
+		<td class="item_title">延时播放时间:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="delay_time" />（毫秒，1000毫秒=1秒）
+		<span class="tip_span">从第delay_time毫秒开始播放</span>
+		</td>
+	</tr>
+	<tr class="type2_class">
+		<td class="item_title">播放时长:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="duration" />（毫秒 ，1000毫秒=1秒）
+		<span class="tip_span">play_count>1时duration无效</span>
+		</td>
+	</tr>
+	<tr  class="type_class type2_class">
+		<td class="item_title">显示用户名（曾送者）</td>
+		<td class="item_input">
+			<select name="show_user">
+				<option value="0">否</option>
+				<option value="1">是</option>
+			</select>
+		</td>
+	</tr>
+	<tr  class="type_class type2_class">
+		<td class="item_title">使用path路径</td>
+		<td class="item_input">
+			<select name="type">
+				<option value="0">默认位置</option>
+				<option value="1">屏幕上部</option>
+				<option value="2">屏幕中间</option>
+				<option value="3">屏幕底部</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="type2_class">
+		<td class="item_title">排序:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" />
+		<span class="tip_span"></span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Prop" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_prop_item" />
+			<input type="hidden" name="prop_id" value="{$prop_info.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 		 
+</form>
+</div>
+<script>
+	
+</script>
+<include file="Public:footer" />

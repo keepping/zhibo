@@ -1,0 +1,48 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+
+    function push_status($status){
+    $status_str = '';
+    if($status==1){
+    $status_str = '推送中';
+    }elseif($status==2){
+    $status_str = '已推送';
+    }else{
+    $status_str = '未推送';
+    }
+    return $status_str;
+    }
+</PHP>
+
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+    <div class="main_title">{$user.nick_name} 消息推送</div>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <input type="button" class="button" value="删除" onclick="del_push();" />
+    </div>
+    <div class="blank5"></div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="push"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+		,cate_title:直播主题
+		,room_id:房间ID
+		,city:直播城市
+		,status|push_status=$push['status']:推送状态
+		,create_time|to_date:{%CREATE_TIME}"
+            actionlist="del_push:删除" />
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

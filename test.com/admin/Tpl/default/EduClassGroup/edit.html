@@ -1,0 +1,56 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("EduClassGroup/index", array('course_id' => $course_id))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">目录名称:</td>
+		<td class="item_input"><input type="text" class="textbox" name="title" value="{$vo.title}" /></td>
+	</tr>
+	<if condition="$show_price or $vo.price gt 0">
+	<tr>
+		<td class="item_title">价格:</td>
+		<td class="item_input"><input type="text" class="textbox" name="price" value="{$vo.price}" /></td>
+	</tr>
+	</if>
+	<tr>
+		<td class="item_title">完整视频:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="file_id" id="file_id" value="{$vo.file_id}" />
+			<input type="button" class="button" id="btn_upload" value="上传视频" />
+			<span id="result"></span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">曲谱:</td>
+		<td class="item_input"><html:imgUpload name='musicofasong' id='musicofasong' value="$vo.musicofasong" /></td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduClassGroup" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" id="secret_id" value="{$secret_id}" />
+			<input type="hidden" id="after_sha_start_upload" value="1" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/js/vod/sdk/uploaderh5.js" charset="utf-8"></script>
+<load href='__TMPL__Common/js/user_live.js' />
+<include file="Public:footer" />

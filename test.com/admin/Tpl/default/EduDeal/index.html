@@ -1,0 +1,121 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/edu/edu_deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<PHP>
+	function get_deal_status($deal_status)
+	{
+		if($deal_status == 2){
+			return "待审核";
+		}elseif($deal_status ==1){
+			return "审核通过";
+		}elseif($deal_status ==3){
+			return "审核未通过";
+		}else{
+			return "未提交";
+		}
+    }
+
+	function get_end_time($end_time)
+	{
+	    $end_time_s=to_timespan($end_time)+24*60*60;
+		if($end_time_s < get_gmtime()){
+			return '<span style="color:#f30;">过期</span>';
+		}else{
+			return to_date($end_time_s-24*60*60,'Y-m-d');
+	    }
+	}
+
+	function edit_new($name,$id){
+	    return '<a href="javascript:edit('.$id.')" >'.$name.'</a>';
+	}
+
+	function get_user_name($user_id)
+	{
+	    return M("User")->where("id=".intval($user_id))->getField("nick_name");
+	}
+	function get_deal_support($id,$deal){
+		return "<a href=\"javascript:get_deal_support('".$id."')\">支持列表</a>";
+	}
+	function get_refund($id,$deal)
+	{
+		$end_time=to_timespan($deal['end_time'])+24*60*60;
+		if($deal['is_success']==0 && $end_time<get_gmtime())
+		{
+			$onclick_str="if(confirm('是否确认退款')){window.location.href='".u("EduDeal/batch_refund",array("id"=>$id))."';}";
+			return '<a href="javascript:void(0);" onclick="'.$onclick_str.'">批量退款</a>';
+		}
+	}
+
+	function get_pay_log($id,$deal)
+	{
+		if($deal['is_success']==1&&$deal['is_video']==1)
+		{
+			return "<a href=\"javascript:pay_log('".$id."')\">结算筹款</a>";
+		}
+	}
+
+	function get_deal_video($id,$deal){
+		if($deal['is_success']==1) {
+			$onclick_str="window.location.href='".u("EduDeal/deal_videos",array("deal_id"=>$id))."';";
+			return '<a href="javascript:void(0);" onclick="'.$onclick_str.'">直播列表</a>';
+		}
+	}
+</PHP>
+<script>
+</script>
+<div class="main">
+	<div class="main_title">众筹直播项目列表</div>
+	<div class="blank5"></div>
+	<div class="button_row">
+		<input type="button" class="button" value="删除" onclick="del();" />
+	</div>
+	<div class="blank5"></div>
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get">
+			<div>项目名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" style="width:100px;" /></div>
+
+			<div>发起人ID: <input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:30px;" /></div>
+
+			<div>
+				创建时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span>
+				       - <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span><input type="hidden" value="UserGeneral" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" /></div>
+
+			<input type="hidden" value="EduDeal" name="m" />
+			<input type="hidden" value="index" name="a" />
+		</form>
+	</div>
+	<div class="blank5"></div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="deal"
+			checkbox="true"
+			action="true"
+			datasource="list"
+			show="id:{%ID}|50px
+		         ,name|edit_new=$deal['id']:项目名称
+		         ,user_id:发起人ID
+		         ,user_id|get_user_name:发起人昵称
+		         ,limit_num:目标数量
+		         ,price:支持价格
+		         ,support_amount:已筹金额
+		         ,support_count:支持数量
+		         ,create_time|to_date:创建时间
+		         ,end_time|get_end_time:结束时间
+		         ,video_begin_time:直播开始时间
+		         ,is_success|get_status:是否成功
+		         ,is_effect|get_toogle_status=$deal['id']#is_effect:上架"
+			actionlist="edit:编辑,id|get_deal_support=$deal,id|get_deal_video=$deal,id|get_pay_log=$deal,id|get_refund=$deal,del:删除," />
+
+	<div class="blank5"></div>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

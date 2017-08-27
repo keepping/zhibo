@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+
+	function VideoCate_type($type){
+	$status_str = '';
+	if($type=='儒家'){
+	$status_str = '儒家';
+	}elseif($type=='佛家'){
+	$status_str = '佛家';
+	}elseif($type=='道家'){
+	$status_str = '道家';
+	}
+	return $status_str;
+	}
+</PHP>
+<div class="main">
+	<div class="main_title_list"><div class="list-line-ico"></div>限制昵称列表</div>
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get">
+			关键词：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}"/>
+			<input type="hidden" value="LimitName" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+		</form>
+	</div>
+
+	<div class="blank10"></div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="limit_name"
+			checkbox="true"
+			action="true"
+			datasource="list"
+			show="id:{%ID}|200px,name:限制昵称"
+			actionlist=" foreverdel:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+		<td colspan="5">
+			<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+
+		</td>
+		</tbody>
+	</table>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,119 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<include file="Public:new" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<PHP>
+	function to_money($money){
+		return format_price($money);
+	}
+	function get_refund_user_name($uid)
+	{
+		return M("User")->where("id=".$uid)->getField("nick_name");
+	}
+	function get_confirm($id,$vo)
+	{
+		if($vo['is_pay']==0){
+			$user_id =$vo['user_id'];
+			return "<a href='javascript:refund_allow(".$id.");'>允许</a> <a href='javascript:refund_not_allow(".$id.");'>不允许</a> <a href='javascript:refund_check(".$user_id.");'>资金核对</a> ";
+ 		}elseif($vo['is_pay']==1){
+			return "<a href='javascript:refund_confirm(".$id.");'>确认支付</a> ";
+		}elseif($vo['is_pay']==2){
+			return "<a> 未允许支付</a>";
+		}elseif($vo['is_pay']==3){
+			return "<a>支付成功</a>";
+		}else{
+			return "<a>操作失败</a>";
+		}
+	}
+</PHP>
+<script type="text/javascript">
+function refund_confirm(id)
+{
+	$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_confirm&id='+id, {contentType:'ajax',showButton:false,title:"确认提现",width:600,height:140});
+}
+function refund_allow(id){
+	$.ajax({
+			url: ROOT+'?m=UserRefund&a=refund_allow&status=1&id='+id,
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_allow&status=1&id='+id, {contentType:'ajax',showButton:false,title:"确认允许提现",width:600,height:140});
+			}
+		});
+}
+function refund_not_allow(id){
+	$.ajax({
+			url: ROOT+'?m=UserRefund&a=refund_allow&status=0&id='+id,
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_allow&status=0&id='+id, {contentType:'ajax',showButton:false,title:"确认不允许提现",width:600,height:140});
+			}
+		});
+}
+function refund_check(user_id){
+	$.ajax({
+			url: ROOT+'?m=UserRefund&a=refund_check&user_id='+user_id,
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_check&status=1&user_id='+user_id, {contentType:'ajax',showButton:false,title:"资金核对",width:900,height:150});
+			}
+		});
+}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>提现记录</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>主播ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px" /></div>
+        <div>{%NICK_NAME}：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" /></div>
+        <div>状态：<select name="is_pay" style="width:100px;margin:0">
+			<option value="0" <if condition="$_REQUEST['is_pay'] eq '0'">selected="selected"</if> >待审核</option>
+			<option value="2" <if condition="$_REQUEST['is_pay'] eq 2">selected="selected"</if> >未允许支付</option>
+		</select><input type="hidden" value="UserRefund" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" /></div>
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px
+		,user_id:主播ID
+		,money|to_money:金额
+		,ticket|:{%TICKET}
+		,user_id|get_refund_user_name:{%NICK_NAME}
+		,create_time|to_date:申请时间
+		,memo|get_title:申请备注
+		,is_pay|get_status:是否审核
+		,pay_time|to_date:确认支付时间
+		,reply|get_title:操作备注
+		,pay_log|get_title:支付备注"
+	actionlist="id|get_confirm=$deal," />
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

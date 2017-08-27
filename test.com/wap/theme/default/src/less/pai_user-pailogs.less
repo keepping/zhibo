@@ -1,0 +1,59 @@
+
+@import (once) "public/variable.less";
+@import (once) "public/csstree.less";
+
+.refresh{
+	float: right;
+}
+
+.pailogs_list{
+	font-size: @fontsize4!important;
+	margin: 0!important;
+	
+	& a{
+		display:inline-block;
+		width: 100%;
+	} 
+
+	& .item-title{
+		width: 25%;
+	}
+
+	& .item-content div{
+		color: @fontcolorinfo;
+	}
+
+	& .item-content:first-child div{
+		color: @fontcolortheme;
+	}
+
+	& .avatar{
+		vertical-align: -6px;
+		margin-right: .25rem;
+		.border-radius(50%); 
+	}
+
+	& .lead{
+		margin-right: .25rem;
+		background: @fontcolortheme;
+		color: #fff;
+		text-align: center;
+		font-size: @fontsize5;
+		.border-radius(2px);
+		padding:0 0.2rem;
+		height:1rem;
+		line-height:1rem;
+	}
+
+	& .out{
+		.lead;
+		background:#fff;
+		color: @fontcolorinfo;
+		border: 1px solid @borderdeepcolor;
+	}
+
+	& .time{
+		width: 40%;
+	}
+
+}

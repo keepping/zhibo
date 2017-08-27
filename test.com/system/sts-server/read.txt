@@ -1,0 +1,29 @@
+将图片直接上传到OSS上,不中转;
+参考网址：https://help.aliyun.com/document_detail/31920.html?spm=5176.doc31931.6.206.OEtePt
+
+load_auto_cache("aliyun_sts");
+
+	/**
+	 * 将图片直接上传到OSS上,不中转;
+	 * 参考网址：https://help.aliyun.com/document_detail/31920.html?spm=5176.doc31931.6.206.OEtePt
+	 * status: 1,
+		//上传文件时,必要的3个参数
+		AccessKeyId: "",
+		AccessKeySecret: "",
+		SecurityToken: "",
+		
+		//过期时间,客户端不关心
+		Expiration: "2016-09-28T10:30:02Z",
+		
+		//出错时,返回下面3个参数
+		RequestId: "",
+		Code: "",
+		Message: "",
+		
+		//回调地址
+		callbackUrl: "",
+		callbackBody: "",
+		
+		//文件存放目录
+		dir: ""
+	 */

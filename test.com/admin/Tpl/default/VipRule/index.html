@@ -1,0 +1,26 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>VIP购买规则列表</div>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="viprule"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,name:名称,day_num:天数,money:价格,iap_money:苹果支付价格,product_id:苹果项目ID,is_effect|get_is_effect=$viprule['id']:{%IS_EFFECT},sort|get_sort=$viprule['id']:{%SORT}"
+	actionlist="edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="7">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

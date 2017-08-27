@@ -1,0 +1,63 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function podcast($id){
+	return '<a src="/{$url_name}?m=UserGeneral&a=edit&id='.$id.'">'.$id.'</a>';
+	}
+	function getStatus($id){
+	switch($id){
+	case 1: return '进行中';
+	case 2: return '已结束';
+	default: return '结束';
+	}
+	}
+	function getGameName($id)
+	{
+	return M("Games")->where("id=".$id)->getField("name");
+	}
+</php>
+
+<script>
+
+	//编辑跳转
+	function games_item(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=games_item&id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>游戏列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            主播id：<input type="text" class="textbox" name="podcast_id" value="{:trim($_REQUEST['podcast_id'])}" />
+			游戏类型：<select name="game_id">
+			<option value="0">所有</option>
+			<foreach name="games" item="item">
+				<option value="{$item.id}" <if condition="$_REQUEST['game_id'] eq $item['id']">selected="selected"</if>>{$item.name}</option>
+			</foreach>
+        	</select>
+
+            <input type="hidden" value="GameLogHistory" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="game_log"
+			action="true"
+			datasource="list"
+			show="id:{%ID}
+			,podcast_id|podcast:主播id
+			,game_id|getGameName:游戏类型
+			,income:平台收入
+			,create_date:游戏创建时间
+			,status|getStatus:游戏状态"
+			actionlist="edit:{%EDIT}" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

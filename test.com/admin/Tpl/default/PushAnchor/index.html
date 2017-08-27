@@ -1,0 +1,82 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+
+    function push_status($status){
+        $status_str = '';
+        if($status==1){
+            $status_str = '推送中';
+        }elseif($status==2){
+            $status_str = '已推送';
+        }else{
+            $status_str = '未推送';
+        }
+        return $status_str;
+    }
+
+    function pust_type($type){
+        $status_str = '';
+        if($type==1){
+            $status_str = '全服推送';
+        }else{
+            $status_str = '粉丝推送';
+        }
+        return $status_str;
+    }
+</PHP>
+
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+    <div class="main_title_list"><div class="list-line-ico"></div>推送消息列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            房间ID：<input type="text" class="textbox" name="room_id" value="{:trim($_REQUEST['room_id'])}" style="width:100px;" />
+            主播昵称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" />
+            推送状态：<select name="status">
+            <option value="" <if condition="$_REQUEST['status'] eq ''">selected="selected"</if>>全部</option>
+            <option value="0" <if condition="$_REQUEST['status'] eq '0'">selected="selected"</if>>未推送</option>
+            <option value="1" <if condition="$_REQUEST['status'] eq '1'">selected="selected"</if>>推送中</option>
+            <option value="2" <if condition="$_REQUEST['status'] eq '2'">selected="selected"</if>>已推送</option>
+        </select>
+            推送类型：<select name="pust_type">
+            <option value="" <if condition="$_REQUEST['pust_type'] eq ''">selected="selected"</if>>全部</option>
+            <option value="0" <if condition="$_REQUEST['pust_type'] eq '0'">selected="selected"</if>>粉丝推送</option>
+            <option value="1" <if condition="$_REQUEST['pust_type'] eq '1'">selected="selected"</if>>全服推送</option>
+        </select>
+            创建时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span> - <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span><input type="hidden" value="PushAnchor" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="push"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+            ,user_id:主播ID
+            ,nick_name:主播昵称
+		,cate_title:直播主题
+		,room_id:房间ID
+		,city:直播城市
+		,status|push_status=$push['status']:推送状态
+		,pust_type|pust_type=$push['pust_type']:推送类型
+		,create_time|to_date:{%CREATE_TIME}"
+            actionlist="del:删除" />
+    <table class="dataTable">
+        <tbody>
+        <td colspan="12">
+            <input type="button" class="button button-del" value="删除" onclick="del();" />
+        </td>
+        </tbody>
+    </table>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

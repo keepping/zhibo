@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("EduClassOffline/index", array("user_id" => $user_id))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">标题:</td>
+		<td class="item_input"><input type="text" class="textbox" name="title" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">图片:</td>
+		<td class="item_input">
+			<html:imgUpload name='image' id='image' />
+            <span class="tip_span" id="tip_span">&nbsp;[规格为：290px*185px]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">课程介绍:</td>
+		<td class="item_input"><input type="text" class="textbox required" style="width: 750px;" name="description" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">价格:</td>
+		<td class="item_input"><input type="text" class="textbox" name="price" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">课时数量:</td>
+		<td class="item_input"><input type="text" class="textbox" name="class_num" /></td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduClassOffline" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<input type="hidden" name="user_id" value="{$user_id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

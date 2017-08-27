@@ -1,0 +1,100 @@
+<!-- 主播竞拍订单 -->
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-goods.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-goods.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<script type="text/javascript">
+	var is_true = {$data.is_true};
+
+	// 分页
+	var p=2;
+	var now_page = 1;
+	var has_next = Number('{$data.data.page.has_next}' || 0);
+</script>
+<div class="page page-current page_pai_goods" id="page-pai_podcast-goods">
+  	<header class="bar bar-nav">
+    	<div class="buttons-tab">
+			{if PAI_VIRTUAL_BTN == 1}
+				<a href='{url_wap r="pai_podcast#goods"}' class="button {if $data.is_true neq 1}active{/if}">虚拟商品</a>
+			{/if}
+			{if PAI_REAL_BTN == 1}
+				<a href='{url_wap r="pai_podcast#goods" p="is_true=1"}' class="button {if $data.is_true eq 1}active{/if}">实物商品</a>
+			{/if}
+	  	</div>
+  	</header>
+  	<div class="content pull-to-refresh-content infinite-scroll" data-distance="1">
+		<!-- 默认的下拉刷新层 -->
+	    <div class="pull-to-refresh-layer">
+	        <div class="preloader"></div>
+	        <div class="pull-to-refresh-arrow"></div>
+	    </div>
+	    <div class="tabs">
+	      	<div id="good-virtual" class="tab active">
+	        	<div class="list-block cards-list" id="refresh-layer">
+	        		{if $data.data.list}
+			      	<ul class="ul-good-virtual" id="infinite_scroll_box">
+			      		{if $data.is_true eq 1}
+			      		<!-- 实物竞拍 -->
+				      		{foreach from=$data.data.list item=item key=key name=item_name}
+					      		{if $item.status eq 0}
+					      			<!-- 竞拍中 -->
+						      		{include file="inc/pai_user_true_goods_status_a.html"}
+					      		{elseif $item.status eq 1}
+					      			<!-- 竞拍成功（结算中） -->
+					      			{include file="inc/pai_user_true_goods_status_b.html"}
+					      		{elseif $item.status eq 2}
+					      			<!-- 竞拍失败（流拍） -->
+					      			{include file="inc/pai_user_true_goods_status_c.html"}
+					      		{elseif $item.status eq 3}
+					      			<!-- 竞拍失败（主播关闭） -->
+					      			{include file="inc/pai_user_true_goods_status_d.html"}
+					      		{elseif $item.status eq 4}
+					      			<!-- 竞拍成功（完成） -->
+					      			{include file="inc/pai_user_true_goods_status_e.html"}
+					      		{/if}
+					        {/foreach}
+					    {else}
+					    <!-- 虚拟竞拍 -->
+					    	{foreach from=$data.data.list item=item key=key name=item_name}
+					      		{if $item.status eq 0}
+					      			<!-- 竞拍中 -->
+						      		{include file="inc/pai_user_goods_status_a.html"}
+					      		{elseif $item.status eq 1}
+					      			<!-- 竞拍成功（结算中） -->
+					      			{include file="inc/pai_user_goods_status_b.html"}
+					      		{elseif $item.status eq 2}
+					      			<!-- 竞拍失败（流拍） -->
+					      			{include file="inc/pai_user_goods_status_c.html"}
+					      		{elseif $item.status eq 3}
+					      			<!-- 竞拍失败（主播关闭） -->
+					      			{include file="inc/pai_user_goods_status_d.html"}
+					      		{elseif $item.status eq 4}
+					      			<!-- 竞拍成功（完成） -->
+					      			{include file="inc/pai_user_goods_status_e.html"}
+					      		{/if}
+					        {/foreach}
+				        {/if}
+			      	</ul>
+			      	{else}
+			      	<div class="tc" style="color:#999;margin-top:50%;">
+			      		<i class="icon iconfont" style="font-size:3rem;line-height:1;">&#xe63f;</i>
+			      		<div>无任何数据</div>
+			      	</div>
+			      	{/if}
+			    </div>
+	      	</div>
+	   	</div>
+   	 	<!-- 加载提示符 -->
+   	 	<div class="m-infinite-scroll-preloader">
+ 	 		{if $data.data.page.has_next}
+			<div class="infinite-scroll-preloader">
+	          	<div class="preloader"></div>
+	      	</div>
+      		{/if}
+      	</div>
+      	<input type="hidden" name="has_next" value="{$data.data.page.has_next}">
+  	</div>
+</div>
+{include file="inc/footer.html"}

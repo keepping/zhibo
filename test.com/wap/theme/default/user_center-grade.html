@@ -1,0 +1,35 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-grade.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-grade.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page_user_center-grade" id="page-user_center-grade">
+<!--     {if !isApp()}
+	<header class="bar bar-nav">
+    	<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      		<span class="icon icon-left"></span>
+    	</a>
+    	<h1 class="title">{$data.page_title}</h1>
+  	</header>
+    {/if} -->
+	<div class="content">
+	 	<div class="y-rank tc">
+            <div class="y-ranktop">
+                <p class="y-level bold f20">{$data.leve_name}</p>
+                <img src="{$TMPL}/images/icon_medal.png">
+                <p class="exp_val f16"><span class="c-red">{$data.u_score}</span>{if $data.up_score neq '满级'}/<span v-cloak>{$data.up_score}</span>{/if}</p>
+                <div class="y-scroll"><div class="theme_color" id="grade_progress"></div></div>
+            </div>
+            <div class="y-rankbottom">
+                <p>观看直播就可以获得经验值哦</p>
+                <p>想自己直播？没问题，直播经验更加多</p>
+                <p>不想等待？礼物刷起来，刷得越多，升级越快</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var u_score = '{$data.u_score}', up_score = '{$data.up_score}';
+        </script>
+	</div>
+</div>
+{include file="inc/footer.html"}

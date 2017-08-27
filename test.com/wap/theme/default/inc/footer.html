@@ -1,0 +1,31 @@
+</div>
+<script>
+	$.config = {
+    	swipePanelOnlyClose:true, // 初始化侧栏禁止滑动打开
+    	router: false  // 初始化禁用路由
+  	}
+</script>
+<?php
+   	$this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm.js";
+   	$this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm.js";
+   	$this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-extend.min.js";
+   	$this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-extend.min.js";
+    $this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-city-picker.js";
+    $this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-city-picker.js";
+    $this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/js/pull-to-refresh.js";
+    $this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/js/pull-to-refresh.js";
+    $this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/js/infinite-scroll.js";
+    $this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/js/infinite-scroll.js";
+   	$this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/js/pages.js";
+   	$this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/js/pages.js";
+    $this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/js/share-index.js";
+    $this->_var['foot_cpagejs'][] = $this->_var['TMPL_REAL']."/js/share-index.js";
+    $this->_var['foot_pagejs'][] = $this->_var['TMPL_REAL']."/dist/statics/js/main.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$foot_pagejs" c="foot_cpagejs"}"></script>
+
+<script type="text/javascript">
+	$.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!-- 主播商品管理列表页面 -->
+{include file="inc/header.html"}
+<?php
+	$this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-podcasr_goods_management.css";
+	$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-podcasr_goods_management.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+
+<div class="page page-current page-shop-podcasr_goods_management" id="page-shop-podcasr_goods_management">
+	<div class="searchbar row">
+    <div class="search-input col-85">
+      <input type="search" id='search' value="{$data.content}" placeholder='输入关键字...'/>
+    </div>
+    <a href="javascript:void(0)" class="button button-fill button-primary col-15 J-search"><span class="icon icon-search"></span></a>
+  </div>
+	<header class="bar bar-nav">
+		<div class="buttons-tab">
+	        <a href='{url_wap r="shop#podcasr_goods_management" p="state=1"}' class="{if $data.state eq 1}active{/if} button">出售中</a>
+			<a href='{url_wap r="shop#podcasr_goods_management" p="state=0"}' class="{if $data.state eq 0}active{/if} button">下架商品</a>
+	    </div>
+    </header>
+	<nav class="bar bar-tab">
+		{if $data.state eq 1}<a href='{url_wap r="shop#distribution_goods_list"}' class="button button-fill button-big">添加商品</a>{/if}
+		{if $data.state eq 0}<div class="button button-fill button-big button-del" id="J-podcasr_empty_goods">清空下架商品</div>{/if}
+	</nav>
+	<div class="content pull-to-refresh-content infinite-scroll">
+		<!-- 默认的下拉刷新层 -->
+	    <div class="pull-to-refresh-layer">
+	        <div class="preloader"></div>
+	        <div class="pull-to-refresh-arrow"></div>
+	    </div>
+		<div class="goods-list">
+			{foreach from=$data.goods item=item key=key name=item_name}
+			<div class="goods-item" id="goods-item-{$item.goods_id}">
+				<div class="item-content">
+					<div class="item-image">
+						<img src="{$item.imgs}">
+					</div>
+					<div class="item-info">
+						<p class="item-info-title">{$item.name}</p>
+						{if PAI_REAL_BTN == 1}
+						<p>
+							<span>起拍价:{$item.pai_diamonds}(钻石)</span>
+						</p>
+						{/if}
+						{if SHOPPING_GOODS == 1}
+						<p class="item-info-price">
+							<span class="s-l">价格:￥{$item.price}</span>
+							<span class="s-r">佣金:{$item.commission}</span>
+						</p>
+						{/if}
+						<p class="item-info-sell">
+							<span class="s-l">{$item.number}人在卖</span>
+							<span class="s-l">销量:{$item.sales}</span>
+							<span class="s-l">库存:{$item.inventory}</span>
+						</p>
+					</div>
+				</div>
+				<div class="item-footer">
+					<!--<span><i class="icon iconfont">&#xe66b;</i>置顶</span>-->
+					{if $data.state eq 1}
+					<span class="J-podcasr_shelves_goods" data-id="{$item.goods_id}"><i class="icon iconfont">&#xe66a;</i>下架</span>
+					{else}
+					<span class="J-podcasr_delete_goods" data-id="{$item.goods_id}"><i class="icon iconfont">&#xe66a;</i>删除</span>
+					{/if}
+				</div>
+			</div>
+			{foreachelse}
+			<div class="null-data">暂无数据</div>
+			{/foreach}
+			<input type="hidden" name="total_page" value="{$data.page.count}">
+		</div>
+	</div>
+	{if $data.goods}
+		<div id="vscope-paging">
+		  	<!-- 加载提示符 -->
+		    <div class="infinite-scroll-preloader" v-if="total_page>1 && page<=total_page">
+		        <div class="preloader"></div>
+		    </div>
+		    <div class="infinite-scroll-preloader data-null" v-if="page>total_page">
+		        <span style="color:#999;font-size:0.75rem;">无更多数据</span>
+		    </div>
+	    </div>
+    {/if}
+</div>
+<script type="text/javascript">
+
+		var paramet = {
+        state: GetQueryString("state")
+        // content:encodeURI(GetQueryString("content")),
+        // page:GetQueryString("page")
+
+    },ajax_url,new_paramet,page=2,loading=false,total_page=Number('{$data.page.count}');
+    var data = {
+    	page:'{$data.page.page}',
+    	state:'{$data.state}'
+    }
+</script>
+{include file="inc/footer.html"}

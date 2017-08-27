@@ -1,0 +1,84 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function edit($id,$video){
+		return "<a href=\"javascript:edit_virtual('".$id."')\">编辑</a>";
+	}
+	function type($add_type){
+		if($add_type){
+			return "固定间隔";
+		}else{
+			return "随机添加";
+		}
+		
+	}
+</PHP>
+<script>
+function edit_virtual(id){
+	location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=edit_virtual&id="+id;
+}
+function add_virtual(id){
+    location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_virtual&room_id="+id;
+}
+
+function del_virtual(id)
+{
+    if(!id)
+    {
+        idBox = $(".key:checked");
+        if(idBox.length == 0)
+        {
+            alert(LANG['DELETE_EMPTY_WARNING']);
+            return;
+        }
+        idArray = new Array();
+        $.each( idBox, function(i, n){
+            idArray.push($(n).val());
+        });
+        id = idArray.join(",");
+    }
+    if(confirm(LANG['CONFIRM_DELETE']))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_virtual&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+</script>
+<div class="main">
+<div class="main_title">计划列表  <a href="{:u("Video/online_index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add_virtual({$video_info.id});" />
+	<input type="button" class="button" value="删除" onclick="del_virtual();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="virtual" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:编号
+		,room_id:房间ID
+		,virtual_num:添加人数
+		,plan_start_time:开始添加时间/分钟
+		,plan_end_time:结束添加时间/分钟
+		,add_type|type:添加方式
+		,interval_time:固定间隔时间"
+	actionlist="id|edit=$virtual,del_virtual:删除" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

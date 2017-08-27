@@ -1,0 +1,297 @@
+<div class="content {if $data.data.status eq 2 || $data.data.status eq 3 || $data.data.order_status gte 4}content-no-footer_btn{/if}">
+	<!-- 虚拟竞拍 -->
+	<div class="order_status bg_theme">
+		<div class="container">
+		<!-- 订单状态 -->
+		{if $data.data.refund_platform eq 4}
+			<!-- 申诉，竞拍失败 -->
+			<div class="status_info">
+				<div class="status f15">竞拍关闭</div>
+				<span class="time f12">{$data.data.refund_reason}</span>
+			</div>
+			<i class="status_ico status_fail"></i>
+		{else}
+			{if $data.data.status eq 1}
+				{if $data.data.order_status eq 1}
+					<div class="status_info">
+						<div class="status f15">等待买家付款</div>
+						<span class="time f12">剩余<span class="left_time" data-leftTime="{$data.data.expire_time}"></span>自动关闭</span>
+					</div>
+					<i class="status_ico status_wait_pay"></i>
+				{elseif $data.data.order_status eq 6}
+					<div class="status_info">
+						<div class="status f15">竞拍失败</div>
+						<span class="time f12">买家超时未付款</span>
+					</div>
+					<i class="status_ico status_fail"></i>
+				{/if}
+			{elseif $data.data.status eq 2}
+				<div class="status_info">
+					<div class="status f15">竞拍失败</div>
+					{if $data.data.order_status eq 6}
+					<span class="time f12">买家超时未付款</span>
+					{else}
+					<span class="time f12">流拍</span>
+					{/if}
+				</div>
+				<i class="status_ico status_fail"></i>
+			{elseif $data.data.status eq 3}
+				<div class="status_info">
+					<div class="status f15">竞拍失败</div>
+					<span class="time f12">卖家未遵守约会</span>
+				</div>
+				<i class="status_ico status_fail"></i>
+			{elseif $data.data.status eq 4}
+				{if $data.data.order_status eq 2}
+					<div class="status_info">
+						<div class="status f15">等待供应商发货</div>
+						<span class="time f12">您的包裹正整装待发</span>
+					</div>
+					<i class="status_ico status_wait_date"></i>
+				{elseif $data.data.order_status eq 3}
+					<div class="status_info">
+						<div class="status f15">供应商已发货</div>
+						<span class="time f12">包裹已在路上，请耐心等待</span>
+					</div>
+					<i class="status_ico status_sended"></i>
+				{elseif $data.data.order_status eq 4}
+					<div class="status_info">
+						<div class="status f15">竞拍成功</div>
+					</div>
+					<i class="status_ico status_dated"></i>
+				{elseif $data.data.order_status eq 5}
+					{if $data.data.refund_buyer_status eq 1}
+						<div class="status_info">
+							<div class="status f15">竞拍失败</div>
+							<span class="time f12">退款中,等待退货</span>
+						</div>
+						<i class="status_ico status_fail"></i>
+					{elseif $data.data.refund_buyer_status eq 2}
+						<div class="status_info">
+							<div class="status f15">竞拍失败</div>
+							<span class="time f12">已发货,等待卖家确认收取退货</span>
+						</div>
+						<i class="status_ico status_fail"></i>
+					{elseif $data.data.refund_buyer_status eq 3}
+						<div class="status_info">
+							<div class="status f15">竞拍失败</div>
+							<span class="time f12">卖家确认收取退货,退款成功</span>
+						</div>
+						<i class="status_ico status_fail"></i>
+					{/if}
+				{elseif $data.data.order_status eq 6}
+					<div class="status_info">
+						<div class="status f15">竞拍失败</div>
+						<span class="time f12">买家超时未付款</span>
+					</div>
+					<i class="status_ico status_fail"></i>
+				{elseif $data.data.order_status eq 7}
+					<div class="status_info">
+						<div class="status f15">竞拍成功</div>
+					</div>
+					<i class="status_ico status_dated"></i>
+				{/if}
+			{/if}
+		{/if}
+		</div>
+	</div>
+	{if $data.data.order_status eq 3 && $data.data.express.express_detail}
+	<div class="list-block media-list m0 adress">
+	    <ul>
+	      	<li>
+	        	<div class="item-content f_555">
+	          		<div class="item-media">
+	          			<i class="icon iconfont f20">&#xe668;</i>
+	          		</div>
+	          		<div class="item-inner">
+			            <div class="item-title-row">
+			              	<div class="item-subtitle">{$data.data.express.express_time}{$data.data.express.express_detail}</div>
+			            </div>
+		          	</div>
+	        	</div>
+	      	</li>
+	    </ul>
+  	</div>
+	{/if}
+ 	<div class="list-block media-list m0 adress">
+	    <ul>
+	      	<li>
+	        	<div class="item-content f_555">
+	          		<div class="item-media">
+	          			<i class="icon iconfont f20">&#xe661;</i>
+	          		</div>
+	          		<div class="item-inner">
+			            <div class="item-title-row">
+			              	<div class="item-subtitle">收货人：{$data.data.consignee}</div>
+			              	<div class="item-after">{$data.data.consignee_mobile}</div>
+			            </div>
+			            <div class="item-subtitle date_info">
+			            	<div>收货地址：{$data.data.consignee_address}</div>
+			            </div>
+		          	</div>
+	        	</div>
+	      	</li>
+	    </ul>
+  	</div>
+  	<div class="list-block cards-list order_list">
+  		<ul>
+	        <li class="card block-good-virtual">
+	          	<div class="card-header">
+	          		<!-- 竞拍供应商店铺名称 -->
+	          		<div class="item-title">{$data.data.shopinfo.shop_name}</div>
+	          		<div class="item-after">
+	          			<a href='{url_wap r="shop#see_boring" p="order_sn=$data.data.order_sn"}'><i class="icon iconfont">&#xe669;</i>&nbsp;查看物流</a>
+	          		</div>
+	          	</div>
+	          	<div class="card-content good_content">
+	            	<div class="list-block media-list">
+			        	<ul>
+			        		{foreach from=$data.data.goods_list item=item key=key name=item_name}
+			          		<li class="item-content">
+					            <div class="item-media">
+					              	<img src="{$data.data.img}" width="90" height="80">
+					            </div>
+					            <div class="item-inner">
+					              	<div class="item-title-row">
+					                	<div class="item-title good_name">{$item.goods_name}</div>
+					              	</div>
+					              	<div class="item-subtitle f_999">最高价：<span class="diamond f_theme">{$data.data.last_pai_diamonds}</span></div>
+					            </div>
+				          	</li>
+				          	{/foreach}
+			        	</ul>
+			      	</div>
+	          	</div>
+	          	<div class="card-footer">
+	      			<div class="list-block">
+					    <ul>
+					      	<li class="item-content">
+					        	<div class="item-inner">
+					          		<div class="item-title f_green">
+					          			{if $data.data.order_status eq 5}
+					          				{if $data.data.refund_buyer_status eq 1}
+					          					退款中
+					          				{elseif $data.data.refund_buyer_status eq 2}
+					          					退货中
+					          				{elseif $data.data.refund_buyer_status eq 3}
+					          					退款成功
+					          				{elseif $data.data.refund_buyer_status eq 4}
+					          					主动撤销退款
+					          				{else}
+					          					被动关闭
+					          				{/if}
+						          		{elseif $data.data.order_status eq 1}
+						          			待付款
+						          		{elseif $data.data.order_status eq 6}
+						          			未付款
+										{elseif $data.data.order_status eq 7}
+											已退款
+						          		{else}
+						          			已付款
+					          			{/if}
+					          		</div>
+					          		<div class="item-after"><span class="diamond f_theme">{$data.data.total_diamonds}</span></div>
+					        	</div>
+					      	</li>
+					      	<li class="item-content">
+						        <div class="item-inner f_555">
+						          	<div class="item-title">保证金：<span class="diamond">{$data.data.bz_diamonds}</span></div>
+						          	<div class="item-after">{if $data.data.join_status eq 0}托管中{elseif $data.data.join_status eq 1}已退还{else}已罚没{/if}</div>
+						        </div>
+					      	</li>
+					    </ul>
+				  	</div>
+	          	</div>
+	        </li>
+    	</ul>
+    </div>
+    <div class="list-block media-list">
+	    <ul>
+	      	<li>
+	        	<div class="item-content f_555">
+	          		<div class="item-inner">
+			            <div class="item-title-row">
+				            <div class="item-subtitle f_999">
+				            	<div>订单编号：{$data.data.order_sn}</div>
+				            	<div>下单时间：{function name="to_date" v=$data.data.create_time}</div>
+				            	{if $data.data.pay_time}
+				            	<div>付款时间：{$data.data.pay_time}</div>
+				            	{/if}
+				            	<!--{if $data.data.refund_over_time}-->
+				            	<!--<div>退款时间：{$data.data.refund_over_time}</div>-->
+				            	<!--{/if}-->
+								{if $data.data.time}
+								<div>发货时间：{$data.data.time}</div>
+								{/if}
+				            	{if $data.data.final_time}
+				            	<div>完成时间：{$data.data.final_time}</div>
+				            	{/if}
+								{if $data.data.order_status > 5}
+									{if $data.data.refund_platform eq 4}
+									<div>关闭时间：{$data.data.refund_over_time}</div>
+									{elseif $data.data.order_status_time}
+									<div>关闭时间：{$data.data.order_status_time}</div>
+									{/if}
+								{/if}
+				            </div>
+<!-- 					            <div class="item-after">
+				            	<a href="#" class="button button-round">复制</a>
+				            </div> -->
+			            </div>
+		          	</div>
+	        	</div>
+	      	</li>
+	    </ul>
+  	</div>
+  	<!-- <div class="list-block media-list pay_way_list">
+	    <ul>
+	      	<li>
+	        	<label class="item-content f_555">
+	        		<div class="item-media">
+	          			<input name="pay_way" value="balance" type="checkbox" checked>
+	          		</div>
+	          		<div class="item-inner">
+			            <div class="item-title-row">
+				            <div class="item-subtitle">
+				            	使用帐号余额支付&nbsp;<span class="diamond f_theme">{$data.data.diamonds}</span>
+				            </div>
+				            <div class="item-after">
+				            	<a href="javascript:void(0);" class="button button-round J_recharge"><span class="f_theme">充值</span></a>
+				            </div>
+			            </div>
+		          	</div>
+		        </label>
+	        	
+	      	</li>
+	    </ul>
+  	</div> -->
+</div>
+{if $data.data.order_status lt 4 || $data.data.order_status eq 5}
+<nav class="bar bar-tab footer_btn tc">
+	{if $data.data.order_status eq 1}
+		<a class="button button40 button-round button-middle button-fill button-theme" href='{url_wap r="pai_user#virtual_order_details" p="order_sn=$data.data.order_sn&pai_id=$data.data.pai_id"}'>付款</a>
+	{elseif $data.data.order_status eq 2}
+		<a class="button button40 button-round button-middle button-fill button-theme J-remind_podcast_to_date" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">提醒卖家发货</a>
+		{if $data.data.expire_time lte 0}
+		<a class="button button40 button-round button-middle button-fill button-theme J-buyer_to_complaint" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">申请售后</a>
+		{/if}
+	{elseif $data.data.order_status eq 3}
+		{if $data.data.refund_platform}
+			{if $data.data.refund_platform eq 3}
+				<a class="button button40 button-round button-middle" href="javascript:void(0);">投诉中，请等待</a>
+			{else}
+				<a class="button button40 button-round button-middle button-fill button-theme J-buyer_confirm_date" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}" data-confirm-tip="请收到商品后，再确认收货！以免造成损失。">确认收货</a>
+				<a class="button button40 button-round button-middle button-fill button-theme J-buyer_to_complaint" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">申请售后</a>
+			{/if}
+		{else}
+			<a class="button button40 button-round button-middle button-fill button-theme J-buyer_confirm_date" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}" data-confirm-tip="请收到商品后，再确认收货！以免造成损失。">确认收货</a>
+			<a class="button button40 button-round button-middle button-fill button-theme J-buyer_to_complaint" href="javascript:void(0);" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">申请售后</a>
+		{/if}
+	{elseif $data.data.order_status eq 5}
+		{if $data.data.refund_buyer_status eq 1}
+			<a href="javascript:void(0);" id="J-buyer_confirm_to_refund" class="button button40 button-round button-middle button-fill button-theme" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">退货</a>
+			<a href="javascript:void(0);" id="J-oreder_revocation" class="button button40 button-round button-middle button-fill button-theme" data-to_podcast_id="{$data.data.podcast_id}" data-order_sn="{$data.data.order_sn}">主动撤销</a>
+		{/if}
+	{/if}
+</nav>
+{/if}

@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+    $('#coin_edit').unbind().bind('click',function () {
+        var user_id = parseInt($("input[name='user_id']").val());
+        var coin = parseInt($("input[name='coin']").val());
+        if(isNaN(coin))
+        {
+            alert("请输入游戏币变更数");
+            return false;
+        }
+        $.post(ROOT+'?'+VAR_MODULE+'=Games&'+VAR_ACTION+'=addCoin', {user_id:user_id,coin:coin}, function (data) {
+            alert(data.error);
+            location.reload();
+        },'json');
+    })
+</script>
+<div class="main">
+<div class="main_title">{$user_info.nick_name} 游戏币:{$user_info.coin}</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+    <tr>
+        <td colspan=2 class="topTd"></td>
+    </tr>
+    <tr>
+        <td class="item_title">游戏币变更:</td>
+        <td class="item_input"><input type="number" class="textbox require" name="coin" onkeydown="if(event.keyCode==13) {document.getElementById('coin_edit').click();return false;}"/>
+        <span class='tip_span'>[{%INCHARGE_USER_DIAMONDS_TIP}]</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">&nbsp;</td>
+        <td class="item_input">
+            <!--隐藏元素-->
+            <input type="hidden" name="user_id" value="{$user_info.id}" />
+            <!--隐藏元素-->
+            <input type="button" id="coin_edit" class="button" value="{%OK}" />
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2 class="bottomTd"></td>
+    </tr>
+</table>
+</form>
+</div>

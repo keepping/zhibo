@@ -1,0 +1,42 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+
+</php>
+<script>
+    function date_list(date_id){
+        location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=date_list&id="+date_id;
+    }
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>预约项目列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            项目标题：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+            <input type="hidden" value="Date" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="date"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID},title:项目标题,content|msubstr:问题(回答)描述,count:预约人数,seen_count:见过人数,price:预约费用,create_time|to_date:{%CREATE_TIME}"
+	actionlist="edit:编辑,foreverdel:删除,date_list:预约记录" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="9">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

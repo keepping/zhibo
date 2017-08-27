@@ -1,0 +1,103 @@
+/*// 主题色*/
+@theme-color1:#5775b5;
+@theme-color2:#389ee1;
+@theme-colorred:#e47470;
+/*字体主色调*/
+@font-color1:#435561;
+@font-color3:#999999;
+
+/*线条主色调*/
+@border-color1:#e5e4e9;
+@border-color2:#cfcfcf;
+@border-cut-color:#eceff4;
+
+/*按钮主色调*/
+@btn-color1:#e47470;
+@btn-color2:#0099cc;
+
+/*底纹色*/
+@bj-color:#f7f7f7;
+@bjtit-color:#f5f6fa;
+
+
+.tree-contenttitle .btn {
+	margin: 0 10px;
+}
+.tree-contenttitle .btn i{
+	margin-right: 5px;
+}
+.tree-padding{
+	padding: 20px 30px;
+}
+
+.zfzt{
+	width: 100%;
+	border: 1px solid @border-color1;
+	border-top: 0;
+}
+.zfzt .tit{
+	border-bottom: 1px solid @border-color1;
+	height: 41px;
+	line-height: 40px;
+	padding: 0 10px;
+}
+
+.zfzt .zfztcontent{
+	padding: 20px 8px;
+	height: auto;
+	overflow: hidden;
+	transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+}
+.zfzt .zfztcontent.zclose{
+	height: 0;    
+	padding: 0 8px;
+	transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+}
+.zfzt .zfztcontent .table{
+	border-left: 1px solid @border-color1;
+	border-right: 1px solid @border-color1;
+
+}
+.controldetail{
+	position: relative;
+	padding-right: 20px;
+	cursor: pointer;
+}
+.controldetail i{
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 14px;
+	transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+}
+.controldetail.zclose i{
+	transform: rotate(-180deg);
+-ms-transform: rotate(-180deg);       /* IE 9 */
+-webkit-transform: rotate(-180deg);   /* Safari and Chrome */
+-o-transform: rotate(-180deg);        /* Opera */
+-moz-transform: rotate(-180deg);
+	transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+}
+.tbgy thead{
+	font-size: 15px;
+	color: #666;
+}
+.tbgy td{
+	width: 50%;
+}
+
+.tbgydetail thead{
+	color: #999;
+}

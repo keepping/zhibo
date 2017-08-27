@@ -1,0 +1,280 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_level($id){
+		$get_level=$GLOBALS['db']->getOne("select ul.name from ".DB_PREFIX."user_level as ul left join ".DB_PREFIX."user as u on u.user_level = ul.level where u.id=".$id);
+ 		return $get_level;
+	}
+	function get_nickname($id){
+		$get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+ 		return $get_nickname;
+	}
+    function get_room_type($room_type){
+        if($room_type==1){
+            return "私密";
+        }elseif($room_type==2){
+            return "聊天室";
+        }elseif($room_type==3){
+            return "互动聊天室";
+        }else{
+            return "公开";
+        }
+    }
+	function set_demand_video_status($id,$video){
+        if($video['live_in']==0){
+            return "<a href=\"javascript:demand_video_status('".$id."')\">上线</a>";
+        }else{
+            return "<a href=\"javascript:demand_video_status('".$id."')\">下线</a>";
+        }
+	}
+    function set_vod_concatvideo($id,$video){
+        if($video['is_concatvideo']==0){
+            return "<a href=\"javascript:concatvideo('".$id."')\">合并视频</a>";
+        }else{
+            return "<a>视频已合并</a>";
+        }
+    }
+	function video_status($live_in){
+		if($live_in==0){
+			return "否";
+		}elseif($live_in==3){
+			return "是";
+		}
+	}
+	function live_pay($is_live_pay){
+	if($is_live_pay==0){
+	return "否";
+	}elseif($is_live_pay==1){
+	return "是";
+	}}
+
+	function live_pay_type($live_pay_type,$video){
+        if($video['is_live_pay']==1){
+            if($live_pay_type==1){
+                return "按场收费";
+            }elseif($live_pay_type==0){
+                return "按时收费";
+            }elseif($live_pay_type==2){
+                return "暂未收费";
+            }
+        }
+	}
+
+    function set_live_pay($id,$video){
+        if($video['pay_editable']==1){
+            return "<a href=\"javascript:set_live_pay('".$id."')\">编辑</a>";
+        }
+    }
+	
+</PHP>
+<script>
+// console.log("before");
+// if (!TECENT_VIDEO) {
+//     console.log("in");
+//     $(".button-add").css("display","none");
+// }
+function set_live_pay(id){
+    $.ajax({
+        url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=set_live_pay&id="+id,
+        data: "ajax=1",
+        dataType: "json",
+        success: function(msg){
+            if(msg.status==0){
+                alert(msg.info);
+            }
+        },
+        error: function(){
+            $.weeboxs.open(ROOT+'?'+VAR_MODULE+'='+MODULE_NAME+'&'+VAR_ACTION+'=set_live_pay&id='+id, {contentType:'ajax',showButton:false,title:'付费设置',width:600,height:200});
+        }
+    });
+}
+
+function get_preview(id)
+{
+    window.open(ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=play&id="+id);
+}
+
+function del_video(id)
+{
+    if(!id)
+    {
+        idBox = $(".key:checked");
+        if(idBox.length == 0)
+        {
+            alert(LANG['DELETE_EMPTY_WARNING']);
+            return;
+        }
+        idArray = new Array();
+        $.each( idBox, function(i, n){
+            idArray.push($(n).val());
+        });
+        id = idArray.join(",");
+    }
+    if(confirm(LANG['CONFIRM_DELETE']))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_video&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+function demand_video_status(id)
+{
+    /*if(!id)
+    {
+        idBox = $(".key:checked");
+        if(idBox.length == 0)
+        {
+            alert(LANG['VIDEO_STATUS_WARNING']);
+            return;
+        }
+        idArray = new Array();
+        $.each( idBox, function(i, n){
+            idArray.push($(n).val());
+        });
+        id = idArray.join(",");
+    }LANG['CONFIRM_VIDEO_STATUS']*/
+    if(confirm("确定要修改状态？"))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=set_demand_video_status&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+function concatvideo(id)
+{
+    if(confirm("确定要合并视频？"))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=vod_concatvideo&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+function add_tecent_video(){
+    location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_tecent_video";
+}
+function add_video(){
+    location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_video";
+}
+</script>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>回播列表</div>
+<div class="button_row">
+
+</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>房间号：<input type="text" class="textbox" name="room_id" value="{:trim($_REQUEST['room_id'])}" style="width:100px;" /></div>
+        <div>主播ID: <input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px;" /></div>
+		<div>主播昵称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" /></div>
+        <div>是否上线：<select name="live_in">
+                <option value="">全部</option>
+                <option value="3" <if condition="$_REQUEST['live_in'] eq 3">selected="selected"</if>>是</option>
+                <option value="0" <if condition="$_REQUEST['live_in']!='' && $_REQUEST['live_in'] eq 0">selected="selected"</if>>否</option>
+            </select></div>
+        <div>话题：<select name="cate_id">
+				<option value="0">全部</option>
+				<foreach name="cate_list" item="cate_item">
+					<option value="{$cate_item.id}" <if condition="$_REQUEST['cate_id'] eq $cate_item['id']">selected="selected"</if>>{$cate_item.title}</option>
+				</foreach>
+			</select></div>
+        <div>创建时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span> -
+        <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span>
+        <input type="hidden" value="VideoPlayback" name="m" /><input type="hidden" value="playback_index" name="a" /><input type="submit" class="button" value="{%SEARCH}" /></div>
+	</form>
+</div>
+<if condition="$is_pay_live eq 1">
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="video"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:房间号
+		,user_id:主播ID
+		,user_id|get_nickname=$video['user_id']:主播
+		,title:直播标题
+		,max_watch_number:累计观看人数
+		,vote_number:{%TICKET}
+		,room_type|get_room_type=$video['room_type']:直播类型
+		,is_live_pay|live_pay:是否收费
+		,live_pay_type|live_pay_type=$video:收费类型
+		,live_in|video_status=$video['live_in']:上线
+		,create_time|to_date:创建时间
+		,end_time|to_date:结束时间
+		,len_time:直播时长"
+	actionlist="id|set_live_pay=$video,get_preview:查看,id|set_demand_video_status=$video,id|set_vod_concatvideo=$video,del_video:彻底删除" />
+<else/>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="video"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:房间号
+		,user_id:主播ID
+		,user_id|get_nickname=$video['user_id']:主播
+		,title:直播标题
+		,max_watch_number:累计观看人数
+		,vote_number:{%TICKET}
+		,room_type|get_room_type=$video['room_type']:直播类型
+		,live_in|video_status=$video['live_in']:上线
+		,create_time|to_date:创建时间
+		,end_time|to_date:结束时间
+		,len_time:直播时长"
+	actionlist="get_preview:查看,id|set_demand_video_status=$video,id|set_vod_concatvideo=$video,del_video:彻底删除" />
+	</if>
+	<table class="dataTable">
+		<tbody>
+            <td colspan="11">
+            <if condition="TECENT_VIDEO eq 1" >
+                <if condition="($video_type eq 1) and (UPLOAD_OSS eq 0) ">
+                    <input type="button" class="button button-add" value="{%ADD}" onclick="add_tecent_video();" />
+                <else />
+                    <input type="button" class="button button-add" value="{%ADD}" onclick="add_video();" />
+                </if>
+            </if>
+				<input type="button" class="button button-del" value="彻底删除" onclick="del_video();" />
+			</td>
+		</tbody>
+	</table>
+
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

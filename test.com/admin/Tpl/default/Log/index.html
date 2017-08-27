@@ -1,0 +1,54 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+	<script>
+		function claer_log(id)
+		{
+			if(confirm("确定要清除全部日志？"))
+				$.ajax({
+					url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=claer_log",
+					data: "ajax=1",
+					dataType: "json",
+					success: function(obj){
+						alert(obj.info);
+						func();
+						function func(){
+							if(obj.status==1){
+								location.href=location.href;
+							}
+						}
+					}
+				});
+		}
+		</script>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="log_info" value="{:trim($_REQUEST['log_info'])}" />{%LOG_TIME}：<span><input type="text" class="textbox" name="log_begin_time" id="log_begin_time" value="{:trim($_REQUEST['log_begin_time'])}" onfocus="return showCalendar('log_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_log_begin_time');" /><input type="button" class="button" id="btn_log_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('log_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_log_begin_time');" /></span>
+		-
+		<span><input type="text" class="textbox" name="log_end_time" id="log_end_time" value="{:trim($_REQUEST['log_end_time'])}" onfocus="return showCalendar('log_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_log_end_time');" /><input type="button" class="button" id="btn_log_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('log_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_log_end_time');" /></span><input type="hidden" value="Log" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="log"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,log_info:{%LOG_INFO},log_time|to_date:{%LOG_TIME},log_ip:{%LOG_IP},log_admin|get_admin_name:{%LOG_ADMIN},log_status|get_log_status:{%LOG_STATUS},module:{%MODULE},action:{%ACTION}"
+	actionlist="--" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-del" value="清除全部日志" onclick="claer_log();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

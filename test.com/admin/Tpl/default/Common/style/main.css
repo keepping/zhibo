@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+body{ font-size:12px; font-family:"Microsoft Yahei";  margin:0px; padding:0px; color:#404040; }
+.main{ text-align:center; height:30px; color:#333; line-height:30px; font-size:14px;}
+
+.notify_box table { width:100%; }
+.notify_box table td{ padding-top:12px; width:25%; text-align:center;}
+.notify_box table td table{ width:100%; height:200px;
+/* 	-moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.2);firefox
+-webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.2);safari或chrome
+box-shadow:0 5px 5px 1px rgba(0, 0, 0, 0.2);opera或ie9 */
+}
+.notify_boxB table td table{height:auto; -moz-box-shadow:0 0 0  0!important;-webkit-box-shadow:0!important; box-shadow:0!important}
+.notify_boxB table td{ padding:0;}
+
+.notify_box table td.version_box table{ background:#fff;}
+.notify_box table td.order_box table{ background:#fff;}
+.notify_box table td.user_box table{ background:#fff;}
+.notify_box table td.tuan_box table{ background:#fff;}
+.notify_box table td.shop_box table{ background:#fff;}
+.notify_box table td.youhui_box table{ background:#fff;}
+.notify_box table td.event_box table{ background:#fff;}
+.notify_box table td.store_box table{ background:#fff; }
+
+.notify_box table td table td{border:1px solid #ccd6e0; vertical-align:top; color:#333;line-height:42px;padding:0;}
+
+.notify_box table a{  color:#f60; text-decoration:none; }
+
+.notify_box .statbox th{ color:#000;border:1px solid #ccd6e0; font-weight:normal;text-align:left;text-indent:14px; padding:0;  border-spacing: 0px; background:#f8f9fb; height:37px; line-height:37px;font-size:15px;}
+.notify_box .statbox .row{ padding-left:17px; border-bottom:1px solid #eff2f6; text-align:left; min-height:42px; line-height:42px}
+.notify_box .statbox .row span{}
+.notify_box .statbox .row span.t{}
+.notify_box .statbox .row span.bx{
+	font-size: 16px;
+	font-family: "verdana,Arial";
+	font-weight: bolder;
+}
+
+.notify_box .statboxB th{ text-align:left; padding-left:15px}
+.notify_box .statboxB .row span.t{width:160px; }
+.notify_box .statboxB .row span.bx{margin-left:170px;height:34px; line-height:34px;font-size:20px;}
+.blank0{ height:0; clear:both; visibility:visible; overflow:hidden;}

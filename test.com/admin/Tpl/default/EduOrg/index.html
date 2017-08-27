@@ -1,0 +1,73 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<php>
+	function show_act($user_id) {
+		$is_authentication = $GLOBALS['db']->getOne("select `is_authentication` from ".DB_PREFIX."user where id = " . $user_id);
+		switch($is_authentication){
+			case 1:
+			return "<a href='javascript:show_content(".$user_id.",1);'>审核</a>";
+			break;
+			case 2:
+			return "<a href='javascript:add_course(".$user_id.");'>添加课程</a>";
+			break;
+			case 3:
+			return "<a href='javascript:show_content(".$user_id.",0);'>未通过</a>";
+			break;
+		}
+	}
+
+	function add_class_offline($id) {
+		return "<a href='".u("EduClassOffline/add",array("user_id"=>$id))."'>添加线下课程</a>";
+	}
+
+	function view_class_offline($id) {
+		return "<a href='".u("EduClassOffline/index",array("user_id"=>$id))."'>线下课程列表</a>";
+	}
+
+	function view_courses($user_id) {
+		return "<a href='".u("EduCourses/index",array("user_id"=>$user_id))."'>课程列表</a>";
+	}
+</php>
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduOrg" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="org"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,user_id:用户ID,title:认证名称:edit,sale_count:共售课时,teaching_time_count:授课总时长,view_num:浏览次数,is_recommend|get_recommend=$org['id']:推荐,sort|get_sort=$org['id']:{%SORT}"
+	actionlist="edit:编辑详情,user_id|show_act,user_id|view_courses,user_id|add_class_offline,user_id|view_class_offline" />
+<div class="page">{$page}</div>
+</div>
+<script>
+	function add_course(id){
+		location.href = ROOT+"?"+VAR_MODULE+"=EduCourses&"+VAR_ACTION+"=add&user_id="+id;
+	}
+	function show_content(id,$status) {
+		var model = $status ? 'EduUserInvestor' : 'EduUserInvestorList';
+		$.ajax({ 
+			url: ROOT+'?m='+model+'&a=show_content&id='+id+'&status='+$status, 
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m='+model+'&a=show_content&id='+id+'&status='+$status, {contentType:'ajax',showButton:false,title:LANG['SHOW_CONTENT'],width:850,height:500});
+			}
+		});
+		
+	}
+</script>
+<include file="Public:footer" />

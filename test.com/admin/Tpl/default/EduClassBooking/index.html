@@ -1,0 +1,37 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<php>
+	
+</php>
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduClassBooking" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<PHP>
+	function get_nick_name($user_id){
+		return $GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$user_id);
+    }
+	function get_booked($booked){
+		return $booked ? '已约': '未约';
+    }
+</PHP>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="org"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:标题:edit,user_id|get_nick_name:教师,begin_at:开课时间,end_at:结束时间,price:价格,is_booked|get_booked:状态"
+	actionlist="act:无" />
+<div class="page">{$page}</div>
+</div>
+<script>
+
+</script>
+<include file="Public:footer" />

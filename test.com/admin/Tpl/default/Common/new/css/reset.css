@@ -1,0 +1,371 @@
+﻿/*####################
+######################
+######################
+######################
+######################
+字体主色调：#435561     #388ac2
+辅助色：#999999
+
+线条主色调
+边框：#e5e4e9   
+辅助色：#cfcfcf      分割线：#eceff4
+
+按钮色：#e47470   、  0099cc
+
+底纹色：#f7f7f7   
+标题底纹：#f5f6fa
+###################
+#####################
+####################
+#######*/
+/*// 主题色*/
+/*字体主色调*/
+/*线条主色调*/
+/*按钮主色调*/
+/*底纹色*/
+body {
+  font-family: Microsoft YaHei, Helvitica, Verdana, Arial, san-serif, Helvetica, STHeiTi, sans-serif !important;
+  font-size: 14px;
+  color: #435561;
+  padding: 0;
+  margin: 0;
+}
+ul,
+li,
+dl,
+dd,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+button {
+  border: none;
+}
+a {
+  color: #435561;
+  text-decoration: none;
+}
+a:hover{
+  color: #435561;
+  
+}
+@font-face {
+  font-family: "iconfont";
+  src: url('../images/iconfont/iconfont.eot');
+  src: url('../images/iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../images/iconfont/iconfont.woff') format('woff'), /* chrome、firefox */ url('../images/iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('../images/iconfont/iconfont.svg#iconfont') format('svg');
+  
+  /* IE9*/
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*瘦型字体*/
+.small_font {
+  position: relative;
+}
+.small_font::before {
+  content: attr(data-attr);
+  font-weight: bolder;
+  left: 2%;
+  top: 2%;
+  border-radius: 50%;
+  text-align: center;
+  letter-spacing: -1px;
+  font-weight: 100;
+  font-size: 1.338rem;
+  color: #fc7d54;
+  position: absolute;
+  width: 96%;
+  height: 96%;
+  background-color: #fff;
+}
+/*全局链接样式*/
+a {
+  color: #435561;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+hr {
+  border: none;
+  border-top: 1px solid #eaeaea;
+}
+/*关于字体类型*/
+.wr {
+  font-family: 微软雅黑!important;
+}
+/*页面留白*/
+.blank0 {
+  height: 0px;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank1 {
+  height: 1px;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank10 {
+  height: 0.5rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank012 {
+  height: 0.12rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank022 {
+  height: 0.22rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank024 {
+  height: 0.24rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank039 {
+  height: 0.39rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank050 {
+  height: 0.50rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank055 {
+  height: 0.55rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank056 {
+  height: 0.56rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank124 {
+  height: 1.24rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+.blank070 {
+  height: 0.70rem;
+  clear: both;
+  overflow: hidden;
+  visibility: visible;
+}
+/*英文强制换行*/
+.word {
+  word-break: break-all !important;
+}
+/*禁止换行*/
+.nowrap {
+  white-space: nowrap!important;
+}
+/*单行超出部分省略*/
+.text-overflow {
+  display: block;
+  /*内联对象需加*/
+  word-break: keep-all;
+  /* 不换行 */
+  white-space: nowrap;
+  /* 不换行 */
+  overflow: hidden;
+  /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow: ellipsis;
+  /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+/*多行溢出*/
+.text-overflow_2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+/*关于布局*/
+.w_b {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+}
+.w_b_s {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+.w_b_f_1 {
+  display: block;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+}
+.flex {
+  display: flex;
+  flex-flow: row;
+  display: -webkit-flex;
+  display: -moz-flex;
+}
+.flex-1 {
+  flex: 1;
+  -webkit-flex: 1;
+  -moz-flex: 1;
+}
+.flex-2 {
+  flex: 2;
+  -webkit-flex: 2;
+  -moz-flex: 2;
+}
+.table_block {
+  table-layout: fixed;
+}
+.table_cell {
+  position: relative;
+  display: table-cell;
+  width: 1%;
+  color: #929292;
+  text-align: center;
+  vertical-align: middle;
+}
+/*浮动，定位*/
+.pr {
+  position: relative!important;
+}
+.ps {
+  position: absolute!important;
+}
+.pf {
+  position: fixed;
+}
+.f_l {
+  float: left!important;
+}
+.f_r {
+  float: right!important;
+}
+.clear_both {
+  clear: both;
+}
+.z1 {
+  z-index: 1!important;
+}
+.z2 {
+  z-index: 2!important;
+}
+/*关于鼠标手势*/
+.pointer {
+  cursor: pointer!important;
+}
+/*文字缩进*/
+.t_i_5 {
+  text-indent: -5px !important;
+}
+/*透明度*/
+.opacity1 {
+  filter: alpha(opacity=10);
+  -moz-opacity: 0.1;
+  -khtml-opacity: 0.1;
+  opacity: 0.1;
+}
+.opacity2 {
+  filter: alpha(opacity=20);
+  -moz-opacity: 0.2;
+  -khtml-opacity: 0.2;
+  opacity: 0.2;
+}
+.opacity3 {
+  filter: alpha(opacity=30);
+  -moz-opacity: 0.3;
+  -khtml-opacity: 0.3;
+  opacity: 0.3;
+}
+.opacity4 {
+  filter: alpha(opacity=40);
+  -moz-opacity: 0.4;
+  -khtml-opacity: 0.4;
+  opacity: 0.4;
+}
+.opacity5 {
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+.opacity6 {
+  filter: alpha(opacity=60);
+  -moz-opacity: 0.6;
+  -khtml-opacity: 0.6;
+  opacity: 0.6;
+}
+.opacity_8 {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+.rgba_05 {
+  background: rgba(124, 124, 124, 0.5);
+}
+/*滚动条处理*/
+.w_o_s {
+  -webkit-overflow-scrolling: touch;
+}
+/*自动高对齐*/
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+*html .clearfix {
+  height: 1%;
+}
+* + html .clearfix {
+  height: 1%;
+}
+.cf {
+  zoom: 1;
+}
+/*暂无数据*/
+.no_data {
+  background: #fff;
+  padding: 1rem;
+  text-align: center;
+  color: #333;
+  font-size: 0.66rem;
+  line-height: 1rem;
+  margin: 0.825rem 0;
+}

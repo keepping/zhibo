@@ -1,0 +1,173 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_order.css";
+$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_order.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page-shop-shop_order" id="page-shop-shop_order">
+	<div class="content infinite-scroll pull-to-refresh-content">
+		<!-- 默认的下拉刷新层 -->
+	    <div class="pull-to-refresh-layer">
+	        <div class="preloader"></div>
+	        <div class="pull-to-refresh-arrow"></div>
+	    </div>
+		<div class="content-block">
+			<div class="buttons-tab">
+				<a href='{url_wap r="shop#shop_order" p="state=0"}' class="{if $data.state eq 0}active{/if} button">全部</a>
+				<a href='{url_wap r="shop#shop_order" p="state=1"}' class="{if $data.state eq 1}active{/if} button">待付款</a>
+				<a href='{url_wap r="shop#shop_order" p="state=2"}' class="{if $data.state eq 2}active{/if} button">待发货</a>
+				<a href='{url_wap r="shop#shop_order" p="state=3"}' class="{if $data.state eq 3}active{/if} button">待收货</a>
+			</div>
+			<div class="content-block">
+				<div class="goods-list">
+					{foreach from=$data.goods item=item key=key name=goods}
+					<div class="card">
+						<div class="card-header">
+							<div class="item-title">订单编号:{$item.order_sn}</div>
+							<div class="goods-type" style="color: coral;">
+								{if $item.order_status == 1}
+								等待付款
+								{elseif $item.order_status == 2}
+								等待卖家发货
+								{elseif $item.order_status == 3}
+								等待收货
+								{elseif $item.order_status == 4}
+								订单完成
+								{elseif $item.order_status == 5}
+								已退货
+								{elseif $item.order_status == 6}
+								未付款
+								{else}
+								订单关闭
+								{/if}
+							</div>
+						</div>
+						{if $item.is_p == 0}
+						<div class="card-header">
+							<div class="item-title"><i class="iconfont">&#xe66d;</i>{$item.nick_name}〉</div>
+						</div>
+						<div class="card-content">
+							<a href="javascript:void(0)" class="J-detail" data-order_id="{$item.order_id}" data-order_sn="{$item.order_sn}">
+								<div class="card-content-inner">
+									<div class="goods-img">
+										<img src="{$item.imgs}" alt="">
+									</div>
+									<div class="card">
+										<div class="card-content">
+											<div class="card-content-inner">
+												<div class="inner-text">
+													<p>{$item.name}</p>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer no-border">
+											<div class="goods-money">
+												<span>&yen; {$item.price}</span>
+											</div>
+											<div class="goods-numb">
+												<span>&times; {$item.number}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						{else}
+						{foreach from=$item.goods_info item=item1 key=key1 name=goods_info}
+						<div class="card-header">
+							<div class="item-title"><i class="iconfont">&#xe66d;</i>{$key1}〉</div>
+						</div>
+						<div class="card-content">
+							<a href="javascript:void(0)" class="J-detail" data-order_id="{$item.order_id}" data-order_sn="{$item.order_sn}">
+								{foreach from=$item1 item=item2 key=key2 name=goods_info2}
+								<div class="card-content-inner">
+									<div class="goods-img">
+										<img src="{$item2.imgs}" alt="">
+									</div>
+									<div class="card">
+										<div class="card-content">
+											<div class="card-content-inner">
+												<div class="inner-text">
+													<p>{$item2.name}</p>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer no-border">
+											<div class="goods-money">
+												<span>&yen; {$item2.price}</span>
+											</div>
+											<div class="goods-numb">
+												<span>&times; {$item2.number}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								{/foreach}
+							</a>
+						</div>
+						{/foreach}
+						{/if}
+						<div class="card-footer">
+							<div class="goods-all-money">
+								共计{$item.number}件商品，小计：<span class="goods-money">&yen; {$item.total_diamonds}</span>
+							</div>
+						</div>
+						<div class="card-footer">
+							<div class="goods-all-money">
+								{if $item.order_status eq 1}
+								<span class="f_555 f12">剩<span class="left_time" data-leftTime="{$item.expire_time}"></span>&nbsp;自动关闭</span>
+								<a href="javascript: del({$item.order_id}) " >取消订单</a>
+								<a href="javascript:void(0)" class="J-pay" data-order_id="{$item.order_id}" data-order_sn="{$item.order_sn}">付款</a>
+								{elseif $item.order_status eq 2}
+								<a href="javascript:void(0)" class="J-remind">提醒发货</a>
+								{elseif $item.order_status eq 3}
+								<a href='{url_wap r="shop#see_boring" p="order_sn=$item.order_sn"}'>查看物流</a>&nbsp;&nbsp;
+								<a href="javascript:void(0)" class="J-confirm" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}">确认收货</a>
+								{/if}
+							</div>
+						</div>
+					</div>
+					{/foreach}
+					<input type="hidden" name="total_page" value="{$data.page.count}" />
+				</div>
+			</div>
+		</div>
+		{if $data.goods}
+		<div id="vscope-paging">
+		  	<!-- 加载提示符 -->
+		    <div class="infinite-scroll-preloader" v-if="total_page>1 && page<=total_page">
+		        <div class="preloader"></div>
+		    </div>
+		    <div class="infinite-scroll-preloader data-null" v-if="page>total_page">
+		        <span style="color:#999;font-size:0.75rem;">无更多数据</span>
+		    </div>
+	    </div>
+	    {/if}
+	</div>
+	<script type="text/javascript">
+		var paramet = {
+        state: GetQueryString("state"),
+    },ajax_url,new_paramet,page=2,loading=false,total_page=Number('{$data.page.count}');
+
+		function del($order_id){
+
+			$.confirm("删除订单将不可恢复，是否确认删除？",function(s){
+				if(s){
+					$.get('{url_wap r="shop#shop_order_del" } &order_id='+$order_id,function(messger){
+						$.toast(messger['error'],1000);
+						setTimeout(function(){
+							window.location.reload();
+						},1000);
+					},'json')
+				}
+			});
+		}
+
+		$(".left_time").each(function(){
+			var leftTime = Math.abs(parseInt($(this).attr("data-leftTime")));
+			left_time(leftTime,$(this));
+		});
+
+
+	</script>
+	{include file="inc/footer.html"}

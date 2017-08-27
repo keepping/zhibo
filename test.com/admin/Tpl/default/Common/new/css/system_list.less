@@ -1,0 +1,122 @@
+/*// 主题色*/
+@theme-color1:#5775b5;
+@theme-color2:#389ee1;
+@theme-colorred:#e47470;
+/*字体主色调*/
+@font-color1:#435561;
+@font-color3:#999999;
+
+/*线条主色调*/
+@border-color1:#e5e4e9;
+@border-color2:#cfcfcf;
+@border-cut-color:#eceff4;
+
+/*按钮主色调*/
+@btn-color1:#e47470;
+@btn-color2:#0099cc;
+
+/*底纹色*/
+@bj-color:#f7f7f7;
+@bjtit-color:#f5f6fa;
+
+
+.articlelisttable{
+    padding: 0 9px;
+}
+.articlelisttable .table>tbody>tr>td, 
+.articlelisttable .table>tbody>tr>th, 
+.articlelisttable .table>tfoot>tr>td, 
+.articlelisttable .table>tfoot>tr>th, 
+.articlelisttable .table>thead>tr>td, 
+.articlelisttable .table>thead>tr>th{
+    border-bottom: none;
+    cursor: pointer;
+}
+/*文章页*/
+.articledetailbox{
+    padding:0 60px; 
+}
+.articledetailtit{
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    border-bottom: 1px solid @border-cut-color;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+.articledetailcon{
+    padding-top: 15px ;
+}
+
+
+.system_list .m-withe{
+	padding-bottom: 190px;
+	min-width: 1200px;
+	max-width: 1500px;
+}
+.system_tit .right{
+	float: right;
+	padding-top:12px;
+}
+.system_list_content{
+	padding-top: 20px;
+}
+.system_list_content ul li {
+    width: 275px;
+    margin-left:20px;
+    margin-bottom:20px;
+    display: inline-block;
+    float: left;
+    padding: 10px;
+    padding-bottom: 15px;
+    border: 1px solid @border-cut-color;
+    transition: all 0.1s ease-in-out 0s;
+    -moz-transition: all 0.1s ease-in-out 0s;
+    -webkit-transition: all 0.1s ease-in-out 0s;
+    -o-transition: all 0.1s ease-in-out 0s;
+}
+.system_list_content ul li:hover{
+	-webkit-box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+	box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+	-webkit-transform: translate3d(0, -2px, 0);
+	transform: translate3d(0, -2px, 0);
+    transition: all 0.1s ease-in-out 0s;
+    -moz-transition: all 0.1s ease-in-out 0s;
+    -webkit-transition: all 0.1s ease-in-out 0s;
+    -o-transition: all 0.1s ease-in-out 0s;
+}
+.system_list_content ul li h1{
+	font-size: 16px;
+	line-height: 30px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+
+.system_list_content ul li .imgbox{
+	width: 100%;
+	max-height: 130px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.system_list_content ul li .imgbox img{
+	width: 100%;
+}
+
+.system_list_content ul li .listinfo{
+	line-height:25px;
+    height: 50px;
+    white-space: inherit;
+    display: -webkit-box;
+    -webkit-box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+	margin-bottom: 10px;
+}
+.system_list_content ul li .listinfo2 .f_l{
+	line-height:28px;
+}

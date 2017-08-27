@@ -1,0 +1,41 @@
+{if $data.is_true eq 1}
+<!-- 实物竞拍 -->
+		{foreach from=$data.data.list item=item key=key name=item_name}
+  		{if $item.status eq 0}
+  			<!-- 竞拍中 -->
+      		{include file="/inc/pai_user_true_goods_status_a.html"}
+  		{elseif $item.status eq 1}
+  			<!-- 竞拍成功（结算中） -->
+  			{include file="/inc/pai_user_true_goods_status_b.html"}
+  		{elseif $item.status eq 2}
+  			<!-- 竞拍失败（流拍） -->
+  			{include file="/inc/pai_user_true_goods_status_c.html"}
+  		{elseif $item.status eq 3}
+  			<!-- 竞拍失败（主播关闭） -->
+  			{include file="/inc/pai_user_true_goods_status_d.html"}
+  		{elseif $item.status eq 4}
+  			<!-- 竞拍成功（完成） -->
+  			{include file="/inc/pai_user_true_goods_status_e.html"}
+  		{/if}
+    {/foreach}
+{else}
+<!-- 虚拟竞拍 -->
+	{foreach from=$data.data.list item=item key=key name=item_name}
+  		{if $item.status eq 0}
+  			<!-- 竞拍中 -->
+      		{include file="/inc/pai_user_goods_status_a.html"}
+  		{elseif $item.status eq 1}
+  			<!-- 竞拍成功（结算中） -->
+  			{include file="/inc/pai_user_goods_status_b.html"}
+  		{elseif $item.status eq 2}
+  			<!-- 竞拍失败（流拍） -->
+  			{include file="/inc/pai_user_goods_status_c.html"}
+  		{elseif $item.status eq 3}
+  			<!-- 竞拍失败（主播关闭） -->
+  			{include file="/inc/pai_user_goods_status_d.html"}
+  		{elseif $item.status eq 4}
+  			<!-- 竞拍成功（完成） -->
+  			{include file="/inc/pai_user_goods_status_e.html"}
+  		{/if}
+    {/foreach}
+{/if}

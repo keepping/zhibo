@@ -1,0 +1,85 @@
+<!-- 支付结果 -->
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-goods.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-goods.css";
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-order.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-order.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<script type="text/javascript">
+	var is_true = {$data.data.is_true};
+
+	/*var ua = navigator.userAgent.toLowerCase();	
+	if (/iphone|ipad|ipod/.test(ua)) {
+		document.write("<style>.page, .page-group{height:calc(100% - 22px);}</style>");
+	}*/
+</script>
+<div class="page page-current page_pai_order" id="page-pay_success">
+<!-- 	{if !isApp()}
+ 	<header class="bar bar-nav">
+    	<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      		<span class="icon icon-left"></span>
+    	</a>
+    	<h1 class="title">支付成功</h1>
+  	</header>
+  	{/if} -->
+  	<div class="content>
+		<div class="order_status bg_theme">
+			<div class="container">
+			<!-- 订单状态 -->
+			<div class="status_info">
+				<div class="status f15">支付成功</div>
+				<span class="time f12">您的包裹正整装待发</span>
+			</div>
+			<i class="status_ico status_dated"></i>
+		</div>
+	 	<div class="list-block media-list m0 adress">
+		    <ul>
+		      	<li>
+		        	<div class="item-content f_555">
+		          		<div class="item-media">
+		          			<i class="icon iconfont f20">&#xe661;</i>
+		          		</div>
+		          		<div class="item-inner">
+				            <div class="item-title-row">
+				              	<div class="item-subtitle">收货人：{$data.consignee}</div>
+				              	<div class="item-after">{$data.mobile}</div>
+				            </div>
+				            <div class="item-subtitle">
+				            	<div>收货地址：{$data.address}</div>
+				            </div>
+			          	</div>
+		        	</div>
+		      	</li>
+		    </ul>
+	  	</div>
+	  	<div class="list-block media-list m0 adress">
+		    <ul>
+		      	<li>
+		        	<div class="item-content f_555">
+		          		<div class="item-inner">
+				            <div class="item-title-row">
+				              	<div class="item-subtitle">总价：<span class="diamond f_theme">{$data.diamond}</span></div>
+				            </div>
+				            <div class="item-subtitle" style="margin-top:0.75rem 0;display:-webkit-box;">
+				          		<a href="{$data.order_url}" class="button button-fill button-theme button-round" style="width:48%;margin-right:4%;">查看订单</a>
+				          		<a class="button button-fill button-theme button-round J-join_live" data-id="{$data.pai_id}" style="width:48%;">返回直播首页</a>
+				            </div>
+			          	</div>
+		        	</div>
+		      	</li>
+		    </ul>
+	  	</div>
+  	</div>
+</div>
+<script type="text/javascript">
+	var data_json={
+		"roomId":"{$data.roomId}",
+		"groupId":"{$data.groupId}",
+		"createrId":"{$data.createrId}",
+		"loadingVideoImageUrl":"{$data.loadingVideoImageUrl}"
+	};
+	data_json=JSON.stringify(data_json);
+</script>
+{include file="inc/footer.html"}

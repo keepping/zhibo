@@ -1,0 +1,92 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+
+	function image($image){
+	return "<img src='".$image."' style='height:35px;width:35px;'/>";
+	}
+
+</php>
+
+<script>
+
+	//编辑跳转
+	//	function Goods_item(id)
+	//	{
+	//		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=Goods_item&id="+id;
+	//	}
+
+	function shelves(id){
+		user_id = $("*[name='user_id']").val();
+		if(confirm("确认给主播上架商品？"))
+			$.ajax({
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=shelves&id="+id+"&user_id="+user_id,
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					alert(obj.info);
+					func();
+					function func(){
+						if(obj.status==1){
+							location.href=location.href;
+						}
+					}
+				}
+			});
+	}
+
+	function sold(id){
+		user_id = $("*[name='user_id']").val();
+		if(confirm("确认给主播下架商品？"))
+			$.ajax({
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=sold&id="+id+"&user_id="+user_id,
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					alert(obj.info);
+					func();
+					function func(){
+						if(obj.status==1){
+							location.href=location.href;
+						}
+					}
+				}
+			});
+	}
+
+</script>
+<div class="main">
+	<div class="main_title_list"><div class="list-line-ico"></div>商品列表&nbsp;<a href="{:u("UserGeneral/index")}" class="back_list">{%BACK_LIST}</a></div>
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get">
+			商品名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+
+			<input type="hidden" value="UserGeneral" name="m" />
+			<input type="hidden" value="goods" name="a" />
+			<input type="hidden" value="{:trim($_REQUEST['user_id'])}" name="user_id" />
+			<input type="submit" class="button" value="{%SEARCH}" />
+		</form>
+	</div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="user"
+			action="true"
+			datasource="list"
+			show="id:{%ID}
+			,name:商品名称
+			,imgs|image:商品主图片
+			,imgs_details|image:商品详情图片
+			,price:商品价格(人民币)
+			,pai_diamonds:商品直播价格(钻石)
+			,kd_cost:快递费用
+			,inventory:库存
+			,is_effect|get_is_effect:{%商品状态}
+			,has:主播是否售卖"
+			actionlist="shelves:{%上架},sold:{%下架}" />
+
+	<div class="blank5"></div>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

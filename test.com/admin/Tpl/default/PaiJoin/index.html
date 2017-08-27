@@ -1,0 +1,52 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>竞拍列表</div>
+<php>
+	function get_istrue($pai_status,$pai_record){
+	    switch ($pai_status) {
+	        case '0':
+	            if($pai_record['pai_diamonds']==$pai_record['max']){
+	                return '领先';
+	            }
+	            return '落后';
+	        case '1':
+	            return '待付款';
+	        case '2':
+	            return '排队中';
+	        case '3':
+	            return '超时出局';
+	        case '4':
+	            return '竞拍完成';
+
+	        default:
+	            return '超时出局';
+	    }
+	}
+</php>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		拍品名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+		竞拍人：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+		竞拍时间：<span><input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" /></span>
+		-
+		<span><input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /><input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /></span><input type="hidden" value="PaiJoin" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="pai_record"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,name:拍品名称,podcast_name:主播名称,user_name:竞拍人,consignee:收货人姓名,consignee_mobile:收货人手机号,bz_diamonds:参与保证金,create_time:参与时间,pai_diamonds:最终出价,pai_number:出价次数,pai_status|get_istrue=$pai_record:出价状态" actionlist="pai_id|edit|竞拍详情"/>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

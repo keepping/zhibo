@@ -1,0 +1,89 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+	function to_money($money){
+		return format_price($money);
+	}
+	function get_refund_user_name($uid)
+	{
+		return M("User")->where("id=".$uid)->getField("nick_name");
+	}
+	function get_confirm($id,$vo)
+	{
+		if($vo['is_pay']==0){
+			return "<a href='javascript:refund_allow(".$id.");'>允许</a> <a href='javascript:refund_not_allow(".$id.");'>不允许</a> ";
+ 		}elseif($vo['is_pay']==1){
+			return "<a href='javascript:refund_confirm(".$id.");'>确认支付</a> ";
+		}elseif($vo['is_pay']==2){
+			return "<a>未允许支付</a>";
+		}elseif($vo['is_pay']==3){
+			return "<a>支付成功</a>";
+		}else{
+			return "<a>操作失败</a>";
+		}
+	}
+</PHP>
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<script type="text/javascript">
+function refund_confirm(id)
+{
+	$.weeboxs.open(ROOT+'?m=UserConfirmRefund&a=refund_confirm&id='+id, {contentType:'ajax',showButton:false,title:"确认提现",width:600,height:320});
+}
+function refund_allow(id){
+	$.ajax({
+			url: ROOT+'?m=UserRefund&a=refund_allow&status=1&id='+id,
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_allow&status=1&id='+id, {contentType:'ajax',showButton:false,title:"确认允许提现",width:600,height:140});
+			}
+		});
+}
+function refund_not_allow(id){
+	$.ajax({
+			url: ROOT+'?m=UserRefund&a=refund_allow&status=0&id='+id,
+			data: "ajax=1",
+			dataType: "json",
+			success: function(msg){
+				if(msg.status==0){
+					alert(msg.info);
+				}
+			},
+			error: function(){
+				$.weeboxs.open(ROOT+'?m=UserRefund&a=refund_allow&status=0&id='+id, {contentType:'ajax',showButton:false,title:"确认不允许提现",width:600,height:140});
+			}
+		});
+}
+</script>
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>提现确认列表</div>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px
+		,user_id:主播ID
+		,money|to_money:金额
+		,ticket|:{%USER_TICKET}
+		,user_id|get_refund_user_name:会员名
+		,create_time|to_date:申请时间
+		,memo|get_title:申请备注
+		,is_pay|get_status:是否审核
+		,pay_time|to_date:确认支付时间
+		,reply|get_title:操作备注
+		,pay_log|get_title:支付备注"
+	actionlist="id|get_confirm=$deal,"/>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

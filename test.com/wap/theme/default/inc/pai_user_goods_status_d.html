@@ -1,0 +1,44 @@
+<!-- 竞拍失败（主播关闭） -->
+<li class="card block-good-virtual">
+	<div class="card-header">
+		<div class="item-title">{if $data.is_podcast eq 1}{$item.user_name}{else}{$item.podcast_name}{/if}</div>
+		<div class="item-after">
+			<span class="pai_status_fail">主播关闭</span>
+		</div>
+	</div>
+	<div class="card-content good_content">
+		<div class="list-block media-list">
+	    	<ul>
+	      		<li>
+	      			<a {if $item.order_sn}{if $data.is_podcast eq 1}href='{url_wap r="pai_podcast#order" p="order_sn=$item.order_sn&pai_id=$item.id"}'{else}href='{url_wap r="pai_user#order" p="order_sn=$item.order_sn&pai_id=$item.id"}'{/if} class="item-content"{else}href="javascript:void(0);" class="item-content J-pai_live" data-id="{$item.id}"{/if}>
+			            <div class="item-media">
+			              	<img src="{$item.img}" width="80" height="70">
+			            </div>
+			            <div class="item-inner">
+			              	<div class="item-title-row">
+			                	<div class="item-title good_name">{$item.name}</div>
+			              	</div>
+			              	<div class="item-subtitle f_999">最高价：<span class="diamond f_theme">{$item.last_pai_diamonds}</span></div>
+			              	{if $data.is_podcast neq 1}<div class="item-subtitle f_999">我的出价：<span class="f_theme">{$item.user_pai_info.pai_diamonds}</span></div>{/if}
+			            </div>
+			        </a>
+	          	</li>
+	    	</ul>
+	  	</div>
+	</div>
+	<div class="card-footer">
+		<div class="list-block">
+		    <ul>
+		      	<li class="item-content">
+		        	<div class="item-inner">
+		          		<div class="item-title f_999">
+		          			已退保证金
+						 	<!-- {if $data.is_podcast eq 1}未收款{else}未付款{/if} -->
+		          		</div>
+		          		<div class="item-after"><span class="diamond f_theme">{$item.bz_diamonds}</span></div>
+		        	</div>
+		      	</li>
+		    </ul>
+	  	</div>
+	</div>
+</li>

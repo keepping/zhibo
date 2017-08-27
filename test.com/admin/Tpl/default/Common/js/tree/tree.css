@@ -1,0 +1,86 @@
+[class^="iconTree-"],
+[class*=" iconTree-"] {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	margin-top: -2px;
+	*margin-right: .3em;
+	line-height: 14px;
+	vertical-align: text-top;
+	background-image: url("./icon_tree.png");
+	background-position: 14px 14px;
+	background-repeat: no-repeat
+}
+.iconTree-minus-sign {
+	background-position: -7px -7px;
+}
+.iconTree-plus-sign {
+    background-position: -31px -7px;
+}
+.iconTree-folder-open {
+    background-position: -79px -6px;
+}
+.iconTree-user {
+    background-position: -55px -6px;
+}
+a {
+    color: #08c;
+    text-decoration: none;
+}
+.tree {
+    min-height:20px;
+    margin:0px;
+    background-color:#fbfbfb;
+    
+    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+.tree ul{
+	margin: 0;
+    padding-left: 28px;
+    padding-top: 7px;
+}
+.tree li {
+    list-style-type:none;
+    margin:0;
+    padding:12px 5px 0 10px;
+    position:relative
+}
+.tree li::before, .tree li::after {
+    content:'';
+    left:-20px;
+    position:absolute;
+    right:auto
+}
+.tree li::before {
+    border-left:1px dotted #999;
+    bottom:50px;
+    height:100%;
+    top:-6px;
+    width:1px
+}
+.tree li::after {
+    border-top:1px dotted #999;
+    height:20px;
+    top:25px;
+    width:25px
+}
+.tree li span {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    /*border:1px solid #999;
+    border-radius:5px;*/
+    display:inline-block;
+    padding:3px 8px;
+    text-decoration:none
+}
+.tree li.parent_li>span {
+    cursor:pointer
+}
+.tree>ul>li::before, .tree>ul>li::after {
+    border:0
+}
+.tree li:last-child::before {
+    height:30px
+}

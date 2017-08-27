@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_user_name($user_id)
+	{
+		return M("User")->where("id=".intval($user_id))->getField("nick_name");
+	}
+	function get_red_time($time)
+	{
+	   if($time == '0000-00-00 00:00:00'){
+			return '';
+		}else{
+			return $time;
+		}
+	}
+	function get_edit($exchange_time,$id){
+ 		if(to_timespan($exchange_time) >0){
+			return "";
+		}
+		else{
+			return "<a href=\"javascript:edit('".$id."')\">编辑</a>";
+		}
+	}
+</php>
+<script>
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		名称：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		兑换码：<input type="text" style="width:60px;" class="textbox" name="sn" value="{:trim($_REQUEST['sn'])}" />
+		会员呢称：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" />
+		会员ID：<input type="text" style="width:80px;" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" />
+		
+		   <input type="hidden" value="EduRed" name="m" />
+		   <input type="hidden" value="index" name="a" />
+		   <input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="data"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="
+	,id:{%ID}|50px
+	,title:红包名称:edit
+	,diamonds:钻石数
+	,sn:兑换码
+	,user_id:会员ID
+	,user_id|get_user_name:会员呢称
+	,exchange_time|get_red_time:兑换时间
+	,end_time|get_red_time:过期时间
+	,create_time|to_date:{%CREATE_TIME}"
+	actionlist="exchange_time|get_edit=$data['id'],foreverdel:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="9">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

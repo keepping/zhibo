@@ -1,0 +1,50 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function getStatus($status){
+        switch($status){
+        	case 1: return '申请上庄';
+        	case 2: return '取消上庄';
+        	case 3: return '正在上庄';
+        	case 4: return '下庄';
+        	default: return '错误';
+    	}
+	}
+	function create_time($create_time){
+        return to_date($create_time);
+	}
+</php>
+
+<script>
+</script>
+<div class="main">
+<div class="main_title_list">
+    <div class="list-line-ico"></div>游戏上庄记录
+</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            用户id：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" />
+            直播id<input type="text" class="textbox" name="video_id" value="{:trim($_REQUEST['video_id'])}" />
+            <input type="hidden" value="Games" name="m" />
+            <input type="hidden" value="bankerLog" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="user"
+			datasource="list"
+			show="id:{%ID}
+            ,user_id:用户id
+			,video_id:直播id
+            ,apply_coin:上庄金额
+			,coin:底金
+			,status|getStatus:状态
+			,create_time|create_time:时间" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,90 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<include file="Public:new" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>待确认申述列表</div>
+<php>
+    function get_weibo_type($type){
+        switch($type){
+			case 'imagetext':
+			return '图文动态';
+	case 'video':
+	return '视频动态';
+
+	case 'weixin':
+	return '微信账号';
+
+	case 'goods':
+	return '虚拟商品动态';
+
+	case 'red_photo':
+	return '红包图片动态';
+
+	case 'photo':
+	return '写真动态';
+		}
+    }
+    function get_nickname($id){
+        $get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+        return $get_nickname;
+    }
+	function screenshot($screenshot){
+		return "<img src='".$screenshot."' style='height:35px;width:35px;'/>";
+	}
+	function get_weibo_status($status){
+		if($status){
+			return '上架';
+		}else{
+			return '下架';
+		}
+	}
+</php>
+<div class="button_row">
+	<!--<input type="button" class="button" value="{%ADD}" onclick="add();" />-->
+</div>
+
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>举报人ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px;" /></div>
+        <div>被举报动态ID：<input type="text" class="textbox" name="weibo_id" value="{:trim($_REQUEST['weibo_id'])}" style="width:100px;" /></div>
+		<div>被举报会员ID：<input type="text" class="textbox" name="to_user_id" value="{:trim($_REQUEST['to_user_id'])}" style="width:100px;" /></div>
+
+		<div>举报时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span> - <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span>
+			<input type="hidden" value="WeiboAllegeList" name="m" />
+			<input type="hidden" value="already_deal" name="a" />
+			<input type="submit" class="button" value="{%SEARCH}" />
+		</div>	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="tipoff"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px
+			,user_id|get_nickname=$list['user_id']:发布人
+			,weibo_id:被举报动态ID
+			,to_user_id|get_nickname=$list['to_user_id']:被举报的会员
+			,price:价格
+			,create_time|to_date:发布时间
+			"
+	actionlist="edit:{%EDIT},foreverdel:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="8">
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

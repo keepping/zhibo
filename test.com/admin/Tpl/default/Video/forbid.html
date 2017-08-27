@@ -1,0 +1,38 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+    function get_nickname($id){
+        $get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+        return $get_nickname;
+    }
+</PHP>
+
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$video.id} 被禁言观众列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="删除" onclick="del_forbid_list();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="forbid"
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}
+		,user_id:禁言观众ID
+		,user_id|get_nickname=$forbid['user_id']:禁言观众昵称
+		,shut_up_time|to_date:禁言时间"
+	actionlist="del_forbid_list:删除" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,26 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>轮播广告列表</div>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="cate"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:标题:edit,show_position|get_position:显示位置|200px,type|get_indeximage_type:类型|200px,sort|get_sort=$cate['id']:{%SORT}"
+	actionlist="edit:{%EDIT}, foreverdel:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="6">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

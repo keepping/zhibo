@@ -1,0 +1,37 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<PHP>
+	function get_slb_group($slb_group_id){
+		$slb_group_name=$GLOBALS['db']->getOne("select name from ".DB_PREFIX."slb_group where id=".$slb_group_id);
+ 		return $slb_group_name;
+    }
+	
+</PHP>
+<div class="blank10"></div>
+	<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="apilist" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:接口名称
+		,ctl_act:接口参数
+		,has_cookie:是否传cookie
+		,slb_group_id|get_slb_group:服务器集群" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL}" /> 
+	
+	<table class="dataTable">
+		<tbody>
+			<td colspan="7">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%FOREVERDEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

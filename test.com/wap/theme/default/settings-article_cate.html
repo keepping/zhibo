@@ -1,0 +1,30 @@
+<!-- 关于 -->
+{include file="inc/header.html"}
+<div class="page page-current" id="page-settings-article_cate">
+<!-- 	{if !isApp()}
+	<header class="bar bar-nav">
+    	<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      		<span class="icon icon-left"></span>
+    	</a>
+    	<h1 class="title">{$data.page_title}</h1>
+  	</header>
+  	{/if} -->
+	<div class="content aboutapp">
+		<div class="help-list">
+			<div class="list-block help-list-block">
+				<ul>
+					{foreach from=$data.article_cates item=item key=key name=article_catess}
+				  	<li class="item-content item-link">
+				    	<a href='{url_wap r="settings#article_show" p="cate_id=$item.id"}' class="item-inner">
+				      		<div class="item-title">{$item.title}</div>
+				      		<div class="item-after"></div>
+			    		</a>
+				  	</li>
+				  	{/foreach}
+				</ul>
+			</div>
+            <div style="font-size: 12px;text-align: center;color: #808080">{$data.site_license}</div>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

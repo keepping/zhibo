@@ -1,0 +1,43 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+	function get_view($id)
+	{
+		return "<a href='".url("Deal#updatedetail",array("id"=>$id))."' target='_blank'>查看</a>";
+	}
+    function get_nickname($id){
+        $get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+        return $get_nickname;
+    }
+</PHP>
+
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$video.title} {%TICKET_CONTRIBUTION}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="删除" onclick="del_contribution_list();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="contribution"
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}
+		,video_id:直播ID
+		,user_id:贡献用户ID
+		,user_id|get_nickname=$contribution['user_id']:贡献用户昵称
+		,num:贡献数量"
+	actionlist="del_contribution_list:删除" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

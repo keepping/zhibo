@@ -1,0 +1,119 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">竞拍详情 <a href="{:u("PaiGoods/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=6 class="topTd"></td>
+	</tr>
+	<tr>
+		<if condition="$vo['is_true']=='虚拟'">
+			<td class="item_title">拍品名称:</td>
+			<td class="item_input">{$vo.name}</td>
+			<td class="item_title">联系人:</td>
+			<td class="item_input">{$vo.contact}</td>
+			<td class="item_title">发布时间:</td>
+			<td class="item_input">{$vo.create_time}</td>
+			<else />
+			<td class="item_title">拍品名称:</td>
+			<td class="item_input" colspan=3>{$vo.name}</td>
+			<td class="item_title">发布时间:</td>
+			<td class="item_input">{$vo.create_time}</td>
+		</if>
+	</tr>
+	<tr>
+		<td class="item_title">竞拍保证金:</td>
+		<td class="item_input">{$vo.bz_diamonds}</td>
+		<td class="item_title">起拍价:</td>
+		<td class="item_input">{$vo.qp_diamonds}</td>
+		<td class="item_title">加价幅度:</td>
+		<td class="item_input">{$vo.jj_diamonds}</td>
+
+	</tr>
+	<tr>
+		<td class="item_title">竞拍时间(小时):</td>
+		<td class="item_input">{$vo.pai_time}</td>
+		<td class="item_title">延迟值(分):</td>
+		<td class="item_input">{$vo.pai_yanshi}</td>
+		<td class="item_title">最大延时(次):</td>
+		<td class="item_input">{$vo.max_yanshi}</td>
+
+	</tr>
+	<tr>
+		<td class="item_title">竞拍状态:</td>
+		<td class="item_input">{$vo.status}</td>
+		<td class="item_title">拍品属性:</td>
+		<td class="item_input">{$vo.is_true}</td>
+		<td class="item_title">已延迟(次):</td>
+		<td class="item_input">{$vo.now_yanshi}</td>
+	</tr>
+	<if condition="$vo['is_true']=='虚拟'">
+		<tr>
+			<td class="item_title">联系电话:</td>
+			<td class="item_input" colspan=5>{$vo.mobile}</td>
+		</tr>
+	</if>
+	<tr>
+		<if condition="$vo['is_true']=='虚拟'">
+			<td class="item_title" >拍品标签:</td>
+			<td class="item_input" >{$vo.tags}</td>
+			<td class="item_title" >拍品描述:</td>
+			<td class="item_input" colspan=3>{$vo.description}</td>
+			<else />
+			<td class="item_title" >拍品描述:</td>
+			<td class="item_input" colspan=5>{$vo.description}</td>
+		</if>
+	</tr>
+	<tr>
+		<if condition="$vo['is_true']=='虚拟'">
+			<td class="item_title">主播名称:</td>
+			<td class="item_input">{$vo.podcast_name}</td>
+			<td class="item_title">约会地点:</td>
+			<td class="item_input">{$vo.place}</td>
+			<td class="item_title">约会时间:</td>
+			<td class="item_input">{$vo.date_time}</td>
+			<else />
+			<td class="item_title">主播名称:</td>
+			<td class="item_input" colspan=5>{$vo.podcast_name}</td>
+		</if>
+
+	</tr>
+	<tr>
+		<td class="item_title">最后竞拍用户:</td>
+		<td class="item_input">{$vo.last_user_name}</td>
+		<td class="item_title">最后出价金额:</td>
+		<td class="item_input">{$vo.last_pai_diamonds}</td>
+		<td class="item_title">下单时间:</td>
+		<td class="item_input">{$vo.order_time}</td>
+	</tr>
+	<if condition="($vo['status']=='竞拍成功')">
+		<tr>
+			<td class="item_title">拍到的人:</td>
+			<td class="item_input">{$vo.user_name}</td>
+			<td class="item_title">收货电话:</td>
+			<td class="item_input">{$user['consignee_mobile']}</td>
+			<td class="item_title">最终出价:</td>
+			<td class="item_input">{$user['pai_diamonds']}</td>
+		</tr>
+	</if>
+
+	<if condition="$imgs neq '' " >
+		<tr>
+			<foreach name="imgs" item="region" key="key">
+				<if condition="$key&&($key%3==0)" ></tr><tr></if>
+				<td class="item_title">图片{$key+1}:</td>
+				<td class="item_input" ><image style="width:30px;height:30px" src="{$region}"></image></td>
+			</foreach>
+		</tr>
+	</if>
+
+	<tr>
+		<td colspan=6 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

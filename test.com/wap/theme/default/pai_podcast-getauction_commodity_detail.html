@@ -1,0 +1,20 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-grade.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-grade.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<style>
+	img{max-width:100%;}
+</style>
+<div class="page" id="page-getauction_commodity_detail">
+	<div class="content">
+        {foreach from=$data.pai_goods item=item  key=key}
+        <p><img src="{$item.image_url}"></p>
+        {/foreach}
+        {foreach from=$data.goods_detail item=item  key=key}
+        <p><img src="{$item.image_url}"></p>
+        {/foreach}
+	</div>
+</div>
+{include file="inc/footer.html"}

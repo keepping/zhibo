@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")}</title>
+<script type="text/javascript" src="__ROOT__/public/runtime/admin/lang.js"></script>
+<script type="text/javascript">
+	var version = '{:app_conf("DB_VERSION")}';
+	var app_type = '{$apptype}';
+	var ofc_swf = '__TMPL__Common/js/open-flash-chart.swf';
+	var sale_line_data_url = '{:urlencode(u("Ofc/sale_line"))}';
+	var sale_refund_data_url = '{:urlencode(u("Ofc/sale_refund"))}';
+</script>
+<load href='__TMPL__Common/style/style.css' />
+<load href='__TMPL__Common/style/main.css' />
+<load href='__TMPL__Common/js/jquery.js' />
+</head>
+
+<body>
+	<div class="main">
+		<div class="main_title">网站统计信息</div>
+		<div class="notify_box">
+			<table>
+				<tr>
+					<td class="statbox statbox order_box" >
+						<table>
+							<tr>
+								<th>会员统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+		                    			<span class="t">会员总数：</span><span class="bx"><a href="{:u("UserGeneral/index")}">{$user_count}</a></span>
+									</div>
+									<div class="blank0"></div>
+									<div class="row">
+		                    			<span class="t">有效账户：</span><span class="bx"><a href="{:u("UserGeneral/index")}">{$is_effect}</a></span>
+									</div>
+									<div class="blank0"></div>
+									<div class="row">
+		                    			<span class="t">无效账户：</span><span class="bx"><a href="{:u("UserAudit/index")}">{$no_effect}</a></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+		            <td class="statbox statbox version_box" style="padding: 12px 10px 0">
+						<table>
+							<tr>
+								<th>认证统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+		                    			<span class="t">个人认证：</span><span class="bx"><a href="{:u("UserGeneral/index",array("is_authentication"=>2))}">{$user_authentication}</a></span>
+									</div>
+									<div class="blank0"></div>
+									<!--<div class="row">
+		                    			<span class="t">企业认证：</span><span class="bx"><a href="{:u("UserBusinessInvestor/index")}">{$business_authentication}</a></span>
+									</div>-->
+									<div class="blank0"></div>
+									<!--<div class="row">
+		                    			<span class="t">所有认证：</span><span class="bx"><a href="{:u("User/index")}">{$all_authentication}</a></span>
+									</div>-->
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="statbox statbox tuan_box">
+						<table>
+							<tr>
+								<th>资金统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+										<span class="t">线上充值：</span><span class="bx"><a href="{:u("RechargeNotice/index",array("is_paid"=>1))}">￥{:number_format($online_pay,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">总计：</span><span class="bx">￥{:number_format($total_usre_money,2)}</span>
+									</div>
+						
+							</td></tr>
+						</table>
+					</td>
+				</tr>
+				<!--<tr>
+					<td class="statbox statboxB user_box">
+						<table>
+							<tr>
+								<th>理财统计</th>
+							</tr>
+							<tr>
+								<td>   
+									<div class="row">
+										<span class="t">理财个数：</span><span class="bx"><a href="{:u("Licai/index")}">{$licai_count}个</a></span>
+									</div>
+									<div class="row">
+										<span class="t">理财订单：</span><span class="bx"><a href="{:u("LicaiOrder/order_list")}">{$licai_order_count}个</a></span>
+									</div>                                   
+									<div class="row">
+										<span class="t">赎回订单：</span><span class="bx"><a href="{:u("LicaiRedempte/index")}">{$licai_redempte_count}个</a></span>
+									</div>
+                                    <div class="row">
+										<span class="t">已发放订单：</span><span class="bx"><a href="{:u("LicaiSend/index")}">{$licai_send_count}个</a></span>
+									</div>
+                                       
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>-->
+				<!--<tr>
+					<td class="statbox statboxB event_box">
+						<table>
+							<tr>
+								<th>投资者收益统计</th>
+							</tr>
+							<tr>
+								<td>
+		                			<div class="row">
+										<span class="t">成功筹款：</span><span class="bx"><a href="{:u("DealOnline/online_index")}">￥{:number_format($success_amount,2)}</a></span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+		                			<div class="row">
+										<span class="t">已发放筹款：</span><span class="bx"><a href="{:u("DealOnline/online_index")}">￥{:number_format($deal_pay_log,2)}</a></span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+		                			<div class="row">
+										<span class="t">待发放筹款：</span><span class="bx"><a href="{:u("DealOnline/online_index")}">￥{:number_format($no_deal_pay_log,2)}</a></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>-->
+				<!--<tr>
+					<td class="statbox statboxB shop_box">
+						<table>
+							<tr>
+								<th>网站收益统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+										<span class="t">项目佣金：</span><span class="bx">￥{:number_format($commission,2)}</span>
+									</div>
+		                        
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>-->
+			</table>
+		</div>	
+	
+	</div>
+    <!--借款 退款  提现-->
+</body>
+</html>

@@ -1,0 +1,26 @@
+@import (once) "public/variable.less";
+.block-good-virtual .list-block ul{
+	padding-left:0;
+}
+.block-good-virtual .card-footer{display:block;padding:0;}
+.block-good-virtual .list-block li:last-child .item-inner:after{background-color:transparent;}
+
+.block-good-virtual .good_content{
+	background-color:#f5f5f5;
+}
+.goods_list .card-footer:before, .goods_list .card-header:after,
+.order_list .card-footer:before, .order_list .card-header:after{
+	background-color:transparent;
+}
+.page_pai_goods{
+	& .bar-nav{
+		padding:0;
+		& .buttons-tab .button{
+			top:0;
+		}
+	}
+}
+.buttons-tab .button:active{
+	border-color:transparent;
+	color:#5f646e;
+}

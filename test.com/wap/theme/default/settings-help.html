@@ -1,0 +1,40 @@
+<!-- 关于 -->
+{include file="inc/header.html"}
+<div class="page page-current" id="page-settings-help">
+	<div class="content">
+		<div class="help-list">
+			<div class="help-list-title">热门问题</div>
+			<div class="list-block help-list-block">
+				<ul>
+					{foreach from=$data.hot_faq item=item key=key name=item_name}
+				  	<li class="item-content item-link">
+					    <a href='{url_wap r="settings#faq_show" p="id=$item.id"}' class="item-inner">
+					      	<div class="item-title" v-cloak>{$item.question}</div>
+					      	<div class="item-after"></div>
+					    </a>
+				  	</li>
+				  	{/foreach}
+				</ul>
+			</div>
+			<div class="help-list-title">全部问题</div>
+			<div class="help-list-block-all">
+				{foreach from=$data.faq_cates item=item key=key name=item_name}
+				<a href='{url_wap r="settings#faq" p="faq_group=$item.group"}' class="help-list-block-all-a">
+					{if $item.group eq '充值问题'}
+						<i class="icon iconfont i1">&#xe64a;</i>
+					{elseif $item.group eq '直播问题'}
+						<i class="icon iconfont i2">&#xe649;</i>
+					{elseif $item.group eq '认证问题'}
+						<i class="icon iconfont i3">&#xe647;</i>
+					{else}
+						<i class="icon iconfont i4">&#xe648;</i>
+					{/if}
+					<span>{$item.group}</span>
+			    </a>
+			    {/foreach}
+			</div>
+			<div class=""></div>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

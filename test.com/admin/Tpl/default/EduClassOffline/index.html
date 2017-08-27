@@ -1,0 +1,38 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<php>
+	function get_nick_name($user_id){
+		return $GLOBALS['db']->getOne("select o.title from ".DB_PREFIX."user as u,".DB_PREFIX."edu_org as o where u.id = o.user_id and o.user_id=".$user_id);
+    }
+</php>
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduClassOffline" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="hidden" value="{:trim($_REQUEST['user_id'])}" name="user_id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="class"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:名称:edit,user_id|get_nick_name:机构名称,price:价格,class_num:课时,sale_count:已售课时"
+	actionlist="edit:编辑详情,view_order:订单列表,del:{%DEL}" />
+<div class="page">{$page}</div>
+</div>
+<script>
+	function add_class(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClassOffline&"+VAR_ACTION+"=add&user_id="+id;
+	}
+	
+	function view_order(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduOfflineOrder&"+VAR_ACTION+"=index&class_id="+id;
+	}
+</script>
+<include file="Public:footer" />

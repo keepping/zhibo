@@ -1,0 +1,19 @@
+{include file="inc/header.html"}
+<div class="page page-faq_show" id="page-settings-faq_show">
+<!-- 	{if !isApp()}
+	<header class="bar bar-nav">
+    	<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      		<span class="icon icon-left"></span>
+    	</a>
+    	<h1 class="title">帮助与反馈</h1>
+  	</header>
+  	{/if} -->
+	<div class="content">
+		<div class="m-article">
+			<h1 class="article-title">{$data.faq_info.question}</h1>
+			<p class="article-info">{$data.faq_info.answer}</p>
+			<p class="question">没找到，不妨去<a href='{url_wap r="settings#faq" p="faq_group=$data.faq_info.group"}'>{$data.faq_info.group}</a>看看</p>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,26 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<div class="main">
+	<PHP>
+	function confirm($id){
+		return '--';
+	}
+	</php>
+<div class="main_title"></div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="deal"
+	action="true"
+	datasource="list"
+	show="id:主播ID
+		,nick_name|:主播昵称
+		,max_ticket|:当前实际收取印票
+		,actual_ticket|:实际持有映票数
+		,differ|:相差
+		,refund_ticket|:已提现映票数
+		,surplus_ticket|:剩映票数"
+	actionlist="" />
+<div class="page">{$page}</div>
+</div>

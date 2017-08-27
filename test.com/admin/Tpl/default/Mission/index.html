@@ -1,0 +1,40 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>每日任务列表</div>
+<div class="blank10"></div>
+<php>
+	function get_type($type){
+		$title = [
+	        0 => '在线任务',
+	        1 => '玩游戏任务',
+	        2 => '打赏主播任务',
+	        3 => '分享主播任务',
+	        4 => '关注主播任务',
+	    ];
+	    return $title[$type];
+	}
+</php>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}
+	,name:任务标题,time:时间间隔(s),type|get_type:类型,sort|get_sort=$item['id']:{%SORT},is_effect|get_is_effect=$item['id']:{%IS_EFFECT}"
+	actionlist="edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="5">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+
+			</td>
+		</tbody>
+	</table>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

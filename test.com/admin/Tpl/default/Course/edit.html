@@ -1,0 +1,69 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Course/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">课程编号:</td>
+        <td class="item_input">{$vo.id}</td>
+    </tr>
+    <tr>
+        <td class="item_title">课程名称:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="title" value="{$vo.title}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">封面:</td>
+        <td class="item_input"><html:imgUpload  name="image" id='image' value="$vo.img"/>
+            <span class='tip_span'>&nbsp;[封面规格为：??px*??px]</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">热门:</td>
+        <td class="item_input">
+        <label>是<input type="radio" name="is_hot" value="1"  <if condition="$vo['is_hot'] eq 1">checked="checked"</if> /></label>
+        <label>否<input type="radio" name="is_hot" value="0"  <if condition="$vo['is_hot'] eq 0">checked="checked"</if> /></label>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">推荐:</td>
+        <td class="item_input">
+        <label>是<input type="radio" name="is_recommend" value="1"  <if condition="$vo['is_recommend'] eq 1">checked="checked"</if> /></label>
+        <label>否<input type="radio" name="is_recommend" value="0"  <if condition="$vo['is_recommend'] eq 0">checked="checked"</if> /></label>
+        </td>
+    </tr>
+    <tr  id="general">
+        <td class="item_title">内容:</td>
+        <td class="item_input">
+             <html:editor id="editor" name="content" type="KINDEDITOR" content="{$vo.content}" />
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">是否有效:</td>
+        <td class="item_input">
+        <label>是<input type="radio" name="is_effect" value="1"  <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></label>
+        <label>否<input type="radio" name="is_effect" value="0"  <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></label>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title"></td>
+        <td class="item_input">
+            <!--隐藏元素-->
+            <input type="hidden" name="{:conf("VAR_MODULE")}" value="Course" />
+            <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+            <input type="hidden" name="id" value="{$vo.id}" />
+            <!--隐藏元素-->
+            <input type="submit" class="button" value="{%EDIT}" />
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+</table>
+
+</form>
+</div>
+<include file="Public:footer" />

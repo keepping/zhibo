@@ -1,0 +1,95 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_shopping_cart.css";
+	$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-shop_shopping_cart.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page-shop-shop_shopping_cart" id="page-shop-shop_shopping_cart">
+    <div class="content infinite-scroll pull-to-refresh-content">
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+        </div>
+        
+        <div class="goods-list">
+        {if $data.goods}
+        	{foreach from=$data.goods item=item key=key name=item_name}
+            <div class="card goods-item">
+                <div class="card-header">
+                	<div class="header-left">
+                		{if $item.is_effect == 1}<input type="checkbox" name="shopping-cart-top" value="" class="input-check" data-id="{$item.goods_id}" />{else $item.is_effect == 0}{/if}
+    					<span><i class="iconfont">&#xe66c;</i>{$item.podcast_name}</span>
+                	</div>
+                	<div class="header-right">
+                		{if $item.is_effect == 1}<a href="javascript:void(0)" class="J-edit" data-id='{$item.goods_id}' data-podcast_id='{$item.podcast_id}'>编辑</a>{else $item.is_effect == 0}<a href="javascript:void(0)" class="J-delete confirm-ok" data-id='{$item.goods_id}' data-podcast_id='{$item.podcast_id}'>删除</a>{/if}
+                	</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                    	{if $item.is_effect == 1}<input type="checkbox" name="shopping-cart" value="5" class="input-check"/>{else $item.is_effect == 0}<span class="invalid">失效</span>{/if}
+                    	<div class="inner-goods">
+                    		<img src="{$item.imgs}" alt="">
+                    		<div class="goods-text">
+                    			<p class="goods-title">{$item.name}</p>
+                    			<div class="card-footer">
+                        			<div class="goods-money">
+                        				<span class="money">{$item.unit_price}</span>
+                        				<input type="hidden" name="input-money" class="input-money" value="{$item.unit_price}" data-id='{$item.goods_id}' data-podcast_id='{$item.podcast_id}'>
+                        			</div>
+                        			<div class="goods-numb" data-id="{$item.number}">x{$item.number}</div>
+                        			<input type="hidden" name="input-number" class="input-number" value="{$item.number}">
+                        		</div>
+                    		</div>
+                    		<div class="goods-edit active">
+                    			<div class="edit-numb">
+                    				<span class="lost" data-id='{$item.goods_id}'>-</span>
+                                    <input type="number" name="amount" value="{$item.number}" class="input input-goods-num" data-id='{$item.goods_id}'>
+                                    <span class="add" data-id='{$item.goods_id}'>+</span>
+                    			</div>
+                    			<div class="edit-delete">
+                        			<a href="javascript:void(0)" class="J-delete" data-id='{$item.goods_id}' data-podcast_id='{$item.podcast_id}'>删除</a>
+                        		</div>
+                    		</div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+            <input type="hidden" name="total_page" value="{$data.page.count}" />
+            {else}
+                <div id="vscope-paging">
+                    
+                    <div class="infinite-scroll-preloader data-null" v-if="page>total_page">
+                        <span class="null-data" style="color:#999;font-size:0.75rem;">无更多数据</span>
+                    </div>
+                </div>
+            {/if}
+        </div>
+    </div>
+    
+    <nav class="bar bar-tab">
+    	<div class="allcheckbox">
+    		<input type="checkbox" name="shopping-cart-all" value="" class="input-check"/>全选
+    	</div>
+    	<div class="settlement">
+    		<div class="nav-text">
+    			<p>合计：<span class="money">￥<em class="J-money">0</em></span></p>
+    			<p class="txt">不含运费{$data.goods.user_id}</p>
+    		</div>
+    		<a href="javascript:void(0)" class="button button-big J-settlement">结算</a>
+    	</div>
+    </nav>
+</div>
+<script type="text/javascript">
+	var data = {
+        goods_id: '{$data.goods.goods_id}',
+        podcast_id: '{$data.goods.podcast_id}',
+        number: 0
+    };
+    var paramet = {
+            page: 1
+        },ajax_url, new_paramet, page = 2,loading = false,total_page = Number('{$data.page.count}');
+
+</script>
+{include file="inc/footer.html"}

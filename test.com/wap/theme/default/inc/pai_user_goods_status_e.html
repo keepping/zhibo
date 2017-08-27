@@ -1,0 +1,197 @@
+<!-- 竞拍成功（完成） -->
+<li class="card block-good-virtual">
+	<div class="card-header">
+		<div class="item-title">{if $data.is_podcast eq 1}{$item.user_name}{else}{$item.podcast_name}{/if}</div>
+		<div class="item-after">
+			{if $item.refund_platform eq 2 || $item.refund_platform eq 4}
+				<span class="pai_status_fail">竞拍失败</span>
+			{else}
+				{if $data.is_podcast eq 1}
+				<!-- 主播端 -->
+					{if $item.order_status eq 2}
+						{if $item.expire_date_time gt 0}
+						<span class="pai_status_ing">等待完成约会</span>
+						{else}
+						<span class="pai_status_ing">已完成约会</span>
+						{/if}
+					{elseif $item.order_status eq 3}
+						<span class="pai_status_ing">等待买家确认</span>
+					{elseif $item.order_status eq 4}
+						<span class="pai_status_success">竞拍成功</span>
+					{elseif $item.order_status eq 5}
+						<span class="pai_status_fail">退款</span>
+					{/if}
+				{else}
+				<!-- 观众端 -->
+					{if $item.order_status eq 2}
+						{if $item.expire_date_time gt 0}
+						<span class="pai_status_ing">等待完成约会</span>
+						{else}
+						<span class="pai_status_ing">等待主播确认</span>
+						{/if}
+					{elseif $item.order_status eq 3}
+						<span class="pai_status_ing">已完成约会</span>
+					{elseif $item.order_status eq 4}
+						<span class="pai_status_success">竞拍成功</span>
+					{elseif $item.order_status eq 5}
+						<span class="pai_status_fail">退款</span>
+					{elseif $item.order_status eq 6}
+						<span class="pai_status_fail">超时未付款</span>
+					{elseif $item.order_status eq 0}
+						<span class="pai_status_fail">出局</span>
+					{/if}
+				{/if}
+			{/if}
+		</div>
+	</div>
+	<div class="card-content good_content">
+		<div class="list-block media-list">
+	    	<ul>
+	      		<li>
+	      			<a {if $item.order_sn}{if $data.is_podcast eq 1}href='{url_wap r="pai_podcast#order" p="order_sn=$item.order_sn&pai_id=$item.id"}'{else}href='{url_wap r="pai_user#order" p="order_sn=$item.order_sn&pai_id=$item.id"}'{/if} class="item-content"{else}href="javascript:void(0);" class="item-content J-pai_live" data-id="{$item.id}"{/if}>
+			            <div class="item-media">
+			              	<img src="{$item.img}" width="80" height="70">
+			            </div>
+			            <div class="item-inner">
+			              	<div class="item-title-row">
+			                	<div class="item-title good_name">{$item.name}</div>
+			              	</div>
+			              	<div class="item-subtitle f_999">最高价：<span class="diamond f_theme">{$item.last_pai_diamonds}</span></div>
+			            </div>
+			        </a>
+	          	</li>
+	    	</ul>
+	  	</div>
+	</div>
+	<div class="card-footer">
+		<div class="list-block">
+		    <ul>
+		      	<li class="item-content">
+		        	<div class="item-inner">
+		          		<div class="item-title f_999">
+		          			{if $data.is_podcast eq 1}
+		          				{if $item.order_status lte 3}
+		          					待收款
+								{elseif $item.order_status eq 5}
+									已退款
+								{elseif $item.order_status eq 6}
+									{if $item.join_status eq 0}保证金托管中{elseif $item.join_status eq 1}已退保证金{else}已扣买家保证金{/if}
+								{else}
+									已收款
+								{/if}
+							{else}
+								{if $item.order_status eq 5}
+									已退款
+								{elseif $item.order_status eq 6 || $item.order_status eq 0}
+									{if $item.join_status eq 0}保证金托管中{elseif $item.join_status eq 1}已退保证金{else}已扣除保证金{/if}
+								{else}
+									已付款
+								{/if}
+							{/if}
+		          		</div>
+		          		<div class="item-after">
+		          			{if $item.order_status eq 6 || $item.order_status eq 0}
+		          			<span class="diamond f_theme">{$item.bz_diamonds}</span>
+		          			{else}
+			          			{if $data.is_podcast eq 1}
+			          			<span class="f_theme">{$item.mark} {$item.podcast_ticket}</span>
+			          			{else}
+			          			<span class="diamond f_theme">{$item.pai_diamonds}</span>
+			          			{/if}
+		          			{/if}
+		          		</div>
+		        	</div>
+		      	</li>
+		      	{if $item.refund_platform neq 2 && $item.refund_platform neq 4}
+			      	{if $item.order_status lt 4 && ($item.order_status eq 2 || $item.order_status eq 3)}
+			      	<li class="item-content">
+				        <div class="item-inner">
+			        		{if $item.order_status eq 2}
+		          				<div class="item-title">
+									{if $item.expire_date_time gt 0}
+									<span class="f_555 f12">距离约会时间还剩&nbsp;<span class="left_time" data-leftTime="{$item.expire_time}"></span></span>
+									{else}
+										{if $data.is_podcast eq 1}
+										<span class="f_555 f12">距离确认完成还剩&nbsp;<span class="left_time" data-leftTime="{$item.expire_time}"></span></span>
+										{else}
+										<span class="f_555 f12">等待主播确认完成&nbsp;<span class="left_time" data-leftTime="{$item.expire_time}"></span></span>
+										{/if}
+									{/if}
+								</div>
+								{if $item.expire_date_time gt 0}
+			          			<div class="item-after">
+			          				{if $data.is_podcast eq 1}
+			          				<a href="javascript:void(0);" class="button button-theme button-round button-fill J-remind_buyer_to_date" data-order_sn="{$item.order_sn}" data-to_buyer_id="{$item.user_id}">提醒约会</a>
+			          				{else}
+			          				<a href="javascript:void(0);" class="button button-theme button-round button-fill J-remind_podcast_to_date" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}">提醒约会</a>
+			          				{/if}
+			          			</div>
+			          			{else}
+			          				{if $data.is_podcast eq 1}
+									<div class="item-after">
+				          				<a href="javascript:void(0);" class="button button-theme button-round button-fill J-confirm_virtual_auction" data-order_sn="{$item.order_sn}" data-to_buyer_id="{$item.user_id}" data-confirm-tip="请约会成功后，再确认完成！以免造成损失。">确认完成</a>
+				          			</div>
+				          			{else}
+				          			<div class="item-after">
+				          				<a href="javascript:void(0);" class="button button-theme button-round button-fill J-remind_podcast_to_confirm_date" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}">提醒主播</a>
+				          			</div>
+			          				{/if}
+			          			{/if}
+			          		{elseif $item.order_status eq 3}
+			          			{if $data.is_podcast eq 1}
+			          			<div class="item-title"></div>
+			          			<div class="item-after">
+			          				<a href="#" onclick='' class="button button-theme button-round button-fill J-remind_buyer_receive" data-order_sn="{$item.order_sn}" data-to_buyer_id="{$item.user_id}">提醒买家</a>
+			          			</div>
+			          			{else}
+				          			{if $item.refund_platform}
+					          			{if $item.refund_platform eq 3}
+					          				<div class="item-title"></div>
+					          				<div class="item-after">投诉中，请等待</div>
+					          			{else}
+					          				<div class="item-title">
+						          				<span class="f_555 f12">距离确认完成还剩&nbsp;<span class="left_time" data-leftTime="{$item.expire_time}"></span></span>
+						          			</div>
+						          			<div class="item-after">
+						          				<a href="#" onclick='' class="button button-theme button-round button-fill J-buyer_confirm_date" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}" data-confirm-tip="请约会成功后，再确认完成！以免造成损失。">确认完成</a>
+			<!-- 			          				<a href="#" onclick='' class="button button-theme button-round button-fill J-buyer_to_refund" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}">我要投诉</a> -->
+						          			</div>
+					          			{/if}
+					          		{else}
+					          			<div class="item-title">
+					          				<span class="f_555 f12">距离确认完成还剩&nbsp;<span class="left_time" data-leftTime="{$item.expire_time}"></span></span>
+					          			</div>
+					          			<div class="item-after">
+					          				<a href="#" onclick='' class="button button-theme button-round button-fill J-buyer_confirm_date" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}" data-confirm-tip="请约会成功后，再确认完成！以免造成损失。">确认完成</a>
+		<!-- 			          				<a href="#" onclick='' class="button button-theme button-round button-fill J-buyer_to_refund" data-order_sn="{$item.order_sn}" data-to_podcast_id="{$item.podcast_id}">我要投诉</a> -->
+					          			</div>
+				          			{/if}
+			          			{/if}
+			          		{elseif $item.order_status eq 5}
+		          				{if $data.is_podcast eq 1}
+		          				<!-- 主播端 -->
+		          					{if $item.refund_buyer_status eq 1}
+		          						<div class="item-title"></div>
+					          			<div class="item-after">
+								    		<a href="javascript:void(0);" id="J-return_virtual_pai" class="button button-theme button-round button-fill" data-to_buyer_id="{$item.user_id}" data-order_sn="{$item.order_sn}" style="margin-bottom:0.5rem;">同意退款</a>
+								    		<a href="javascript:void(0);" id="J-complaint_virtual_goods" class="button button-theme button-round button-fill" data-to_buyer_id="{$item.user_id}" data-order_sn="{$item.order_sn}">申请售后</a>
+								    	</div>
+							    	{/if}
+		          				{else}
+		          				<!-- 观众端 -->
+		          					{if $item.refund_buyer_status eq 1}
+		          						<div class="item-title"></div>
+					          			<div class="item-after">
+							    			<a href="javascript:void(0);" id="J-oreder_revocation" class="button button-theme button-round button-fill" data-to_podcast_id="{$item.podcast_id}" data-order_sn="{$item.order_sn}">主动撤销</a>
+							    		</div>
+							    	{/if}
+		          				{/if}
+			        		{/if}
+				        </div>
+			      	</li>
+			      	{/if}
+			    {/if}
+		    </ul>
+  		</div>
+	</div>
+</li>

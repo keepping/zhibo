@@ -1,0 +1,89 @@
+{// 引入标签库 }
+<!doctype html>
+<tagLib name="html" />
+<include file="Public:header" />
+<style>
+    .line {
+        min-height: 20px;
+        font-size: 13px;
+        border-bottom: 1px solid silver;
+        padding: 5px 0px;
+    }
+    .delete {
+        cursor: pointer;
+        padding: 0px 5px;
+        text-decoration: underline;
+        color: red;
+    }
+</style>
+
+<div class="main">
+    <div class="main_title">{%ADD} <a href="{:u("VideoPlayback/playback_index")}" class="back_list">{%BACK_LIST}</a>
+    </div>
+    <div class="blank5"></div>
+<form id="video_form" name="add" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+    <tr>
+        <td colspan=2 class="topTd"></td>
+    </tr>
+    <tr>
+        <td class="item_title">话题:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="title" /></td>
+    </tr>
+    <tr>
+        <td class="item_title">用户ID:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="user_id"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">添加文件:</td>
+        <td class="item_input"><a href="javascript:void(0)" class="btn btn-primary btn-m f-r" id="btn_upload">添加文件</a> </td>
+    </tr>
+    <tr>
+        <td class="item_title">上传状态</td>
+        <td class="" id="result"></td>
+    </tr>
+    <tr>
+        <td class="item_title">操作</td>
+        <td class=""> 
+            <a href="javascript:void(0)" id="start_upload" class="btn btn-primary" type="button" value="14651978969431046007">开始上传</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title"></td>
+        <td class="item_input">
+            <input type="hidden" name="file_id" id="file_id" />
+            <input type="hidden" id="secret_id" value="{$secret_id}" />
+            <input type="button" id="video_submit" class="button" value="{%ADD}" 
+            onclick="insert_video_tx();" />
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2 class="bottomTd"></td>
+    </tr>
+</table>
+</form>
+<script>
+    function insert_video_tx(){
+        var form_data = $("#video_form").serialize();
+        $.ajax({
+            url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=insert_tecent_video",
+            data:form_data,
+            dataType:"json",
+            type:"post",
+            success:function(result){
+                if (result.status == '1') {
+                    alert(result.error);
+                    location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=playback_index";
+                }else{
+                   alert(result.error);
+                }
+            }
+        });
+    }
+</script>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/js/vod/sdk/uploaderh5.js" charset="utf-8"></script>
+<load href='__TMPL__Common/js/user_live.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<include file="Public:footer" />

@@ -1,0 +1,44 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<PHP>
+	function get_real_name($user_id) {
+		return $GLOBALS['db']->getOne("select authentication_name from ".DB_PREFIX."user where id=".$user_id);
+    }
+</PHP> 
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		课程类型：<select name="category_id">
+				<option value="">不限</option>	
+				<foreach name="category_list" item="category">
+				<option value="{$category.id}" <if condition="$_REQUEST['category_id'] eq $category['id']">selected="selected"</if>>{$category.title}</option>
+				</foreach>
+			</select>
+		<input type="hidden" value="EduCourses" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="hidden" value="{:trim($_REQUEST['user_id'])}" name="user_id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="course"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:课程名称:edit,user_id|get_real_name:讲师|100px,price:费用,courses_count:课时数量,long_time:总时长(分),sale_count:已售数量,is_recommend|get_recommend=$course['id']:推荐"
+	actionlist="edit:编辑课程详情,view_group:查看目录,view_class:视频列表,del:{%DEL}" />
+<div class="page">{$page}</div>
+</div>
+<script>
+	$('#info').show();
+	function view_group(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClassGroup&"+VAR_ACTION+"=index&course_id="+id;
+	}
+	function view_class(id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClass&"+VAR_ACTION+"=index&course_id="+id;
+	}
+</script>
+<include file="Public:footer" />

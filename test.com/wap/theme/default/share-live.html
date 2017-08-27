@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0,minimum-scale=0.5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{if $data.page_title neq ''}{$data.page_title}{else}{if $data.share}{$data.share.share_title}{/if}{/if}</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    {if $data.share}
+	  <meta name="name" itemprop="name" content="{$data.share.share_title}">
+	  <meta name="description" itemprop="description" content="{$data.share.share_desc}">
+	  <meta name="image" itemprop="image" content="{$data.share.share_img_url}">
+    {/if}
+    <?php
+	    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/share-test.css";
+	    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/share-test.css";
+     	$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/lib_min.js";
+	    $this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/lib_min.js";
+	?>
+	<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+	<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript">
+		var device, isAndroid, isIos;
+		var ua = navigator.userAgent.toLowerCase();	
+		if (/iphone|ipad|ipod/.test(ua)) {
+			device =  "iphone";
+			isAndroid = false;
+			isIos = false;
+
+		} else if (/android/.test(ua)) {
+			device = "android";
+			isAndroid = true;
+			isIos = false;
+		}
+	</script>
+	<script type="text/javascript">
+	 	if('{$data.wx_url}'){
+            location.href = '{$data.wx_url}';
+        }
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		var video = {
+			live_in: '{$data.video.live_in}',
+			play_hls: '{$data.video.play_hls}',
+			urls: '{$data.video.play_url}',
+			head_image: '{$data.video.podcast.user.head_image}',
+			watch_number: '{$data.video.viewer_num}'
+		};
+	</script>
+	<script type="text/javascript">
+		// 微信分享
+		var wx_title = '{$data.share.share_title}';
+		var wx_desc = '{$data.share.share_desc}'; // 分享描述
+		var wx_link = '{$data.share.share_wx_url}';
+		var wx_img = '{$data.share.share_img_url}'; // 分享图标
+			
+	    var signature = '{$data.signPackage.signature}';
+	    var nonceStr = '{$data.signPackage.nonceStr}';
+	    var timestamp = '{$data.signPackage.timestamp}';
+	    var url = '{$data.signPackage.url}';
+        var appid = '{$data.signPackage.appId}';
+
+		wx.config({
+            //debug: true,
+			appId:appid,
+			timestamp:timestamp,
+			nonceStr:nonceStr,
+			signature:signature,
+			url:url,
+			jsApiList:[
+				//'checkJsApi',
+				'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				'onMenuShareQQ',
+				'onMenuShareWeibo',
+                'onMenuShareQZone',
+				'hideMenuItems',
+				'showMenuItems',
+				'hideAllNonBaseMenuItem',
+				'showAllNonBaseMenuItem',
+				'translateVoice',
+				'startRecord',
+				'stopRecord',
+				//'onRecordEnd',
+				'playVoice',
+				'pauseVoice',
+				'stopVoice',
+				'uploadVoice',
+				'downloadVoice',
+				'chooseImage',
+				'previewImage',
+				'uploadImage',
+				'downloadImage',
+				'getNetworkType',
+				'openLocation',
+				'getLocation',
+				'hideOptionMenu',
+				'showOptionMenu',
+				'closeWindow',
+				'scanQRCode',
+				//'chooseWXPay',
+				//'openProductSpecificView',
+				//'addCard',
+				//'chooseCard',
+				//'openCard'
+			]
+		});
+	</script>
+	<script type="text/javascript" src="{$TMPL}/js/share-test.js"></script>
+	<div class="all-wrap" id="js-all-wrap">
+		<div class="tishi top-tips" id="js-top-tips">你已经关注主播</div>
+		<div id="top">
+			<div id="bestTop"> 
+	            <span class="top-logo">
+	            	<img src="{if $data.app_logo}{$data.app_logo}{else}{$TMPL}/images/app_logo.jpg{/if}" alt="logo">
+	            </span>
+	            <div class="logo-text fl">
+	                <div class="l-title">{$data.share.short_name}直播</div> <div class="l-des">{$data.share.share_title}</div>
+	            </div>
+				{if $data.register_url}
+				<div style="position: relative;margin:35px 0 0 80px">
+					<div style="width:80%;float: left">&nbsp;</div>
+					<div style="float: left;text-align: center;width: 20%;background-color:#00D8C9;color:#fff;border-radius:1rem;"><a href="{$data.register_url}">注册</a></div>
+				</div>
+				{/if}
+	            <!--<a class="download-btn js-btn-open-app" data-id="logo_open">立即下载</a> -->
+	        </div>
+	        <div id="shadow" class="" style="display: none;"></div>
+	        <div class="no-player-text">
+	            <div class="finish-text">直播已结束</div>
+	            <div id="user_num" class="finish-num" style="display: block;">18160人看过</div>
+	            <div class="finish-follow-tip">关注后不会错过下一次直播 </div>
+	        </div>
+	        <div class="user looked-num is-live" id="js-looked-num" style="display: none">
+	            <span class="record-text-start"> {if $data.video.live_in eq 3}精彩回放&nbsp;&nbsp;</span>{else}<span class="live-text-start"> 直播LIVE&nbsp;&nbsp;</span>{/if}
+	            <span id="user_num2">18160</span>人 <span class="record-text-end"> 看过 </span>
+	        </div>
+	        <div class="player">
+	        	<div class="jwplayer playlist-none" id="container"></div>
+	        </div>
+	        <div id="live-bg">
+	        	<div class="big-bg" style="background-image: url({$data.video.head_image});"></div>
+	        	<img src="{$data.video.live_image}" class="live-bg">
+	        	<span class="play-btn" style="background-size:100%;background-position:inherit;"></span>
+	        </div>
+	        <div id="hf-text"> 精彩回放</div>
+			{if $data.register_url}
+			<div id="topBom">
+				<!--<a class="topBom js-btn-open-app show_pop_wp" data-id="bottom_open" href="javascript:void(0)">在{$data.share.short_name}中打开，互动更精彩 ></a>-->
+				<a class="topBom js-btn-open-app "  href="{$data.register_url}">在{$data.share.short_name}中打开，互动更精彩 ></a>
+			</div>
+			{else}
+			<div id="topBom">
+				<a class="topBom js-btn-open-app show_pop_wp" data-id="bottom_open" href="javascript:void(0)">在{$data.share.short_name}中打开，互动更精彩 ></a>
+			</div>
+			{/if}
+	        <div class="btn-box">
+	            <span class="talk talk-click show_pop_wp" id="js-start-talk"></span>
+	            <span class="gift-btn gift-btn-click show_pop_wp" id="gift_btn"></span>
+	        </div>
+			<div class="player-loading" style="display: none">
+	            <img src="{$data.share.share_img_url}" width="40px">
+	        </div>
+		    <div class="player-loading" id="js-player-loading" style="display: none">
+	            <img src="{$TMPL}/images/video-loading.jpg" width="40px">
+			</div>
+		</div>
+		<div id="top2" class="user-info-con top js-user-info-con">
+	        <img src="{$data.video.podcast.user.head_image}" class="fl icon user_pic">
+	        <div class="fl ziliao">
+	            <div class="fl nick user_nick">{$data.video.podcast.user.nick_name}</div>
+	            <br>
+	            <div class="info-left" style="display: none">关注人数:<span id="js-follow-num" class="bo-id">{$data.video.podcast.user.fans_count}</span></div>
+	            <div class="info-left ID">{$data.share.short_name}号:<span id="js-user-bo-id" class="bo-id">{$data.video.user_id}</span></div>
+	        </div>
+			{if $data.register_url}
+			    <div class="fr guanzhu js-follow-btn "><a href="{$data.register_url}">注册</a></div>
+			{else}
+				<div class="fr guanzhu js-follow-btn show_pop_wp">关注</div>
+			{/if}
+	    </div>
+	    <div class="talk-box" id="js-talk-ipt-wrap">
+            <a href="javascript:;" class="talk-btn js-talk-btn" id="js-send-talk-btn">发送</a>
+            <input id="js-talk-ipt" class="talk-input" placeholder="点击这输入文字" value="" maxlength="200">
+    	</div>
+    	<!-- 消息区 -->
+    	<div class="msg-box pa" id="msg_box" style="display:none"></div>
+    	<!-- 发送礼物 -->
+	    <div class="gift-box">
+   	 		<div class="gift-box-close"><div>X</div></div>
+        	<div class="gift-lists swiper-container">
+            	<div class="swiper-wrapper" id="js-swiper-wrapper">
+            	</div>
+            	<div class="swiper-pagination"></div>
+        	</div>
+        	<div class="gift-bbar">
+	            <a href="###" class="goto-pay-btn" id="js-goto-pay-btn">
+	                <span class="gift-bbar-text">充值：</span>
+	                <span class="gift-bbar-money">0</span>
+	                <span class="gift-bbar-text">&gt;</span>
+	            </a>
+	            <button class="gift-bbar-send-hide" id="gift_send">发送</button>
+	            <div class="gift-countdown-bg none" id="gift_countdown_bg">
+	                <div class="gift-countdown-btn">
+	                    <p class="gift-countdown-btn-text" onselectstart="return false">连发</p>
+	                    <p class="gift-countdown-btn-time" onselectstart="return false">30</p>
+	                </div>
+	            </div>
+	        </div>
+    	</div>
+    	<!--礼物动画层 -->
+    	<ul id="js-gift-show-container" class="gift-show-container">
+	        <li data-playing="false" data-fromid="">
+	            <div class="pride">
+	                <div class="headImg"><img src="" alt="头像"></div>
+	                <div class="name"></div>
+	                <div class="giftType"></div>
+	                <div class="giftImg"><img src="" alt="图片"></div>
+	                <span class="star">×<span class="num"> </span> 
+	            </span></div>
+	        </li>
+         	<li data-playing="false" data-fromid="">
+	            <div class="pride">
+	                <div class="headImg"><img src="{$TMPL}/images/app_logo.jpg" alt="头像"></div>
+	                <div class="name"></div>
+	                <div class="giftType"></div>
+	                <div class="giftImg"><img src="" alt="图片"></div>
+	                <span class="star">×<span class="num"> </span> 
+	            </span></div>
+	        </li>
+	    </ul>
+	    <div id="tab" class="js-list-tab">
+	        <div class="t-one fl hot active">热门{$data.share.short_name}</div>
+	        <div class="t-one fr back" id="js-tab-back">他的精彩回放</div>
+	    </div>
+    	<div class="tab-con-list slide-page-list" style="width: 100%">
+    		<div class="one-page hots active" id="host-list">
+    			{foreach from=$data.video_hot item=item key=key name=item_name}
+    			<div class="lists">
+    				<a href="{$item.url}">
+				        <div class="l-top" style="height: 171px;">
+				            <img src="{if $item.live_image neq ''}{$item.live_image}{else}{$item.head_image}{/if}" class="icon-big" style="height: 171px;">
+				            <div class="h-info">
+				                <span class="fans">{$item.watch_number}</span>
+				            </div>
+				        </div>
+				        <div class="box-btm">{$item.nick_name}</div>
+			        </a>
+			    </div>
+			    {/foreach}
+    		</div>
+    		<div class="one-page record" style="display: none;">
+    			{if !($data.history)}
+    			<div class="no-data-con"></div>
+    			<div class="no-record-list-text">TA还没有精彩回放哦</div>
+    			{else}
+				<div class="one-page hots active" >
+    				{foreach from=$data.history item=item key=key name=item_name}
+    				<div class="lists">
+	    				<a href="{$item.url}">
+					        <div class="l-top" style="height: 171px;">
+					            <img src="{if $item.live_image neq ''}{$item.live_image}{else}{$item.head_image}{/if}" class="icon-big" style="height: 171px;">
+					            <div class="h-info">
+					                <span class="fans">{$item.watch_number}</span>
+					            </div>
+					        </div>
+					        <div class="box-btm">{$item.nick_name}</div>
+				        </a>
+				    </div>
+    				{/foreach}
+    			</div>
+    			{/if}
+    		</div>
+    	</div>
+	</div>
+	<!-- 弹窗提示下载 -->
+	{if $data.video.is_live_pay}
+	<div class="pop_wp" id="opt-down">
+		<div class="pop_box pop_toapp_box ">
+			<div class="pop_panel">
+				<div class="logo"><img style="margin:-60px 0 0 -20px; width: 100px; height: 100px;" src="{if $data.app_logo}{$data.app_logo}{else}{$TMPL}/images/app_logo.jpg{/if}" alt="logo"></div>
+				<p class="name">{$data.share.short_name}直播</p>
+				<p class="des">主播开启了付费直播，请下载APP观看</p>
+				<a href="{$data.app_down}" class="btn_app down-app" clickid="0.4.1.0">下载{$data.share.short_name}直播</a>
+			</div>
+		</div>
+	</div>
+	{else}
+	<div class="pop_wp" id="opt-down" style="display: none;">
+		<div class="pop_box pop_toapp_box ">
+			<div class="pop_panel">
+				<div class="logo"><img style="margin:-60px 0 0 -20px; width: 100px; height: 100px;" src="{if $data.app_logo}{$data.app_logo}{else}{$TMPL}/images/app_logo.jpg{/if}" alt="logo"></div>
+				<p class="name">{$data.share.short_name}直播</p>
+				<p class="des">{$data.share.share_title}</p>
+				<a href="{$data.app_down}" class="btn_app down-app" clickid="0.4.1.0">下载{$data.share.short_name}直播</a>
+			</div>
+			<div class="pop_close" id="opt-down-close">×</div>
+		</div>
+	</div>
+	{/if}
+	<!-- 弹窗提示下载 end -->
+	<script type="text/javascript">
+		var device = device || '';
+		device ? (device == 'iphone' ? $("#preVedio").show() : $("#liveing").show()) : $("#preVedio").show();
+
+		var head_image_url = '{$data.video.head_image}';
+		{if $data.video.group_id}
+		var loginInfo = {
+			'sdkAppID': '{$data.tim.sdkappid}',
+			'appIDAt3rd': '{$data.tim.sdkappid}',
+			'accountType': '{$data.tim.account_type}',
+			'identifier': '{$data.tim.account_id}',
+			'userSig': '{$data.tim.usersig}',
+		};
+		var avChatRoomId = '{$data.video.group_id}';
+		{/if}
+	</script>
+	<?php
+		$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/sdk/json2.js";
+		$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/sdk/json2.js";
+		$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/sdk/webim.js";
+		$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/sdk/webim.js";
+		$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/im-message.js";
+		$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/im-message.js";
+	?>
+	<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+	<script src="{$TMPL}/dist/jwplayer/jwplayer.js"></script>
+	<script>jwplayer.key = "lsUqQ+PB1edH+bYoMb85Yr5CuPlXyhK/ngcyNQ==";</script>
+</body>
+</html>

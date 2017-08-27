@@ -1,0 +1,426 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+/*
+盒子阴影 
+@right_left 右边阴影为正数 左边负数
+@bottom_top 下边阴影为正数 上边负数
+@box  阴影大小
+@box_color 阴影颜色
+*/
+/*
+定义圆角
+@radius 圆角大小
+*/
+/*
+文字阴影,可以指定多组阴影
+@right_left1 右边阴影为正数 左边负数
+@bottom_top1 下边阴影为正数 上边负数
+@text  阴影大小
+@text_color 阴影颜色
+*/
+/*
+透明度 或渐变 1为不透明 0透明
+css3 rgba(110, 142, 185, .4)!important;前三个是颜色值 后一个是透明值
+用来兼容所有浏览器
+*/
+/*
+列布局
+@c1 列数
+@c2 列宽
+@c3 列间距
+@c4 边框样式
+*/
+/*背景渐变
+@start  渐变开始颜色
+@end  结束颜色
+*/
+/*
+画轮廓 就是内部框
+@outline 样式
+@outline1 间距 负数在内部
+*/
+/*
+旋转角度
+@ro定义度数 
+IE不支持 滤镜支持0，1，2，3
+*/
+.rotate50 {
+  transform: rotate(50deg);
+  -webkit-transform: rotate(50deg);
+  -moz-transform: rotate(50deg);
+  -o-transform: rotate(50deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+/*
+菱形旋转角度
+@x横向缩放比例
+@y纵向缩放比例
+*/
+.skew30 {
+  transform: skew(50deg, 30deg);
+  -webkit-transform: skew(50deg, 30deg);
+  -moz-transform: skew(50deg, 30deg);
+  -o-transform: skew(50deg, 30deg);
+  -ms-transform: skew(50deg, 30deg);
+}
+/*
+放大缩小
+@x横向缩放比例
+@y纵向缩放比例
+*/
+.my_scale {
+  transform: scale(1.2, 1.2);
+  -webkit-transform: scale(1.2, 1.2);
+  -moz-transform: scale(1.2, 1.2);
+  -o-transform: scale(1.2, 1.2);
+  -ms-transform: scale(1.2, 1.2);
+}
+/*
+移动距离
+@x横向移动距离
+@y纵向移动距离
+*/
+.translate80 {
+  transform: translate(80px, 80px);
+  -webkit-transform: translate(80px, 80px);
+  -moz-transform: translate(80px, 80px);
+  -o-transform: translate(80px, 80px);
+  -ms-transform: translate(80px, 80px);
+}
+/*
+综合上面4种变化,效果看下面的过度动画
+@rotate
+@scale
+@skew
+@translate
+*/
+/*
+过度动画 
+id是css属性
+2s过度时间 0s是开始时间
+ease-in进入
+*/
+/*
+less文件中定义的函数
+Animation 动画 
+@animation-name规定需要绑定到选择器的 keyframe 名称
+@animation-duration规定完成动画所花费的时间，以秒或毫秒计,默认是 0。
+@animation-timing-function规定动画的速度曲线。默认是 "ease"。
+@animation-delay规定在动画开始之前的延迟。默认是 0。
+@animation-iteration-count规定动画应该播放的次数。默认是 1。
+@animation-direction规定是否应该轮流反向播放动画。默认是 "normal"。
+*/
+.my_animation {
+  animation: mykeyframes 5s linear 2s infinite normal;
+  /* Firefox: */
+  -moz-animation: mykeyframes 5s linear 2s infinite normal;
+  /* Safari 和 Chrome: */
+  -webkit-animation: mykeyframes 5s linear 2s infinite normal;
+  /* Opera: */
+  -o-animation: mykeyframes 5s linear 2s infinite normal;
+}
+/***CSS定义的keyframes如下：****/
+@keyframes mykeyframes {
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+}
+@-moz-keyframes mykeyframes {
+  /* Firefox */
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+}
+@-webkit-keyframes mykeyframes {
+  /* Safari 和 Chrome */
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+}
+@-o-keyframes mykeyframes {
+  /* Opera */
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+}
+.income-head {
+  width: 100%;
+  padding: 0.75rem;
+  background: #ff7552;
+  color: #fff;
+  position: relative;
+  height: 4.45rem;
+}
+.income-head h1 {
+  font-size: 0.68rem;
+  padding-top: .3rem;
+}
+.income-head h2 {
+  font-size: 0.85rem;
+  padding-top: .3rem;
+}
+.income-head h2 span {
+  font-size: 0.6rem;
+}
+.income-head .left {
+  position: absolute;
+  left: .75rem;
+  top: .75rem;
+  width: 4rem;
+  height: 3rem;
+  float: left;
+  text-align: center;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#000000, endColorstr=#000000);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#000,endColorstr=#000)";
+}
+.income-head .left h2 i {
+  width: .75rem;
+  height: .75rem;
+  background: url(../images/icon-down.png) no-repeat;
+  background-size: 100%;
+  background-position: 0% 50%;
+  margin-left: 0.1rem;
+}
+.income-head .left input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.income-head .right {
+  padding-left: 4rem;
+}
+.income-head .right .box {
+  width: 50%;
+  float: left;
+  padding-left: .75rem;
+}
+.income-head .right h2 .diamond:before {
+  background-size: 65%;
+}
+.income-head:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+.incomelist .item-content {
+  padding-right: .75rem;
+}
+.incomelist .list-block {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+.incomelist .list-block a {
+  box-sizing: border-box;
+  position: relative;
+}
+.incomelist .list-block a:active {
+  background: #e6e6e6;
+}
+.incomelist .item-content .item-right {
+  color: #1c1c1c;
+  position: relative;
+  min-height: 2.2rem;
+  line-height: 2.2rem;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  min-width: 4rem;
+  text-align: right;
+}
+.incomelist .item-content .item-right span {
+  text-align: right;
+  float: right;
+}
+.incomelist .item-media i {
+  font-size: 1.5rem;
+  color: #ff7552;
+}
+.incomelist .list-block.media-list .item-title {
+  font-size: 0.8rem;
+  color: #1c1c1c;
+}
+.incomelist .list-block .item-subtitle {
+  color: #999;
+  font-size: 0.68rem;
+}
+.incomelist .list-block .item-content:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #e7e7e7;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+.incomelist .list-block .item-inner:after {
+  height: 0;
+}
+.incomelist .list-block .success .item-media i:after {
+  content: "\e600";
+}
+.incomelist .list-block .success .item-right {
+  color: #ff7552;
+}
+.incomelist .list-block .wait .item-media i {
+  color: #1dcd10;
+}
+.incomelist .list-block .wait .item-media i:after {
+  content: "\e606";
+}
+.incomelist .list-block .refund .item-media i {
+  color: #42b1ff;
+}
+.incomelist .list-block .refund .item-media i:after {
+  content: "\e605";
+}
+.incomelist .daytit {
+  width: 100%;
+  padding: 0 0.75rem;
+  font-size: 0.68rem;
+  color: #999;
+  line-height: 1.5rem;
+}
+.incomelist .daytit .left {
+  float: left;
+}
+.incomelist .daytit .right {
+  float: right;
+}
+.incomelist .daytit .right span {
+  font-weight: bold;
+  color: #ff7552;
+}
+.incomelist .daytit:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.incomelist .daytit .diamond {
+  padding-left: 20px;
+}
+.incomelist .daytit .diamond:before {
+  background-size: 61%;
+}

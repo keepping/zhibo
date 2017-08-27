@@ -1,0 +1,49 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<div class="main">
+<div class="main_title">房间ID:{$push_url.id}</div>
+<div class="blank5"></div>
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<if condition="$push_url.push_rtmp neq ''">
+		<tr>
+			<td class="item_title">推流地址 (RTMP):</td>
+			<td class="item_input"><input type="text" style="width: 800px;" class="textbox" name="url_rtmp" value="{$push_url.push_rtmp}"/>
+			</td>
+		</tr>
+	</if>
+	<if condition="$push_url.play_rtmp neq ''">
+		<tr>
+			<td class="item_title">播放地址 (RTMP):</td>
+			<td class="item_input"><input type="text" style="width: 800px;" class="textbox" name="url_rtmp" value="{$push_url.play_rtmp}"/>
+			</td>
+		</tr>
+	</if>
+	<if condition="$push_url.play_flv neq ''">
+		<tr>
+			<td class="item_title">播放地址 (FLV):</td>
+			<td class="item_input"><input type="text"  style="width: 800px;" class="textbox" name="url_flv" value="{$push_url.play_flv}"/>
+			</td>
+		</tr>
+	</if>
+	<if condition="$push_url.play_hls neq ''">
+		<tr>
+			<td class="item_title">播放地址 (HLS):</td>
+			<td class="item_input"><input type="text" style="width: 800px;" class="textbox" name="url_hls" value="{$push_url.play_hls}"/>
+			</td>
+		</tr>
+	</if>
+	<if condition="$push_url.play_mp4 neq ''">
+		<tr>
+			<td class="item_title">播放地址 (MP4):</td>
+			<td class="item_input"><input type="text"  style="width: 800px;"  class="textbox" name="url_mp4" value="{$push_url.play_mp4}"/>
+			</td>
+		</tr>
+	</if>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+</div>

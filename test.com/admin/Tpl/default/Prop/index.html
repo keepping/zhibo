@@ -1,0 +1,72 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function is_animated($animated){
+		if($animated==0){
+			return "普通礼物";
+		}
+		if($animated==1){
+			return "gif礼物";
+		}
+		if($animated==2){
+			return "大型动画礼物";
+		}
+		
+	}
+    function is_red_envelope($is_red_envelope){
+        return $is_red_envelope?"是":"否";
+    }
+	function animated_item($id,$prop)
+	{
+		if($prop['is_animated']==1&&$id!='')
+		{
+			return "<a href=\"javascript:prop_item('".$id."')\">动画列表</a>";
+
+		}
+	}
+</php>
+<script>
+	//编辑跳转
+	function prop_item(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=prop_item&id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>道具列表</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+            展示动画：<select style="width: 100px;margin:0" name="is_animated">
+            <option value="-1" <if condition="intval($_REQUEST['is_animated']) eq -1 || !isset($_REQUEST['is_animated'])">selected="selected"</if>>{%ALL}</option>
+            <option value="0" <if condition="intval($_REQUEST['is_animated']) eq 0 && isset($_REQUEST['is_animated'])">selected="selected"</if>>普通礼物</option>
+            <option value="1" <if condition="intval($_REQUEST['is_animated']) eq 1">selected="selected"</if>>gif礼物</option>
+			<option value="2" <if condition="intval($_REQUEST['is_animated']) eq 2">selected="selected"</if>>大型动画礼物</option>
+        </select>
+            <input type="hidden" value="Prop" name="m" />
+            <input type="hidden" value="index" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="prop"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID},name:名称,score:积分,diamonds:消费钻石,ticket:{%USER_TICKET}/钻石(是红包时表示钻石),is_red_envelope|is_red_envelope:红包,is_animated|is_animated:展示动画,is_effect|get_is_effect=$prop['id']:{%IS_EFFECT},sort|get_sort=$prop['id']:{%SORT}"
+	actionlist="id|animated_item=$prop,edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="9">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

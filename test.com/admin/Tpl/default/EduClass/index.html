@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<PHP>
+	function get_real_name($user_id) {
+		return $GLOBALS['db']->getOne("select authentication_name from ".DB_PREFIX."user where id=".$user_id);
+    }
+
+	function get_course_title($course_id) {
+		return $GLOBALS['db']->getOne("select title from ".DB_PREFIX."edu_courses where id=".$course_id);
+	}
+	
+	function get_group_title($group_id) {
+		if(! $group_id) {
+			return '';
+		}
+		return $GLOBALS['db']->getOne("select title from ".DB_PREFIX."edu_class_group where id=".$group_id);
+	}
+</PHP> 
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduClass" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="hidden" name="course_id" value="{:trim($_REQUEST['course_id'])}" />
+		<input type="hidden" name="group_id" value="{:trim($_REQUEST['group_id'])}" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="class"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:标题:edit,price:费用,long_time:时长(分),course_id|get_course_title:课程,group_id|get_group_title:分组,sort|get_sort=$class['id']:{%SORT}"
+	actionlist="del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add_class({$course_id},{$group_id});" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<script>
+	function add_class(course_id,group_id) {
+		location.href = ROOT+"?"+VAR_MODULE+"=EduClass&"+VAR_ACTION+"=add&course_id="+course_id+"&group_id="+group_id;
+	}
+</script>
+<include file="Public:footer" />

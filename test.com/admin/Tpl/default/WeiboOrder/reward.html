@@ -1,0 +1,109 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<include file="Public:new" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+	<div class="main_title_list"><div class="list-line-ico"></div>打赏订单列表</div>
+	<php>
+		function get_weibo_type($type){
+		switch($type){
+		case 'imagetext':
+		return '图文动态';
+		case 'video':
+		return '视频动态';
+
+		case 'weixin':
+		return '微信账号';
+
+		case 'goods':
+		return '虚拟商品动态';
+
+		case 'red_photo':
+		return '红包图片动态';
+
+		case 'photo':
+		return '写真动态';
+
+		case 'reward':
+		return '打赏';
+
+		case 'chat':
+		return '聊天';
+		}
+		}
+		function get_nickname($id){
+		$get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+		return $get_nickname;
+		}
+		function screenshot($screenshot){
+		return "<img src='".$screenshot."' style='height:35px;width:35px;'/>";
+		}
+		function get_order_status($status){
+		switch($status){
+		case 0:
+		return '支付中';
+		case 1:
+		return '支付成功';
+		case 2:
+		return '申述中';
+		case 3:
+		return '退款成功';
+		}
+		}
+	</php>
+	<div class="button_row">
+		<!--<input type="button" class="button" value="{%ADD}" onclick="add();" />-->
+	</div>
+
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get" class="clearfix">
+			<div>动态ID：<input type="text" class="textbox" name="weibo_id" value="{:trim($_REQUEST['weibo_id'])}" style="width:100px;" /></div>
+			<div>支付人ID：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px;" /></div>
+			<div>支付状态：<select name="sattus" style="width:100px;">
+				<option value="">全部</option>
+				<option value="0" <if condition="$_REQUEST['sattus'] eq '0'">selected="selected"</if>>支付中</option>
+				<option value="1"  <if condition="$_REQUEST['sattus'] eq '1'">selected="selected"</if>>支付成功</option>
+				<option value="2"  <if condition="$_REQUEST['sattus'] eq '2'">selected="selected"</if>>申述中</option>
+				<option value="3"  <if condition="$_REQUEST['sattus'] eq '3'">selected="selected"</if>>退款成功</option>
+			</select>
+			</div>
+			<div>订单时间：<span><input type="text" class="textbox" name="create_time_1" id="create_time_1" value="{$_REQUEST['create_time_1']}" onfocus="this.blur(); return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /><input type="button" class="button" id="btn_create_time_1" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_1', '%Y-%m-%d', false, false, 'btn_create_time_1');" /></span> - <span><input type="text" class="textbox" name="create_time_2" id="create_time_2" value="{$_REQUEST['create_time_2']}" onfocus="this.blur(); return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /><input type="button" class="button" id="btn_create_time_2" value="{%SELECT_TIME}" onclick="return showCalendar('create_time_2', '%Y-%m-%d', false, false, 'btn_create_time_2');" /></span>
+				<input type="hidden" value="WeiboOrder" name="m" />
+				<input type="hidden" value="reward" name="a" />
+				<input type="submit" class="button" value="{%SEARCH}" />
+			</div>
+		</form>
+	</div>
+	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="tipoff"
+			checkbox="true"
+			action="true"
+			datasource="list"
+			show="id:{%ID}|90px
+			,order_id:动态ID
+			,user_id|get_nickname=$list['user_id']:支付人
+			,recharge_name:订单类型
+			,money:订单价格
+			,is_paid|get_order_status=$list['is_paid']:动态状态
+			,create_time|to_date:订单生成时间
+			"
+			actionlist="tips:无" />
+	<table class="dataTable">
+		<tbody>
+		<td colspan="8">
+			<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+		</td>
+		</tbody>
+	</table>
+	<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

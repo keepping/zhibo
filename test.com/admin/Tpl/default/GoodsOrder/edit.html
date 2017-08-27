@@ -1,0 +1,93 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">竞拍详情 <a href="{:u("GoodsOrder/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=6 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">主播:</td>
+		<td class="item_input">{$vo.podcast_name}</td>
+		<td class="item_title">商品名称:</td>
+		<td class="item_input">{$vo.goods_name}</td>
+		<td class="item_title">购买人:</td>
+		<td class="item_input">{$vo.pai_name}</td>
+	</tr>
+	<tr>
+		<td class="item_title">订单编号:</td>
+		<td class="item_input">{$vo.order_sn}</td>
+		<td class="item_title">订单状态:</td>
+		<td class="item_input">{$vo.order_status_format}</td>
+		<td class="item_title">是否允许退款:</td>
+		<td class="item_input">{$vo.no_refund_format}</td>
+	</tr>
+	<tr>
+		<td class="item_title">退款买方状态:</td>
+		<td class="item_input">{$vo.refund_buyer_status}</td>
+		<td class="item_title">退款买方配货状态:</td>
+		<td class="item_input">{$vo.delivery_status_format}</td>
+		<td class="item_title">退款卖方状态:</td>
+		<td class="item_input">{$vo.refund_seller_status}</td>
+	</tr>
+	<tr>
+		<td class="item_title">退款平台申诉:</td>
+		<td class="item_input">{$vo.refund_platform}</td>
+		<td class="item_title">订单商品总数量:</td>
+		<td class="item_input">{$vo.number}</td>
+		<td class="item_title">应付总金额:</td>
+		<td class="item_input">{$vo.total_diamonds}</td>
+
+	</tr>
+	<tr>
+		<td class="item_title">竞拍价:</td>
+		<td class="item_input">{$vo.goods_diamonds}</td>
+		<td class="item_title">已付金额:</td>
+		<td class="item_input">{$vo.pay_diamonds}</td>
+		<td class="item_title">退款金额:</td>
+		<td class="item_input">{$vo.refund_diamonds}</td>
+	</tr>
+
+	<tr>
+
+		<td class="item_title">运费:</td>
+		<td class="item_input">{$vo.freight_diamonds}</td>
+		<td class="item_title">收货人:</td>
+		<td class="item_input">{$vo.consignee}</td>
+		<td class="item_title">手机号:</td>
+		<td class="item_input">{$vo.consignee_mobile}</td>
+
+	</tr>
+	<tr>
+		<td class="item_title">详细地址:</td>
+		<td class="item_input">{$vo.consignee_address}</td>
+		<td class="item_title">下单时间:</td>
+		<td class="item_input">{$vo.create_date}</td>
+		<td class="item_title">付款时间:</td>
+		<td class="item_input">{$vo.pay_time}</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">订单来源:</td>
+		<td class="item_input">{$vo.order_source}</td>
+		<td class="item_title">订单类型:</td>
+		<td class="item_input">{$vo.order_type}</td>
+	</tr>
+	<tr>
+		<td class="item_title" >行政地区信息:</td>
+		<td class="item_input" colspan=5>{$vo.consignee_district}</td>
+	</tr>
+	<tr>
+		<td class="item_title" >订单备注:</td>
+		<td class="item_input" colspan=5>{$vo.memo}</td>
+	</tr>
+	<tr>
+		<td colspan=6 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

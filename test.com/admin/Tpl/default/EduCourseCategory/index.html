@@ -1,0 +1,39 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<php>
+	function get_effect($value) {
+		return $value ? "是" : "否";
+	}
+</php>
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		<input type="hidden" value="EduCourseCategory" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="category"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:分类:edit,is_recommend|get_recommend=$category['id']:推荐到首页,sort|get_sort=$category['id']:{%SORT},is_effect|get_effect:是否生效"
+	actionlist="edit:编辑详情,del:{%DEL}" />
+    <table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="del();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<script>
+
+</script>
+<include file="Public:footer" />

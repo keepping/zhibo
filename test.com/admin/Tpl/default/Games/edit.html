@@ -1,0 +1,93 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Games/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">游戏名称:</td>
+        <td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}"/></td>
+    </tr>
+    <tr>
+        <td class="item_title">游戏图标:</td>
+        <td class="item_input"><html:imgUpload  name="image" id='image' value="$vo.image"/>
+            <span class='tip_span'>&nbsp;[图标规格为：35px*35px]</span>
+        </td>
+    </tr>
+    <if condition="$banker eq 1">
+        <tr>
+            <td class="item_title">玩家上庄底金:</td>
+            <td class="item_input">
+                <input type="number" class="textbox" name="principal" value="{$vo.principal}" min="0"/>
+                <span class="tip_span">&nbsp;玩家上庄底金</span>
+            </td>
+        </tr>
+    </if>
+    <foreach name="op" item="v">
+        <tr>
+            <td class="item_title">下注选项{$key}倍率:</td>
+            <td class="item_input">
+                <input type="number" class="textbox" name="option[]" value="{$v}" min="1" max="99" step="0.1" />
+                <span class="tip_span">&nbsp;中奖倍率，范围1-99</span>
+            </td>
+        </tr>
+    </foreach>
+    <tr>
+        <td class="item_title">佣金比率:</td>
+        <td class="item_input">
+            <input type="number" class="textbox" name="commission_rate" value="{$vo.commission_rate}" min="0" max="100" />
+            <span class="tip_span">&nbsp;主播佣金比例：50表示收益的50%为佣金；收益金额=总金额-中奖返还</span>
+        </td>
+    </tr>
+    <if condition="$diamond_game eq 1">
+    <tr>
+        <td class="item_title">主播收益印票转化率:</td>
+        <td class="item_input">
+            <input type="number" class="textbox" name="ticket_rate" value="{$vo.ticket_rate}" min="0" max="100"/>
+            <span class="tip_span">&nbsp;主播收益印票转化率：主播佣金转化为印票结算的转化率</span>
+        </td>
+    </tr>
+    </if>
+    <tr>
+        <td class="item_title">游戏时长:</td>
+        <td class="item_input">
+            <input type="number" class="textbox" name="long_time" value="{$vo.long_time}" min="20" max="99" />
+            <span class="tip_span">&nbsp;当轮时长，单位s，范围20-99</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">干预系数:</td>
+        <td class="item_input">
+            <input type="number" class="textbox" name="rate" value="{$vo.rate}" min="0" max="100"/>
+            <span class="tip_span">&nbsp;干预系数，0-100,0表示无干预，全部随机结果、100表示完全干预，收益最大</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">游戏描述:</td>
+        <td class="item_input"><input type="text" class="textbox" name="description" value="{$vo.description}"/></td>
+    </tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Games" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<!--<tr>-->
+		<!--<td colspan=2 class="bottomTd"></td>-->
+	<!--</tr>-->
+</table>
+
+</form>
+</div>
+<include file="Public:footer" />

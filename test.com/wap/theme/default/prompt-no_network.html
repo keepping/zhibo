@@ -1,0 +1,57 @@
+<!-- 关rrr于 -->
+{include file="inc/header-ajax.html"}
+<?php
+    $this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/ajax_x.js";
+    $this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/ajax_x.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+<div class="page page-current page_settings-article_cate" id="page-settings-article_cate">
+    <div class="content aboutapp">
+        <span class="btn_ajax">btn_adddjax</span>
+        <div id="djs" class="left_time" data-leftTime="5000"></div>
+        <span class="stop">stop</span>
+    </div>
+</div>
+<script type="text/javascript">
+    $.showIndicator();
+    $(".btn_ajax").click(function(){
+        handleAjax.handle(TMPL+"index.php?ctl=pai_podcast&act=remind_podcast_to_date",{cstype:"100340"}).done(function(resp){
+            $.toast(resp,1000);
+            setTimeout(function(){
+                $.showPreloader();
+                window.location.reload();
+            },1000);
+        }).fail(function(err){
+            $.toast(err,1000);
+        });
+    });
+    var o_left_time=null;
+    // 倒计时
+    $(".left_time").each(function(){
+        var leftTime = Math.abs(parseInt($(this).attr("data-leftTime")));
+        o_left_time = left_time(leftTime,$(this));
+    });
+    $(".stop").click(function(){
+        console.log(3434);
+        $(".left_time").each(function(){
+            return false;
+        });
+    });
+    
+    document.addEventListener("visibilitychange", function (e) {
+
+        if(!e.path[0].hidden){ // e.path为页面中document的集合
+           /* handleAjax.handle(TMPL+"index.php?ctl=pai_podcast&act=remind_buyer_pay",null).done(function(resp){
+                $.toast(resp,1000);
+            }).fail(function(err){
+                $.toast(err,1000);
+            });*/
+
+            $(".left_time").each(function(){
+                var leftTime = 10000;
+                o_left_time = left_time(leftTime,$(this));
+            });
+        } 
+    }, false);
+</script>
+{include file="inc/footer.html"}

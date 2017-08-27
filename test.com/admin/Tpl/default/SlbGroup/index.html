@@ -1,0 +1,39 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<PHP>
+	function add_api($id,$slbgroup){
+    	 return "<a href=\"javascript:addapi('".$id."')\">编辑接口</a>";
+	}
+</PHP>
+<script>
+    function addapi(id){
+		$.weeboxs.open(ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_api&id="+id, {contentType:'ajax',showButton:false,title:"集群组配置",width:600});
+    }
+</script>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="slbgroup"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+			,name:服务器名称
+			,api_url:接口服务器
+			,is_effect|get_is_effect=$slbgroup['id']:{%IS_EFFECT}"
+	actionlist="edit:{%EDIT},foreverdel:{%FOREVERDEL},id|add_api=$slbgroup" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="7">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%FOREVERDEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,45 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__ROOT__/public/region.js"></script>
+<load href='__TMPL__Common/js/user_edit.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Family/index")}" class="back_list">{%BACK_LIST}</a></div>
+<php>
+	function getStatus($status){
+		switch($status){
+			case '0': return '未审核';
+			case '1': return '审核通过';
+			case '2': return '拒绝通过';
+		}
+	}
+    function head_image($head_image){
+        return "<img src='".$head_image."' style='height:35px;width:35px;'/>";
+    }
+</php>
+<div class="blank5"></div>
+<div class="main_title_list"><div class="list-line-ico"></div>家族【{$family['name']}】成员列表</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		状态：<select name="status">
+			<option value="-1" >所有</option>
+			<option value="0"<if condition="$_REQUEST['status'] eq 0"> selected="selected"</if>>未审核</option>
+			<option value="1"<if condition="$_REQUEST['status'] eq 1"> selected="selected"</if>>审核通过</option>
+			<option value="2"<if condition="$_REQUEST['status'] eq 2"> selected="selected"</if>>拒绝通过</option>
+		</select><input type="hidden" value="{$id}" name="id" /><input type="hidden" value="Family" name="m" /><input type="hidden" value="index" name="a" /><input type="hidden" value="view" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="log"
+	checkbox="true"
+	datasource="list"
+	show="id:{%ID}|90px,nick_name:用户名,head_image|head_image:头像,create_time:加入时间,memo:备注,status|getStatus:状态"/>
+<div class="page">{$page}</div>
+<include file="Public:footer" />

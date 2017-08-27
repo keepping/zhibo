@@ -1,0 +1,26 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>IOS充值规则列表</div>
+<div class="blank10"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="rechangerule"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,diamonds:钻石,money:价格,gift_diamonds:赠送钻石,buy_item:购买项目,is_effect|get_is_effect=$rechangerule['id']:{%IS_EFFECT},sort|get_sort=$rechangerule['id']:{%SORT}"
+	actionlist="edit:编辑,foreverdel:删除" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="7">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+				<input type="button" class="button button-del" value="{%DEL}" onclick="foreverdel();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

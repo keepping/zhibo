@@ -1,0 +1,41 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/edu/edu_deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$deal_info.name} 结算记录　<a href="{:u("EduDeal/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<div class="main_title" style="font-size:12px; font-weight:normal;">
+实收{$deal_info.support_amount}
+  <if condition="$deal_info.commission gt 0">
+	- 网站佣金{$deal_info.commission}
+  </if>
+ = 应结筹金总额{$deal_info.pay_amount}
+，已结筹金{$paid_money}
+，剩余筹金{$remain_money}
+</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="结算" onclick="add_pay_log({$deal_info.id});" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,log_info:日志内容
+		,money|format_price:金额
+		,create_time|to_date:日期" 
+	actionlist="" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

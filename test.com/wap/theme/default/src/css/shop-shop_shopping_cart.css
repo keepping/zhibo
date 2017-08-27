@@ -1,0 +1,210 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page-shop-shop_shopping_cart .content {
+  bottom: 2.5rem;
+}
+.page-shop-shop_shopping_cart .content .data-null {
+  margin: 4rem 0.5rem 0.5rem;
+}
+.page-shop-shop_shopping_cart .money {
+  color: #ff5d0c;
+}
+.page-shop-shop_shopping_cart .input-check {
+  margin-right: 0.5rem;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+.page-shop-shop_shopping_cart .card {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.page-shop-shop_shopping_cart .card .card-header {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+}
+.page-shop-shop_shopping_cart .card .card-header:after {
+  display: none;
+}
+.page-shop-shop_shopping_cart .card .card-header .header-left {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+  padding-left: 2.5rem;
+}
+.page-shop-shop_shopping_cart .card .card-header .header-left .input-check {
+  position: absolute;
+  left: 0.5rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner {
+  padding: 0rem;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  background: #fafafa;
+  padding-left: 3rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .input-check {
+  position: absolute;
+  left: 1rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .invalid {
+  width: 40px;
+  text-align: center;
+  border-radius: 0.1rem;
+  font-size: 0.6rem;
+  background: #ddd;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  position: absolute;
+  left: 0.5rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods img {
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.5rem;
+  margin-left: 0;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-text {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0.5rem;
+  width: 100%;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-text p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-wrap: break-word;
+  font-size: 0.7rem;
+  line-height: 0.8rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-text .card-footer {
+  min-height: 0;
+  padding: 0;
+  line-height: 0.7rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-text .card-footer:before {
+  display: none;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit .edit-numb {
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit .edit-numb span {
+  width: 1.7rem;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  border: 1px solid #797979;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit .edit-numb input {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #797979;
+  text-align: center;
+  width: 2.25rem;
+  height: 1.7rem;
+  margin: 0 0.1rem;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit .edit-delete {
+  width: 3.4rem;
+  display: webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: #ff3b30;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .goods-edit .edit-delete a {
+  color: #fff;
+}
+.page-shop-shop_shopping_cart .card .card-content .card-content-inner .inner-goods .active {
+  display: none;
+}
+.page-shop-shop_shopping_cart nav {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.page-shop-shop_shopping_cart nav .allcheckbox {
+  display: webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+.page-shop-shop_shopping_cart nav .settlement {
+  display: webkit-flex;
+  display: flex;
+}
+.page-shop-shop_shopping_cart nav .settlement .nav-text {
+  line-height: 1rem;
+  text-align: right;
+  padding: 0.3rem 0.5rem;
+}
+.page-shop-shop_shopping_cart nav .settlement .nav-text .txt {
+  font-size: 0.6rem;
+}
+.page-shop-shop_shopping_cart nav .settlement .button-big {
+  background: #fe5400;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  top: 0;
+  height: 100%;
+  line-height: 2.5rem;
+  padding: 0 1rem;
+}

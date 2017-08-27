@@ -1,0 +1,126 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+    <PHP>
+        function get_date_status($status){
+            if($status==1){
+                return "已约见";
+            }elseif($status==2){
+                return "拒绝约见";
+            }elseif($status==3){
+                return "取消约见";
+            }else{
+                return "预约中";
+            }
+        }
+    </PHP>
+<script type="text/javascript">
+    //完全删除
+    function del_date_list(id,date_id)
+    {
+        if(!id)
+        {
+            idBox = $(".key:checked");
+            if(idBox.length == 0)
+            {
+                alert(LANG['DELETE_EMPTY_WARNING']);
+                return;
+            }
+            idArray = new Array();
+            $.each( idBox, function(i, n){
+                idArray.push($(n).val());
+            });
+            id = idArray.join(",");
+        }
+        if(confirm(LANG['CONFIRM_DELETE']))
+            $.ajax({
+                url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_date_list&id="+id+"&date_id="+date_id,
+                data: "ajax=1",
+                dataType: "json",
+                success: function(obj){
+                    alert(obj.info);
+                    func();
+                    function func(){
+                        if(obj.status==1){
+                            location.href=location.href;
+                        }
+                    }
+                }
+            });
+    }
+    function change_status(id,status){
+        var confirm_str = '';
+        if(status==1){
+            confirm_str = '确定已见过？';
+        }else if(status==2){
+            confirm_str = '确定拒绝约见？';
+        }else{
+            confirm_str = '确定取消约见？';
+        }
+        if(confirm(confirm_str))
+            $.ajax({
+                url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=change_status&id="+id+"&status="+status,
+                data: "ajax=1",
+                dataType: "json",
+                success: function(obj){
+                    alert(obj.info);
+                    func();
+                    function func(){
+                        if(obj.status==1){
+                            location.href=location.href;
+                        }
+                    }
+                }
+            });
+    }
+</script>
+<div class="main">
+    <div class="main_title">{$date.title} 预约记录列表</div>
+    <input type="hidden" name="date_id" id="date_id" value="{$date.id}"/>
+    <div class="blank5"></div>
+    <div class="button_row">
+        <input type="button" class="button" value="删除" onclick="del_date_list(0,'{$date.id}');" />
+    </div>
+    <div class="blank5"></div>
+
+    <table id="" class="dataTable" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td colspan="5" class="topTd">
+            </td>
+        </tr>
+        <tr class="row">
+            <th width="8">
+                <input type="checkbox" id="check" onclick="CheckAll('dataTable')">
+            </th>
+            <th>{%ID}</th>
+            <th>姓名 </th>
+            <th>{%USER_MOBILE}</th>
+            <th>{%CREATE_TIME}</th>
+            <th>{%STATUS}</th>
+            <th>{%TAG_LANG_OPERATE}</th>
+        </tr>
+        <foreach name="list" item="list_item">
+            <tr class="row">
+                <td><input type="checkbox" name="key" class="key" value="{$list_item.id}"></td>
+                <td>{$list_item.id}</td>
+                <td>{$list_item.name}</td>
+                <td>{$list_item.mobile}</td>
+                <td>{$list_item.create_time|to_date}</td>
+                <td>{$list_item.status|get_date_status}</td>
+                <td><if condition="$list_item['status'] eq 0">
+                    <a href="javascript:void(0)" onclick="change_status('{$list_item.id}',1)">已约见</a>
+                    <a href="javascript:void(0)" onclick="change_status('{$list_item.id}',2)">拒绝</a>
+                    <a href="javascript:void(0)" onclick="change_status('{$list_item.id}',3)">取消</a>
+                    <a href="javascript:void(0)" onclick="del_date_list('{$list_item.id}','{$date.id}')">删除</a>
+                    <else /><a href="javascript:void(0)" onclick="del_date_list('{$list_item.id}','{$date.id}')">删除</a></if>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+
+    <div class="blank5"></div>
+    <div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

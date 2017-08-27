@@ -1,0 +1,84 @@
+{include file="inc/header.html"}
+
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-income.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/user_center-income.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+
+<script type="text/javascript">
+    var tmpl = '{$JSTMPL}';
+    // var year = '{$data.now_year}';
+    var month = '{$data.now_month}';
+    var now_year = '{$data.now_year}';
+    var now_month = '{$data.now_month}';
+    var d = new Date();
+    var year = d.getFullYear();
+    /*console.log(now_year);*/
+</script>
+<div class="page page-current user_center-income" id="user_center-income">
+<!--     {if !isApp()}
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+            <span class="icon icon-left"></span>
+        </a>
+        <h1 class="title">收入明细</h1>
+    </header>
+    {/if} -->
+    <div class="content">
+        <div class="income-head">
+            <div class="left">
+                <h1><span id="year">{$data.now_year}</span>年</h1>
+                <h2><span id="month">{$data.now_month}</span>月<i class="icon iconfont"></i></h2>
+                <input type="text" id="Date"/>
+            </div>
+            <div class="right">
+                <div class="box">
+                    <h1>累计收入</h1>
+                    <h2><span class="">印票 {$data.ticket}</span></h2>
+                </div>
+                <div class="box">
+                    <h1>待结算</h1>
+                    <h2><span class="">印票 {$data.pending}</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="buttons-tab">
+            <a href="#" class="{if $data.type == 0}active{/if} button J-view-income" data-iscounted="1">已结算</a>
+            <a href="#" class="{if $data.type == 1}active{/if} button J-view-income" data-iscounted="0">待结算</a>
+        </div>
+        <div class="incomelist">
+            {foreach from=$data.list item=item key=key}
+            <div class="list-block media-list">
+                <div class="daytit">
+                    <div class="left">{$item.time}</div>
+                    <div class="right">小计：亲贝 <span>{$item.total}</span></div>
+                </div>
+                <ul>
+                    <!-- 成功success 待退款wait  退款refund -->
+                    {foreach from=$item.goods_list item=sub_item  key=sub_key}
+                    <li class="{if $sub_item.status eq 0}success{elseif $sub_item.status eq 1}wait{else}refund{/if}">
+                        <a href="#" class="item-content">
+                            <div class="item-media"><i class="icon iconfont"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{$sub_item.order_sn}</div>
+                                </div>
+                                <div class="item-subtitle">{$sub_item.name}</div>
+                            </div>
+                            <div class="item-right"><span>+{$sub_item.diamond}</span></div>
+                        </a>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div><!--list-block  -->
+            {/foreach}
+        </div>
+    </div><!--content  -->
+</div><!--page  -->
+<script type="text/javascript">
+    // 已结算url
+    var yes_counted_url = APP_ROOT+"/wap/index.php?ctl=user_center&act=income&type=0&year="+year+"&month="+month,
+        no_counted_url = APP_ROOT+"/wap/index.php?ctl=user_center&act=income&type=1&year="+year+"&month="+month;
+</script>
+{include file="inc/footer.html"}

@@ -1,0 +1,29 @@
+{include file="inc/header.html"}
+<div class="page page_settings-help" id="page-settings-faq">
+<!-- 	{if !isApp()}
+	<header class="bar bar-nav">
+    	<a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      		<span class="icon icon-left"></span>
+    	</a>
+    	<h1 class="title">{$data.page_title}</h1>
+  	</header>
+  	{/if} -->
+	<div class="content">
+		<div class="help-list">
+			<div class="help-list-title">{$data.page_title}</div>
+			<div class="list-block help-list-block">
+				<ul>
+					{foreach from=$data.faq_list item=item key=key name=item_name}
+			  		<li class="item-content item-link">
+					    <a href='{url_wap r="settings#faq_show" p="id=$item.id"}' class="item-inner">
+					      	<div class="item-title">{$item.question}</div>
+					      	<div class="item-after"></div>
+					    </a>
+			  		</li>
+			  		{/foreach}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}

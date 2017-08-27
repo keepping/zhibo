@@ -1,0 +1,248 @@
+{// 引入标签库 }
+<tagLib name="html" />
+
+<include file="Public:header" />
+<div class="blank5"></div>
+<!--<script>-->
+	<!--function equipment_info(id)-->
+	<!--{-->
+		<!--return "<a location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=equipment_info&id="+id></a>-->
+
+	<!--}-->
+<!--</script>-->
+<div class="main">
+	<div class="main_title">{$user.nick_name} {%EQUIPMENT_INFO}
+		<a style="margin-left: 20px;" href="">刷新</a></div>
+
+	<div class="blank5"></div>
+	<div class='wrapper'>
+		<input type="hidden" value="{$monitor_time}" name="monitor_time" id="monitor_time"/>
+		<input type="hidden" value="{$appCPURate}" name="appCPURate" id="appCPURate"/>
+		<input type="hidden" value="{$sysCPURate}" name="sysCPURate" id="sysCPURate"/>
+		<input type="hidden" value="{$sendKBps}" name="sendKBps" id="sendKBps"/>
+		<input type="hidden" value="{$recvKBps}" name="recvKBps" id="recvKBps"/>
+		<input type="hidden" value="{$sendLossRate}" name="sendLossRate" id="sendLossRate"/>
+		<input type="hidden" value="{$fps}" name="fps" id="fps"/>
+		<input type="hidden" value="{$device}" name="device" id="device"/>
+		<input type="hidden" value="{$vote_number}" name="vote_number" id="vote_number"/>
+		<input type="hidden" value="{$watch_number}" name="watch_number" id="watch_number"/>
+		<input type="hidden" value="<?php echo $_REQUEST['id'] ?>" name="id"/>
+		<load href='__TMPL__Common/js/highcharts.js' />
+		<load href='__TMPL__Common/js/exporting.js' />
+		<script type="text/javascript">
+			//appcpu占用率
+			appCPURate=$("input[name='appCPURate']").val();
+			var appCPURateobj = eval ("[" + appCPURate + "]");
+			//系统cpu占用率
+			sysCPURate=$("input[name='sysCPURate']").val();
+			var sysCPURateobj = eval ("[" + sysCPURate + "]");
+			//上行速率
+			sendKBps=$("input[name='sendKBps']").val();
+			var sendKBpsobj = eval ("[" + sendKBps + "]");
+			//下行速率
+			recvKBps=$("input[name='recvKBps']").val();
+			var recvKBpsobj = eval ("[" + recvKBps + "]");
+			//上行丢包率
+			sendLossRate=$("input[name='sendLossRate']").val();
+			var sendLossRateobj = eval ("[" + sendLossRate + "]");
+			//视频帧率fps
+			fps=$("input[name='fps']").val();
+			var fpsobj = eval ("[" + fps + "]");
+			//时间采集点
+			monitor_time=$("input[name='monitor_time']").val();
+			var timeobj = monitor_time.split(",");
+			//设备类型
+			model=$("input[name='device']").val();
+			//当前观看人数
+			watch_number=$("input[name='watch_number']").val();
+			var watch_numberobj = eval ("[" + watch_number + "]");
+			//当前印票数
+			vote_number=$("input[name='vote_number']").val();
+			var vote_numberobj = eval ("[" + vote_number + "]");
+
+
+
+
+
+
+
+			//分成两部分显示,因为印票数和在线人数值过大,与其他数值显示起来不够美观
+			//印票数和在线人数统计
+			$(function () {
+				$('#container').highcharts({
+					chart: {
+					},
+					title: {
+						text: '用户设备:'+model
+
+
+					},
+					//x轴
+					xAxis: {
+						//有数据才会显示X轴上的时间,没有则会隐藏,5分钟统计一次,监控两小时。
+						categories: timeobj
+					},
+					//y轴
+					yAxis:{
+						title:{
+							text:'设备信息'
+						},
+						allowDecimals: false,
+						min:0
+					},
+					tooltip: {
+						formatter: function() {
+							var s;
+							if (this.point.name) { // the pie chart
+								s = ''+
+										this.point.name +': '+ this.y +' fruits';
+							} else {
+								s = ''+
+										this.x+':'+this.series.name +': '+ this.y;
+							}
+							return s;
+						}
+					},
+					exporting:{
+						enabled:false
+					},
+					credits: {
+						enabled: false
+					},
+					series: [
+						{
+							type: 'spline',
+							name: '当前观看人数',
+							data: watch_numberobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+						{
+							type: 'spline',
+							name: '当前{%TICKET}',
+							data: vote_numberobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						}]
+				});
+			});
+			//其他设备信息
+			$(function () {
+				$('#container1').highcharts({
+					chart: {
+					},
+					title: {
+						text: ''
+
+					},
+					//x轴
+					xAxis: {
+						//有数据才会显示X轴上的时间,没有则会隐藏,5分钟统计一次,监控两小时。
+						categories: timeobj
+					},
+					//y轴
+					yAxis:{
+						title:{
+							text:'设备信息'
+						},
+						allowDecimals: false,
+						min:0
+					},
+					tooltip: {
+						formatter: function() {
+							var s;
+							if (this.point.name) { // the pie chart
+								s = ''+
+										this.point.name +': '+ this.y +' fruits';
+							} else {
+								s = ''+
+										this.x+':'+this.series.name +': '+ this.y;
+							}
+
+							return s;
+						}
+					},
+					exporting:{
+						enabled:false
+					},
+					credits: {
+						enabled: false
+					},
+					series: [
+						{
+							type: 'spline',
+							name: 'APPCPU占用率(%)',
+							data: appCPURateobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+
+						{
+							type: 'spline',
+							name: '系统CPU占用率(%)',
+							data: sysCPURateobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+						{
+							type: 'spline',
+							name: '上行速率(KBps)',
+							data: sendKBpsobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+						{
+							type: 'spline',
+							name: '下行速率(KBps)',
+							data: recvKBpsobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+						{
+							type: 'spline',
+							name: '上行丢包率(%)',
+							data: sendLossRateobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						},
+						{
+							type: 'spline',
+							name: '视频帧率fps(fps)',
+							data: fpsobj,
+							marker: {
+								lineWidth: 2,
+								lineColor: Highcharts.getOptions().colors[3],
+								fillColor: 'white'
+							}
+						}]
+				});
+			});
+			new Chart(document.getElementById("canvas").getContext("2d")).Line(myData)
+		</script>
+		<div id="container" style="width:100%;height:400px;margin:0 auto"></div>
+		<div id="container1" style="width:100%;height:400px;margin:0 auto"></div>
+		<h1 style="text-align: center;font-size: 15px">温馨提示：↑上列设备信息可以点击,查看自己想了解的信息吧</h1>
+	</div>
+	<div class="blank5"></div>
+	<include file="Public:footer" />

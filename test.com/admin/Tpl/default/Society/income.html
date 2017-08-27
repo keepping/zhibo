@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>公会收入列表</div>
+<php>
+	function getStatus($status){
+		switch($status){
+			case '0': return '未审核';
+			case '1': return '审核通过';
+			case '2': return '拒绝通过';
+		}
+	}
+    function logo($logo){
+        return "<img src='".$logo."' style='height:35px;width:35px;'/>";
+    }
+    function submit_refund($id){
+    	return "<span onclick='submit_refund(".$id.");'></span>";
+    }
+</php>
+<script type="text/javascript">
+	function submit_refund(id){
+		location.href = ROOT+"?"+VAR_MODULE+"=Society&"+VAR_ACTION+"=submit_refund&id="+id;
+	}
+</script>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		公会名：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+		公会ID：<input type="text" class="textbox" name="id" value="{:trim($_REQUEST['id'])}" />
+		<input type="hidden" value="Society" name="m" />
+		<input type="hidden" value="income" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="society"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|5%,name:公会名,logo|logo:公会logo,ticket:可提现印票,money:可提现金额,memo:备注,status|getStatus:状态"
+	actionlist="id|submit_refund|申请提现" />
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

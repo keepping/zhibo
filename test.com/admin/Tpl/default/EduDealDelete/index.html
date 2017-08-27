@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<PHP>
+function get_user_name($user_id)
+	{
+	    return M("User")->where("id=".intval($user_id))->getField("nick_name");
+}
+</PHP>
+<div class="main">
+<div class="main_title">回收站</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="彻底删除" onclick="foreverdel();" />
+
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		项目名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" style="width:100px;" />
+
+		发起人ID: <input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:30px;" />
+		<input type="hidden" value="EduDealDelete" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name:项目名称|200px
+		,user_id:发起人ID
+		,user_id|get_user_name:发起人呢称
+		,limit_price:目标金额|100px
+		,create_time|to_date:创建时间" 
+	actionlist="restore:恢复, foreverdel:彻底删除" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

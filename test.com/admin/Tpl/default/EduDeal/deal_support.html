@@ -1,0 +1,117 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+	function get_order_status($status)
+	{
+		if($status==0)return "未支付";
+		if($status==1)return "已支付";
+	}
+	function get_user_name($user_id)
+	{
+		return M("User")->where("id=".intval($user_id))->getField("nick_name");
+	}
+</PHP>
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<script type="text/javascript">
+	function view(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=view&id="+id;
+	}
+
+    function del_order(id)
+    {
+        if(!id)
+        {
+            idBox = $(".key:checked");
+            if(idBox.length == 0)
+            {
+                alert(LANG['DELETE_EMPTY_WARNING']);
+                return;
+            }
+            idArray = new Array();
+            $.each( idBox, function(i, n){
+                idArray.push($(n).val());
+            });
+            id = idArray.join(",");
+        }
+        if(confirm(LANG['CONFIRM_DELETE']))
+            $.ajax({
+                url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=delete_order&id="+id,
+                data: "ajax=1",
+                dataType: "json",
+                success: function(obj){
+                    alert(obj.info);
+                    if(obj.status==1)
+                        location.href=location.href;
+                }
+            });
+    }
+
+    function order_refund(id)
+    {
+        if(confirm("确定要退款？")){
+            $.ajax({
+                url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=order_refund&id="+id,
+                data: "ajax=1",
+                dataType: "json",
+                success: function(obj){
+                    alert(obj.info);
+                    if(obj.status==1){
+                        location.href=location.href;
+					}
+                }
+            });
+		}
+    }
+
+</script>
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="blank5"></div>
+<div class="button_row">
+	<div class="main_title"> {$deal_info.name}-支持列表 <a href="{:u("EduDeal/index")}" class="back_list">{%BACK_LIST}</a></div>
+	<div class="blank5"></div>
+	<input type="button" class="button" value="删除" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		发起人ID: <input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:100px;" />
+		退款:
+		<select name="is_refund">
+		<option value="NULL" <if condition="$_REQUEST['is_refund'] eq NULL">selected="selected"</if> >请选择</option>
+			<option value="0" <if condition="$_REQUEST['is_refund'] eq '0'">selected="selected"</if> >未退款</option>
+			<option value="1" <if condition="$_REQUEST['is_refund'] eq 1">selected="selected"</if> >已退款</option>
+		</select>
+		<input type="hidden" value="EduDeal" name="m" />
+		<input type="hidden" value="deal_support" name="a" />
+		<input type="hidden" value="{$_REQUEST['deal_id']}" name="deal_id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<!--<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />-->
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,deal_name|get_title:项目名称
+		,user_id:支持人id
+		,user_id|get_user_name:支持人呢称
+		,pay:支付金额
+		,order_status|get_order_status:状态
+		,is_refund|get_status:退款
+		,create_time|to_date:下单日期" 
+	actionlist="order_refund:退款,del_order:删除" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

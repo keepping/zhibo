@@ -1,0 +1,69 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-goods_details.css";
+$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-goods_details.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}"/>
+<div class="page page-current page-shop-goods_details" id="page-shop-goods_details">
+    <div class="content">
+        <div class="goods-img">
+            <img src="{$data.goods.imgs}" alt="">
+        </div>
+        <div class="content-block">
+            <div class="card goods-info">
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        {$data.goods.name}
+                    </div>
+                </div>
+                <div class="card-footer no-border">
+                    {if PAI_REAL_BTN == 1}
+                    <span>起拍价:{$data.goods.pai_diamonds}(钻石)</span>
+                    {/if}
+                    {if SHOPPING_GOODS == 1}
+                    <span>价格：&yen;{$data.goods.price}</span>
+                    <span class="goods-money">佣金：{$data.goods.commission}</span>
+                    {/if}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span>运费：{$data.goods.kd_cost}</span>
+                    <span>{$data.goods.sales}人购买</span>
+
+                </div>
+                <div class="card-header no-border">
+                    {foreach from=$data.goods_tags item=item key=key name=item_tags}
+                    <div>
+                        <i>
+                            <img style="width: 1rem;height: 1rem" src="{$item.image}">
+                        </i>
+                        <span>{$item.name}</span>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+            <div class="card facebook-card">
+                <div class="card-header no-border">
+                    <span>商品详情</span>
+                </div>
+                {foreach from=$data.goods.imgs_details item=item key=key name=item_name}
+                <div class="card-content"><img src="{$item}" alt="" width="100%"></div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <nav class="bar bar-tab">
+        {if $data.goods.has eq 0}
+        <a href="javascript:void(0)" class="button button-light J-anchor">我要分销</a>
+        {else}
+        <a class="button button-light J-anchor">已添加分销</a>
+        {/if}
+    </nav>
+</div>
+
+<script type="text/javascript">
+    var goods_id = {$data.goods.goods_id};
+</script>
+
+{include file="inc/footer.html"}

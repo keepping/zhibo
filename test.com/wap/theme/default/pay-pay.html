@@ -1,0 +1,27 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/pai_user-virtual_order_details.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page_virtual_order_details" id="page-pai_user-virtual_order_details">
+  	<nav class="bar bar-tab footer_btn tc">
+        <a class="button button40 button-round button-middle button-fill button-theme J-pay_diamonds" href="javascript:void(0);" data-order_sn="{$data.data.order_sn}" data-pai_id="{$data.data.pai_id}" data-ordertype="{$data.data.order_type}">立即支付</a>
+  	</nav>
+  	<div class="content">
+   		<div class="content-pay">
+   			<div class="pay-money">
+   				<span>订单金额：</span><span class="diamond f_theme">{$data.data.total_diamonds}</span>
+   			</div>
+   			<div class="pay-mode">
+   				<div class="mode">
+	   				<input type="checkbox" class="input-check" id="pay_balance" checked="checked" />
+	   				<span>使用账号余额支付（<em class="diamond f_theme">{$data.data.diamonds}</em>）</span>
+   				</div>
+   			</div>
+   			<p class="recharge">
+   				<a href="javascript:void(0)" class="button button40 button-round button-middle button-theme J_recharge">立即充值</a>
+   			</p>
+   		</div>
+  	</div>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,60 @@
+@import (once) "public/variable.less";
+.page{
+	& .content{
+		& .content-pay{
+			background: #fff;
+			border-bottom: 1px solid #ddd;
+			& .pay-money{
+				text-align: center;
+				font-size: @fontsize1;
+				border-bottom: 1px dashed @bordercolor;
+				padding: 0.7rem 0;
+				line-height: 1.5rem;
+			}
+			& .pay-mode{
+				padding-top: 0.7rem;
+				font-size: 0.6rem;
+				text-align: center;
+				line-height: 1.5rem;
+				& .mode{
+					display: inline-block;
+					padding-left: 1rem;
+					& input{
+						display: flex;
+						flex-direction: row;
+						flex-wrap: wrap;
+						padding: 0.25rem 0;
+						float: left;
+					}
+					& span{
+						display: flex;
+					    flex-direction: row;
+					    flex-wrap: wrap;
+					    float: left;
+					    padding-left: 0.2rem;
+						& em{
+							font-size: @fontsize1;
+							line-height: 1.5rem;
+							&:before{
+								top:0.25rem
+							}
+						}
+					}
+				}
+				
+			}
+			& .recharge{
+				
+				font-size: 0.6rem;
+				text-align: center;
+				margin-bottom: 0.7rem;
+				& .button{
+					height: 1.3rem;
+					line-height: 1.3rem;
+					width: 25%;
+					font-size: 0.6rem;
+				}
+			}	
+		}
+	}
+}

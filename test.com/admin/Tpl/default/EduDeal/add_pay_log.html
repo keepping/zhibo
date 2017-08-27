@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+
+</script>
+<div class="main">
+<div class="main_title">{$deal_info.name} 筹款结算</div>
+<div class="blank5"></div>
+<div class="main_title" style="font-size:12px; font-weight:normal;">
+实收{$deal_info.support_amount}
+
+<if condition="$deal_info.commission gt 0">
+	- 网站佣金{$deal_info.commission}
+</if>
+
+= 应结筹金总额{$deal_info.pay_amount}
+
+，已结筹金{$paid_money}
+
+，剩余筹金{$remain_money}
+</div>
+<div class="blank5"></div>
+ 	<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title">发放金额:</td>
+			<td class="item_input">
+				{$remain_money}
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">备注:</td>
+			<td class="item_input"><input type="text" class="textbox" name="log_info" style="width:400px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">&nbsp;</td>
+			<td class="item_input">
+				<!--隐藏元素-->
+				<input type="hidden" name="id" value="{$deal_info.id}" />
+				<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduDeal" />
+				<input type="hidden" name="{:conf("VAR_ACTION")}" value="save_pay_log" />
+				<!--隐藏元素-->
+				<input type="submit" class="button" value="{%OK}" />
+				<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>	 
+	</form>
+</div>

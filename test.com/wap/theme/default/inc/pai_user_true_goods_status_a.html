@@ -1,0 +1,54 @@
+<!-- 竞拍中 -->
+<li class="card block-good-virtual">
+	<div class="card-header">
+		<div class="item-title">{if $data.is_podcast eq 1}{$item.user_name}{else}{$item.shopinfo.shop_name}{/if}</div>
+		<div class="item-after">
+			{if $item.pai_diamonds eq $item.last_pai_diamonds}
+			<span class="pai_status_inline">领先</span>
+		{else}
+			<span class="pai_status_fail">落后</span>
+		{/if}
+		</div>
+	</div>
+	<div class="card-content good_content">
+		<div class="list-block media-list">
+	    	<ul>
+	      		<li>
+	      			<a href="javascript:void(0);" class="item-content J-pai_live" data-id="{$item.id}">
+			            <div class="item-media">
+			              	<img src="{$item.img}" width="80" height="70">
+			            </div>
+			            <div class="item-inner">
+			              	<div class="item-title-row">
+			                	<div class="item-title good_name">{$item.name}</div>
+			              	</div>
+			              	<div class="item-subtitle f_999">最高价：<span class="diamond f_theme">{$item.last_pai_diamonds}</span></div>
+			            </div>
+			        </a>
+	          	</li>
+	    	</ul>
+	  	</div>
+	</div>
+	<div class="card-footer">
+		<div class="list-block">
+		    <ul>
+		      	<li class="item-content">
+		        	<div class="item-inner">
+		          		<div class="item-title f_999">我的出价</div>
+		          		<div class="item-after"><span class="diamond f_theme">{$item.pai_diamonds}</span></div>
+		        	</div>
+		      	</li>
+		      	<li class="item-content">
+			        <div class="item-inner">
+						<div class="item-title f_555 f12">
+							<span class="left_time" data-leftTime="{$item.pai_left_time}"></span>&nbsp;结束
+						</div>
+	          			<div class="item-after">
+							<a href="javascript:void(0);" class="button button-theme button-round button-fill J-join_live" data-id="{$item.id}">继续出价</a>
+	          			</div>
+			        </div>
+		      	</li>
+		    </ul>
+  		</div>
+	</div>
+</li>

@@ -1,0 +1,164 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("IndexImage/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">标题:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="title" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">图片:</td>
+		<td class="item_input"><html:imgUpload name = 'image' id='image' />
+            <span class="tip_span" id="tip_span">&nbsp;[启动广告图标规格为：750px*1334px][其他图片规格为：828px*240px]</span>
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">显示位置:</td>
+        <td class="item_input">
+            <select name="show_position" id="position">
+                <foreach  name="position" item="position_item" key="k">
+                    <option value="{$k}">{$position_item}</option>
+                </foreach>
+            </select>
+
+        </td>
+    </tr>
+	<tr id="select_type">
+		<td class="item_title">类型:</td>
+		<td class="item_input">
+			<select name="type" id="type">
+				<foreach  name="type_list" item="type_item" key="k">
+					<option value="{$k}">{$type_item}</option>
+				</foreach>
+			</select>
+				
+		</td>
+	</tr>
+    <tr id="url">
+        <td class="item_title">链接:</td>
+        <td class="item_input"><input type="text" class="textbox" name="url" /></td>
+    </tr>
+    <tr id="family_id" style="display: none">
+        <td class="item_title">家族:</td>
+        <td class="item_input">
+            <select name="show_id">
+                <foreach  name="family" item="f_item" key="k">
+                    <option value="{$f_item.id}">{$f_item.name}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+	<tr id="edu_show_id" style="display: none">
+        <td class="item_title" id="edu_show_id_title" >房间id:</td>
+        <td class="item_input">
+           <input type="text" class="textbox" name="show_id" value="" />
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$new_sort}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="IndexImage" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+    <script>
+        $(function(){
+            var type = $('#type option:selected').val();
+            var position = $('#position option:selected').val();
+            if(type==1){
+                $('#family_id').show();
+            }else{
+                $('#family_id').hide();
+            }
+
+            if(type==0){
+                $("#url").show();
+            }else{
+                $("#url").hide();
+            }
+
+            if(position == 3){
+                $("#select_type").hide();
+                $("#type").val(0);
+                $("#url").show();
+            }else{
+                $("#select_type").show();
+            }
+
+            $("#type").change(function(){
+                type = $(this).val();
+                if(type==1){
+                    $('#family_id').show();
+                }else{
+                    $('#family_id').hide();
+                }
+
+                if(type!=0){
+                    $("#url").hide();
+                    $("input[name='url']").val('');
+                }else{
+                    $("#url").show();
+                }
+				
+				if(type>=6 && type<=9){
+	                $('#edu_show_id').show();
+                    $('#edu_show_id input').attr('name','show_id');
+					if( type==8)
+						$('#edu_show_id_title').html("房间号：");
+					else if( type==6)
+						$('#edu_show_id_title').html("机构id：");
+                    else if( type==9)
+                        $('#edu_show_id_title').html("课程id：");
+					else
+						$('#edu_show_id_title').html("会员id：");
+						
+	            }else{
+	                $('#edu_show_id').hide();
+                    $('#edu_show_id input').removeAttr('name');
+	            }
+            });
+
+            $("#position").change(function(){
+                position = $(this).val();
+                if(position == 3){
+                    $("#select_type").hide();
+                    $("#type").val(0);
+                    $("#url").show();
+                }
+				else{
+                    type = $('#type option:selected').val();
+                    if(type==0){
+                        $("#url").show();
+                    }else{
+                        $("#url").hide();
+                        $("input[name='url']").val('');
+                    }
+                    $("#select_type").show();
+                }
+            });
+
+        });
+    </script>
+</form>
+</div>
+<include file="Public:footer" />

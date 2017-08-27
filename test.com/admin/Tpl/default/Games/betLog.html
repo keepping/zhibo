@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function create_time($create_time){
+        return to_date($create_time);
+	}
+</php>
+
+<script>
+</script>
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>游戏<?php if ($is_diamond): ?>钻石<?php else: ?>金币<?php endif ?>记录</div>
+    <div class="search_row">
+        <form name="search" action="__APP__" method="get">
+            用户id：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" />
+            游戏记录id：<input type="text" class="textbox" name="game_log_id" value="{:trim($_REQUEST['game_log_id'])}" />
+            <input type="hidden" value="Games" name="m" />
+            <input type="hidden" value="betLog" name="a" />
+            <input type="submit" class="button" value="{%SEARCH}" />
+        </form>
+    </div>
+    <?php if ($is_diamond): ?>
+    	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="user"
+			datasource="list"
+			show="id:{%ID}
+            ,user_id:用户id
+			,game_log_id:游戏记录id
+			,diamonds:钻石数量
+			,account_diamonds:钻石余额
+			,memo:备注
+			,create_time|create_time:时间" />
+    <?php else: ?>
+    	<html:list
+			id="dataTable"
+			style="dataTable"
+			name="user"
+			datasource="list"
+			show="id:{%ID}
+            ,user_id:用户id
+			,game_log_id:游戏记录id
+			,diamonds:金币数量
+			,account_diamonds:金币余额
+			,memo:备注
+			,create_time|create_time:时间" />
+    <?php endif ?>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

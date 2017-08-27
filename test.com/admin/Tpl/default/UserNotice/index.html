@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>用户消息列表</div>
+<script type="text/javascript">
+	function view_info(id)
+	{
+		$.weeboxs.open(ROOT+'?m=UserNotice&a=view_info&id='+id, {contentType:'ajax',showButton:false,title:'详细信息',width:600,height:260});
+	}
+</script>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get" class="clearfix">
+		<div>接收人ID：
+			<input type="text" class="textbox" name="user_id" value="{$param['user_id']}"  />&nbsp;
+		</div>
+		<div>类型：
+			<select name="send_type">
+				<option value="">所有类型</option>
+				<foreach name="send_type" item="vo">
+				    <option value="{$key}"<eq name="key" value="$param['send_type']"> selected="selected"</eq> >{$vo}</option>
+				</foreach>
+			</select>&nbsp;
+		</div>
+		<div>发件时间：
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($param['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+			-&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($param['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+			<input type="hidden" value="UserNotice" name="m" />
+			<input type="hidden" value="index" name="a" />
+			<input type="submit" class="button" value="{%SEARCH}" />
+		</div>
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="user_addr"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,send_name:发件人,take_name:接收人,content:发件内容,type:类型,is_read:状态,create_date:发件时间"
+	actionlist="view_info:详细信息,foreverdel:{%FOREVERDEL}"/>
+
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

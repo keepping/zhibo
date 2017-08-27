@@ -1,0 +1,29 @@
+    {include file="inc/sui_mobile_header.html"}
+    <?php
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm.css";
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-extend.min.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/sm-extend.min.css";
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/public.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/css/public.css";
+        $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/pages.css";
+        $this->_var['cpagecss'][] = $this->_var['TMPL_REAL']."/css/pages.css";
+        $this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/zepto.min.js";
+        $this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/dist/sui-mobile/zepto.min.js";
+        $this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/template.js";
+        $this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/template.js";
+        $this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/common.js";
+        $this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/common.js";
+    ?>
+    <script type="text/javascript">
+        var TMPL = '{$jstmpl_path}';
+        var TMPL_REAL = '{$TMPL}';
+       	var APP_ROOT = '{$APP_ROOT}';
+        var __HASH_KEY__ = "{$hash_key}";
+    </script>
+    <link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss" c="$cpagecss"}" />
+    <script type="text/javascript" src="{function name="parse_script" v="$pagejs" c="$cpagejs"}"></script>
+    <script src="{$TMPL}/dist/frames/vue/vue.min.js"></script>
+</head>
+<body>
+<div class="page-group">

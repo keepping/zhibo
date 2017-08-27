@@ -1,0 +1,152 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+    <div class="main_title">添加商品 <a href="{:u("Goods/index")}" class="back_list">{%BACK_LIST}</a></div>
+    <div class="blank5"></div>
+    <form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=2 class="topTd"></td>
+            </tr>
+            <tr>
+                <td class="item_title">商品名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="name" value=""/></td>
+            </tr>
+            <tr>
+                <td class="item_title">商品主图片:</td>
+                <td class="item_input"><html:imgUpload  name="imgs" id='imgs' value=""/>
+                    <!--<span class='tip_span'>&nbsp;[图标规格为：35px*35px]</span>-->
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">商品详情图片:</td>
+                <td class="item_input"><html:imgUpload  name="imgs_details" id='imgs_details' value=""/>
+                </td>
+            </tr>
+            <tr id="article_type">
+                <td class="item_title">商品分类:</td>
+                <td class="item_input">
+                    <select name="cate_id">
+                        <foreach name="cate_info" item="cate">
+                            <option value="{$cate.id}">{$cate.name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">商品标签:</td>
+                <td class="item_input">
+                    <foreach name="tags_info" item="tags">
+                        <input type="checkbox" name="tags_id[]" value="{$tags.id}">
+                        <span>{$tags.name}</span>
+                    </foreach>
+                </td>
+            </tr>
+            <if condition="SHOPPING_GOODS eq 1 ">
+            <tr>
+                <td class="item_title">商品价格(人民币):</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="price" value=""/>
+                    <span class='tip_span'>&nbsp;商品购物售卖的价钱。单位：人民币</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">快递费用:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="kd_cost" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">主播抽取佣金:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="podcast_ticket" value=""/>
+                    <span class="tip_span">&nbsp;主播抽取商品佣金。单位：印票(当该值为"0"时，采取平台的抽成比例计算收益的印票数)</span>
+                </td>
+            </tr>
+            </if>
+            <tr>
+                <td class="item_title">商品经验:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="score" value=""/>
+                    <span class="tip_span">&nbsp;主播、观众购买商品增加的经验</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">商品库存:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="inventory" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">总销售量:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="sales" value=""/>
+                    <span class="tip_span">&nbsp;商品总销售量。单位：件</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">售卖人数:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="number" value=""/>
+                    <span class="tip_span">&nbsp;商品在卖总人数。</span>
+                </td>
+            </tr>
+            <if condition="PAI_REAL_BTN eq 1 ">
+                <tr>
+                    <td class="item_title">商品直播价格(钻石):</td>
+                    <td class="item_input">
+                        <input type="text" class="textbox" name="pai_diamonds" value=""/>
+                        <span class='tip_span'>&nbsp;商品竞拍的价钱。单位：钻石</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item_title">竞拍保证金:</td>
+                    <td class="item_input">
+                        <input type="text" class="textbox" name="bz_diamonds" value=""/>
+                        <span class="tip_span">&nbsp;设置商品竞拍的保证金。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item_title">竞拍加价幅度:</td>
+                    <td class="item_input">
+                        <input type="text" class="textbox" name="jj_diamonds" value=""/>
+                        <span class="tip_span">&nbsp;设置商品每次竞拍的加价幅度。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item_title">竞拍时间:</td>
+                    <td class="item_input">
+                        <input type="text" class="textbox" name="pai_time" value=""/>
+                        <span class="tip_span">&nbsp;设置商品中的竞拍时间。单位小时：1=1小时</span>
+                    </td>
+                </tr>
+            </if>
+            <tr>
+                <td class="item_title">商品描述:</td>
+                <td class="item_input"><input type="text" class="textbox" name="description" value=""/></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否有效:</td>
+                <td class="item_input">
+                    <label>是<input type="radio" name="is_effect" value="1"  /></label>
+                    <label>否<input type="radio" name="is_effect" value="0"  checked="checked"/></label>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <input type="hidden" name="{:conf("VAR_MODULE")}" value="Goods" />
+                    <input type="hidden" name="{:conf("VAR_ACTION")}" value="add_goods" />
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="{%ADD}" />
+                    <input type="reset" class="button" value="{%RESET}" />
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,214 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-virtual_shop_order_details.css";
+$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-virtual_shop_order_details.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page-shop-virtual_shop_order_details" id="page-shop-virtual_shop_order_details">
+    <div class="content">
+        <div class="content-block">
+            <div class="status_info">
+                {if $data.data.order_status eq 1}
+                <div class="status f15">等待买家付款</div>
+                {elseif $data.data.order_status eq 2}
+                <div class="status f15">等待供应商发货</div>
+                <span class="time f12">您的包裹正整装待发</span>
+                {elseif $data.data.order_status eq 3}
+                <div class="status f15">等待确认收货</div>
+                {elseif $data.data.order_status eq 4}
+                <div class="status f15">订单完成</div>
+                {else}
+                <div class="status f15">订单关闭</div>
+                {/if}
+            </div>
+            {if $data.data.buy_type eq 0}
+            <div class="addressed">
+                <div class="icon">
+                    <i class="iconfont">&#xe661;</i>
+                </div>
+                <div class="address-info">
+                    <a href='javascript:void(0)' class="J-address" style="display: block;height: 100%;">
+                        <p class="user-info">
+                            <span>收货人：{$data.data.consignee}</span>&nbsp;
+                            <span>{$data.data.consignee_mobile}</span>
+                        </p>
+                        <p>收货地址：{$data.data.consignee_address}</p>
+                    </a>
+                </div>
+            </div>
+            {else}
+            <div class="addressed">
+                <div class="icon">
+                    <p class="iconfont">&#xe661;买给主播</p>
+                </div>
+            </div>
+            {/if}
+        </div>
+        <div class="content-block">
+            <div class="card">
+                <div class="card-content">
+                    {if $data.data.is_p == 0}
+                    <div class="list-block">
+                        <ul>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{$data.data.supplier_name}</div>
+                                    {if $data.data.buy_type eq 0}
+                                    <a href='{url_wap r="shop#see_boring" p="order_sn=$data.data.order_sn"}'><div class="item-after"><i class="iconfont">&#xe668;</i>&nbsp;查看物流</div></a>
+                                    {/if}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-content-inner">
+                        <div class="goods-img">
+                            <img src="{$data.data.goods_imgs}">
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    <div class="inner-text">
+                                        <p>{$data.data.goods_name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer no-border">
+                                <div class="goods-money">
+                                    价格：<span class="">￥{$data.data.goods_price}&nbsp;x&nbsp;{$data.data.number}</span>
+                                </div>
+
+                            </div>
+                            <div class="card-footer no-border" style="position: absolute;bottom: 0;right: 0;">
+                                <span>运费：{$data.data.freight_diamonds}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>给卖家留言：</span>
+                        <input readonly="readonly" class="footer-input" type="text" name="remarks" value="{$data.data.memo}">
+                    </div>
+                    {else}
+                    {foreach from=$data.data.goods_imgs item=item1 key=key1 name=imgs}
+                    <div class="list-block">
+                        <ul>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{$key1}</div>
+                                    {if $data.data.buy_type eq 0}
+                                    <a href='{url_wap r="shop#see_boring" p="order_sn=$data.data.order_sn"}'><div class="item-after"><i class="iconfont">&#xe668;</i>&nbsp;查看物流</div></a>
+                                    {/if}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {foreach from=$item1 item=item2 key=key2 name=imgs2}
+                    <div class="card-content-inner">
+                        <div class="goods-img">
+                            <img src="{$item2.imgs}" alt="">
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    <div class="inner-text">
+                                        <p>{$item2.name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer no-border">
+                                <div class="goods-money">
+                                    价格：<span class="">￥{$item2.price}&nbsp;x&nbsp;{$item2.number}</span>
+                                </div>
+
+                            </div>
+                            <div class="card-footer no-border" style="position: absolute;bottom: 0;right: 0;">
+                                <span>运费：{$item2.freight_diamonds}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>给卖家留言：</span>
+                        <input readonly="readonly" class="footer-input" type="text" name="remarks" value="{$item1.memo}">
+                    </div>
+                    {/foreach}
+                    {/foreach}
+                    {/if}
+                </div>
+                <div class="card-footer">
+                    {if $data.data.order_status == 1}
+                    <span class="pay">未付款</span>
+                    {else}
+                    <span class="pay">已付款</span>
+                    {/if}
+                    <span class="goods-money">￥{$data.data.total_diamonds}</span>
+                </div>
+            </div>
+        </div>
+        <div class="list-block media-list">
+            <ul>
+                <li>
+                    <div class="item-content f_555">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-subtitle f_999">
+                                    <div>订单编号：{$data.data.order_sn}</div>
+                                    <div>下单时间：{$data.data.create_date}</div>
+                                    {if $data.data.order_status > 1}
+                                    <div>付款时间：{$data.data.pay_time}</div>
+                                    {/if}
+                                    {if $data.data.order_status > 2}
+                                    <div>发货时间：{$data.data.time}</div>
+                                    {/if}
+                                    {if $data.data.order_status eq 4}
+                                    <div>完成时间：{$data.data.order_status_time}</div>
+                                    {/if}
+                                    {if $data.data.order_status > 4}
+                                        {if $data.data.refund_platform eq 4}
+                                            <div>关闭时间：{$data.data.refund_over_time}</div>
+                                        {else}
+                                            <div>关闭时间：{$data.data.order_status_time}</div>
+                                        {/if}
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {if $data.data.order_status neq 4 }
+    <nav class="bar bar-tab footer_btn tc">
+        {if $data.data.order_status eq 1}
+        <a class="button button40 button-round button-middle button-fill button-theme J-pay" href="javascript:void(0);">付款</a>
+        {elseif $data.data.order_status eq 2}
+        {if $data.data.refund_platform eq 3}
+        <a class="button button40 button-round button-middle button-fill button-theme">投诉中,请等待</a>
+        {else}
+        <a class="button button40 button-round button-middle button-fill button-theme J-remind" href="javascript:void(0);">提醒卖家发货</a>
+        <a class="button button40 button-round button-middle button-fill button-theme J-buyer_to_complaint" href="javascript:void(0);">申请售后</a>
+        {/if}
+        {elseif $data.data.order_status eq 3}
+        {if $data.data.refund_platform eq 3}
+        <a class="button button40 button-round button-middle button-fill button-theme">投诉中,请等待</a>
+        {else}
+        <a href="javascript:void(0);" id="J-return_virtual_pai" class="button button40 button-round button-middle button-fill button-theme">确认收货</a>
+        <a class="button button40 button-round button-middle button-fill button-theme J-buyer_to_complaint" href="javascript:void(0);">申请售后</a>
+        {/if}
+        {elseif $data.data.order_status eq 4}
+        <a class="button button40 button-round button-middle button-fill button-theme">订单完成</a>
+        {else}
+        <a class="button button40 button-round button-middle button-fill button-theme">订单关闭</a>
+        {/if}
+    </nav>
+    {/if}
+</div>
+<script type="text/javascript">
+    var data = {
+        goods_id: '{$data.data.goods_id}',
+        podcast_id: '{$data.data.podcast_id}',
+        number: '{$data.data.number}',
+        order_id:'{$data.data.order_id}',
+        order_sn:'{$data.data.order_sn}'
+    };
+</script>
+{include file="inc/footer.html"}

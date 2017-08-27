@@ -1,0 +1,182 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("EduOrg/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">名称:</td>
+		<td class="item_input"><input type="text" class="textbox disabled" name="title" value="{$vo.title}" disabled /></td>
+	</tr>
+	<tr>
+		<td class="item_title">Logo:</td>
+		<td class="item_input"><html:imgUpload name='logo' id='logo' value="$vo.logo" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">机构图片:</td>
+		<td class="item_input" style="padding: 10px;">
+			<table cellpadding=0 cellspacing=0 class="form" rel="image_form">
+				<tbody>
+					<foreach name="images" item="image" key="key">
+					<tr>
+						<td>
+							<html:imgUpload name='images[{$key}]' id='images_{$key}' value="$image" />
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<input type="hidden" name="image_num" value="{$image_num}">
+			<input type="button" class="button" value="添加图片" id="add_new_image">
+            <span class="tip_span" id="tip_span">&nbsp;[规格为：750px*350px]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">宣传视频:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="file_id" id="file_id" value="{$vo.file_id}" />
+			<input type="button" class="button" id="btn_upload" value="上传视频" />
+			<span id="result"></span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">宣传视频封面:</td>
+		<td class="item_input">
+			<html:imgUpload name='desc_video_image' id='desc_video_image' value="$vo.desc_video_image" />
+            <span class="tip_span" id="tip_span">&nbsp;[规格为：470px*300px]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">商场链接:</td>
+		<td class="item_input"><input type="text" class="textbox required" style="width: 750px;" name="store_url" value="{$vo.store_url}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">机构地址:</td>
+		<td class="item_input"><input type="text" class="textbox required" style="width: 750px;" name="address" value="{$vo.address}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">机构介绍</td>
+		<td class="item_input">
+			<input type="text" class="textbox required" style="width: 750px;" name="description" value="{$vo.description}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">机构成员:</td>
+		<td class="item_input">
+			<table cellpadding=0 cellspacing=0 class="form" rel="member_form">
+				
+				<tbody>
+					<foreach name="members" item="member" key="key">
+						<tr>
+							<td style="width: 200px;">
+								姓名：<input type="text" name="members[{$key}][name]" value="{$member.name}">
+							</td>
+							<td>
+								<html:imgUpload name='members[{$key}][avatar]' id='members_{$key}_avatar' value="$member.avatar" />
+							</td>
+						</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<input type="hidden" name="member_num" value="{$member_num}">
+			<input type="button" class="button" value="添加成员" id="add_new_member">
+            <span class="tip_span" id="tip_span">&nbsp;[规格为：200px*200px]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">标签</td>
+		<td class="item_input">
+			<ul style="width: 100%">
+				<foreach name="tags" item="tag">
+				<li style="width: 30%; display: inline-block">
+					<label class="col-xs-4">
+						<input type="checkbox" name="tags[]" value="{$tag.title}" <if condition="$tag['is_checked'] eq true">checked="checked"</if> > {$tag.title}
+					</label>
+				</li>
+				</foreach>
+			</ul>
+			<span class="tip_span" id="tip_span">最多选择 3 个标签</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="EduOrg" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" id="secret_id" value="{$secret_id}" />
+			<input type="hidden" id="after_sha_start_upload" value="1" />
+
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+	<table>
+		<tr id="demo_member" style="display:none;">
+			<td style="width: 200px;">姓名：<input type="text" name="members[1][name]" value=""></td>
+			<td>
+				<html:imgUpload name='members[1][avatar]' id='members_1_avatar' />
+			</td>
+		</tr>
+		<tr id="demo_image" style="display: none;">
+			<td>
+				<html:imgUpload name='images[1]' id='images_1' />
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	$(function () {
+		$("#add_new_member").live('click', function () {
+			var num = parseFloat($("input[name='member_num']").val()) + 1;
+			$("input[name='member_num']").val(num);
+			var demo_member = "<tr>" + $("#demo_member").html() + "</tr>";
+			demo_member = demo_member.replace(/members_1/g, "members_" + num);
+			demo_member = demo_member.replace(/members\[1\]/g, "members[" + num + "]");
+			$("table[rel='member_form'] tbody").append(demo_member);
+			bindKdupload();
+		});
+		$("table[rel='member_form'] .keimg_d").live("click", function () {
+			var sort_num = $("table[rel='member_form'] .keimg_d").index($(this));
+			$("table[rel='member_form'] tbody tr:eq(" + sort_num + ")").remove("tr");
+		});
+
+		$("#add_new_image").live('click', function () {
+			var num = parseFloat($("input[name='image_num']").val()) + 1;
+			$("input[name='image_num']").val(num);
+			var demo_image = "<tr>" + $("#demo_image").html() + "</tr>";
+			demo_image = demo_image.replace(/images_1/g, "images_" + num);
+			demo_image = demo_image.replace(/images\[1\]/g, "images[" + num + "]");
+			$("table[rel='image_form'] tbody").append(demo_image);
+			bindKdupload();
+		});
+		$("table[rel='image_form'] .keimg_d").live("click", function () {
+			var sort_num = $("table[rel='image_form'] .keimg_d").index($(this));
+			$("table[rel='image_form'] tbody tr:eq(" + sort_num + ")").remove("tr");
+		});
+	})
+	$('input[name="tags[]"]').change(function(){
+		if($('input[name="tags[]"]:checked').length <= 3) {
+			return;
+		}
+
+		if(this.checked) {
+			this.checked = false;
+		}
+	});
+</script>
+<script src="//qzonestyle.gtimg.cn/open/qcloud/js/vod/sdk/uploaderh5.js" charset="utf-8"></script>
+<load href='__TMPL__Common/js/user_live.js' />
+<include file="Public:footer" />

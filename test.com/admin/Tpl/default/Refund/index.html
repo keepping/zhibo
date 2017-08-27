@@ -1,0 +1,77 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>订单列表</div>
+<php>
+function getRefundPlatform($refund_platform){
+	switch ($refund_platform) {
+	    case '0':
+	        return "无";
+	        break;
+	    case '1':
+	        return "申诉中(卖方)";
+	        break;
+	    case '2':
+	        return "申诉完成(卖方)";
+	        break;
+	    case '3':
+	        return "申诉中(买方)";
+	        break;
+	    case '4':
+	        return "申诉完成(买方)";
+	        break;
+	}
+}
+</php>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		订单编号：
+		<input type="text" class="textbox" name="order_sn" id="order_sn" value="{$param.order_sn}"  />&nbsp;
+		订单状态：
+		<select name="refund_platform">
+			<option value="-1" <if condition="$param['refund_platform'] eq -1">selected="selected"</if> >所有</option>
+			<option value="1" <if condition="$param['refund_platform'] eq 1">selected="selected"</if>>申诉中(卖方)</option>
+			<option value="2" <if condition="$param['refund_platform'] eq 2">selected="selected"</if>>申诉完成(卖方)</option>
+			<option value="3" <if condition="$param['refund_platform'] eq 3">selected="selected"</if>>申诉中(买方)</option>
+			<option value="4" <if condition="$param['refund_platform'] eq 4">selected="selected"</if>>申诉完成(买方)</option>
+		</select>&nbsp;
+		下单时间：
+		<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'begin_time');" style="width:130px" />
+		-
+		<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'end_time');" style="width:130px" />
+
+		<input type="hidden" value="Refund" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="goods_order"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,podcast_name:主播
+		,order_sn:订单编号:edit
+		,order_type:订单类型
+		,order_source:订单来源
+		,number:商品总数量
+		,goods_diamonds:竞拍价
+		,total_diamonds:总金额
+		,order_status_format:订单状态
+		,no_refund_format:是否允许退款
+		,pai_name:购买人
+		,create_date:下单时间
+		,refund_reason:申诉结果
+		,refund_platform|getRefundPlatform:申诉状态
+		"
+	actionlist="edit:订单详情" />
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

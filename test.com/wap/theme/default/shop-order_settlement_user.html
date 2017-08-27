@@ -1,0 +1,114 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-order_settlement_user.css";
+$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-order_settlement_user.css";
+?>
+    <link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+    <div class="page page-current page-shop-order_settlement_user" id="page-shop-order_settlement_user">
+        <div class="content">
+            {if $data.user_address eq 0}
+            <div class="address">
+                <i class="iconfont">&#xe661;</i><span>还没有收货地址，</span><a href='{url_wap r="shop#new_address"}'>去添加</a>
+            </div>
+            {else}
+            <div class="addressed">
+                <div class="icon">
+                    <i class="iconfont">&#xe661;</i>
+                </div>
+                <div class="address-info">
+                    <a href='javascript:void(0)' class="J-address" style="display: block;height: 100%;">
+                        <p class="user-info">
+                            <span>收货人：{$data.user_address.consignee}</span>&nbsp;
+                            <span>{$data.user_address.consignee_mobile}</span>
+                        </p>
+                        <p>收货地址：{$data.user_address.consignee_address}</p>
+                    </a>
+                </div>
+            </div>
+            {/if}
+            <div class="list-block">
+                <ul>
+                    <li class="item-content m-order-info">
+                        <div class="item-inner">
+                            <div class="item-title">订单信息</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {foreach from=$data.goods item=item key=key name=item_name}
+            <div class="card goods-item">
+                <div class="card-content">
+                    <div class="list-block">
+                        <ul>
+                            <li>
+                                <a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title"><i class="iconfont" style="color: #707070; margin-right: 5px;">&#xe66d;</i>{$item.nick_name}</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-content-inner">
+                        <div class="goods-img">
+                            <img src="{$item.imgs}" alt="">
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    <div class="inner-text">
+                                        <p>{$item.name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer no-border">
+                                <div class="goods-money">
+                                    <span>&yen; {$item.price}</span>
+                                </div>
+                                <div class="goods-numb">
+                                    <span>&times; {$item.number}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>运费</span>
+                    <span class="goods-money">&yen; {$item.kd_cost}</span>
+                </div>
+                <div class="card-footer">
+                    <span>给卖家留言：</span>
+                    <input style="line-height: 1.5rem;height: 1.5rem;" class="footer-input confirm-ok liuyan-{$item.goods_id}" data-id="{$item.goods_id}" readonly="readonly" type="text" name="remarks" placeholder="选填:对本次交易的说明(建议填写已和卖家协商一致的内容)">
+                </div>
+                <div class="card-footer">
+                    <div class="goods-all-money">
+                        共计{$item.number}件商品，小计：<span class="goods-money">&yen; {$item.total_price}</span>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+        
+        <nav class="bar bar-tab">
+            <div class="all-goods-money">
+                <span>共{$data.all_number}件</span>&nbsp;合计：<span class="goods-money">&yen; {$data.all_total_price}</span>
+            </div>
+            <div class="m-button">
+                <a href="javascript:void(0)" class="button button-light J-submit-order">提交订单</a>
+            </div>
+        </nav>
+    </div>
+    <script type="text/javascript">
+    var data = {
+        // goods_id: '{$data.goods.goods_id}',
+        // podcast_id: '{$data.podcast_id}',
+        // number: '{$data.number}',
+        address_id: '{$data.user_address.id}',
+        purchase_type: '0',
+        // order_sn:'{$data.order_sn}'
+        shop_info: JSON.parse('<?php echo json_encode($this->_var['data']['goods']); ?>')
+    };
+    var goods_arr = [],shop_info = data.shop_info;
+
+    </script>
+    {include file="inc/footer.html"}

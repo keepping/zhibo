@@ -1,0 +1,74 @@
+/*字体颜色*/
+/*主要字色*/
+/*标题*/
+/*二级标题、简介*/
+/*主题字色*/
+/*突出色*/
+/*界面主题色*/
+/*主题风格色*/
+/*背景色*/
+/*线条颜色*/
+/*线条颜色*/
+/*跟随主题色变化的背景色*/
+/*字体大小 ，如果出现非单行情况可搭配行高，*/
+/*头部标题*/
+/*辅助标题*/
+/*主要标题*/
+/*主要简介、二级标题*/
+/*主要简介、二级标题*/
+/*各类间距，高度*/
+/*横向间距*/
+/*纵向间距*/
+.page .content .content-pay {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.page .content .content-pay .pay-money {
+  text-align: center;
+  font-size: 0.85rem;
+  border-bottom: 1px dashed #eee;
+  padding: 0.7rem 0;
+  line-height: 1.5rem;
+}
+.page .content .content-pay .pay-mode {
+  padding-top: 0.7rem;
+  font-size: 0.6rem;
+  text-align: center;
+  line-height: 1.5rem;
+}
+.page .content .content-pay .pay-mode .mode {
+  display: inline-block;
+  padding-left: 1rem;
+}
+.page .content .content-pay .pay-mode .mode input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.25rem 0;
+  float: left;
+}
+.page .content .content-pay .pay-mode .mode span {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  float: left;
+  padding-left: 0.2rem;
+}
+.page .content .content-pay .pay-mode .mode span em {
+  font-size: 0.85rem;
+  line-height: 1.5rem;
+}
+.page .content .content-pay .pay-mode .mode span em:before {
+  top: 0.25rem;
+}
+.page .content .content-pay .recharge {
+  font-size: 0.6rem;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+.page .content .content-pay .recharge .button {
+  height: 1.3rem;
+  line-height: 1.3rem;
+  width: 25%;
+  font-size: 0.6rem;
+}

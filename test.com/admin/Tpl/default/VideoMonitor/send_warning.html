@@ -1,0 +1,66 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+
+	function check_warning()
+	{
+        if($("input[name='warning_msg']").val()=='')
+        {
+            alert("请输入警告信息");
+            return false;
+        }
+
+        return true;
+	}
+</script>
+<div class="main">
+<div class="main_title">房间号:{$video.id}&nbsp;</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data" onsubmit="return check_warning();">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+    <tr>
+        <td class="item_title">请选择警告内容:</td>
+        <td class="item_input">
+            <select name="msg" onchange="select_msg(this);" style="width: 374px;">
+                <option value="0">==请选择==</option>
+                <foreach name="warning_list" item="cate_item">
+                    <option value="{$cate_item.id}">{$cate_item.content}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+	<tr>
+		<td class="item_title">警告内容:</td>
+        <td class="item_input">
+            <textarea name="warning_msg" id="warning_msg" cols="50" rows="5" maxlength="50" class="require"></textarea>
+		<span class='tip_span'>最大长度为50</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$video.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="VideoMonitor" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="send_warning_msg" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%OK}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+    <script>
+        function select_msg(obj){
+            if(obj.value>0){
+                $("#warning_msg").val(obj.options[obj.selectedIndex].text);
+            }
+        }
+    </script>
+</div>

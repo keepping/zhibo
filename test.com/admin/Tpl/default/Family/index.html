@@ -1,0 +1,56 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>家族列表</div>
+<php>
+	function getStatus($status){
+		switch($status){
+			case '0': return '未审核';
+			case '1': return '审核通过';
+			case '2': return '拒绝通过';
+		}
+	}
+    function head_image($head_image){
+        return "<img src='".$head_image."' style='height:35px;width:35px;'/>";
+    }
+	function dissolve($id){
+		return "<span onclick='dissolve(".$id.");'></span>";
+	}
+</php>
+<script type="text/javascript">
+	function dissolve(id){
+		location.href = ROOT+"?"+VAR_MODULE+"=Family&"+VAR_ACTION+"=dissolve&id="+id;
+	}
+</script>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		家族名：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+		族长名：<input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" />
+		状态：<select name="status">
+			<option value="-1" >所有</option>
+			<option value="0"<if condition="$_REQUEST['status'] eq 0"> selected="selected"</if>>未审核</option>
+			<option value="1"<if condition="$_REQUEST['status'] eq 1"> selected="selected"</if>>审核通过</option>
+			<option value="2"<if condition="$_REQUEST['status'] eq 2"> selected="selected"</if>>拒绝通过</option>
+		</select>
+		创建时间：<span><input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+		<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" /></span>
+		-
+		<span><input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /><input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" /></span><input type="hidden" value="Family" name="m" /><input type="hidden" value="index" name="a" /><input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="jia"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|5%,name:家族名|15%,logo|head_image:家族LOGO|10%,manifesto:家族宣言|20%,contribution:家族长收益,nick_name:族长名|10%,create_time:创建时间|10%,memo:备注|10%,status|getStatus:状态|10%"
+	actionlist="id|edit|家族详情,id|view|成员列表,id|dissolve|解散家族" />
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

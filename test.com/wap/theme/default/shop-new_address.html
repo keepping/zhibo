@@ -1,0 +1,73 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-new_address.css";
+	$this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/shop-new_address.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-current page-shop-new_address" id="page-shop-new_address">
+	<div class="content">
+		<div class="list-block">
+			<ul>
+			<!-- Text inputs -->
+				<li>
+					<div class="item-content">
+						
+						<div class="item-inner">
+							<div class="item-title label">收货人</div>
+							<div class="item-input">
+								<input name="consignee" type="text" placeholder="请输入收货人姓名" value="{$data.address.consignee}">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content">
+						
+						<div class="item-inner">
+							<div class="item-title label">手机号</div>
+							<div class="item-input">
+								<input type="number" name="consignee_mobile" placeholder="请输入手机号码" value="{$data.address.consignee_mobile}">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content">
+						<div class="item-inner area">
+							<div class="item-title label">省 市 区</div>
+							<div class="info">
+								<input type="text" placeholder="" id="city-picker" readonly="" value="{$data.address.province} {$data.address.city} {$data.address.area}">
+							</div>	
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title label">详细地址</div>
+							<div class="item-input">
+								<input type="text" placeholder="请填写详细地址" name="consignee_address" value="{$data.address.consignee_address}">
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<nav class="bar bar-tab">
+		<a href="javascript:void(0)" class="button button-light J-save">保存</a>
+	</nav>
+
+</div>
+<script type="text/javascript">
+	var data = {
+		"id": '{$data.address.id}',
+		"consignee": '{$data.address.consignee}',
+		"consignee_mobile": '{$data.address.consignee_mobile}',
+		"consignee_address":'{$data.address.consignee_address}',
+		"consignee_district": ''
+		
+	};
+	
+</script>
+{include file="inc/footer.html"}

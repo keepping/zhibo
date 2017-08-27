@@ -1,0 +1,71 @@
+@import (once) "public/variable.less";
+.page_virtual_order_details {
+    & .content {
+        & .content-pay {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            & .pay-money {
+                text-align: center;
+                font-size: @fontsize1;
+                border-bottom: 1px dashed @bordercolor;
+                padding: 0.7rem 0;
+                line-height: 1.5rem;
+                color: #ff7552;
+            }
+            & .pay-mode {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.6rem;
+                text-align: center;
+                line-height: 1.5rem;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-justify-content: space-around;
+                justify-content: space-around;
+                & .mode {
+                    display: -webkit-flex;
+                    display: flex;
+                    padding-left: 1rem;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    position: relative;
+                    & input {
+                        display: -webkit-flex;
+                        display: flex;
+                        -webkit-flex-direction: row;
+                        flex-direction: row;
+                        -webkit-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                        padding: 0.25rem 0;
+                    }
+                    
+                    & span {
+                        display: -webkit-flex;
+                        display: flex;
+                        -webkit-flex-direction: row;
+                        flex-direction: row;
+                        -webkit-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                        & em {
+                            font-size: @fontsize1;
+                            line-height: 1.5rem;
+                            &:before {
+                                top: 0.25rem
+                            }
+                        }
+                    }
+                }
+            }
+            & .recharge {
+                font-size: 0.6rem;
+                text-align: center;
+                margin-bottom: 0.7rem;
+                & .button {
+                    height: 1.3rem;
+                    line-height: 1.3rem;
+                    width: 25%;
+                    font-size: 0.6rem;
+                }
+            }
+        }
+    }
+}

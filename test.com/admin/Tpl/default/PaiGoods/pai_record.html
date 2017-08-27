@@ -1,0 +1,53 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/paigoods.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<php>
+    function get_istrue($pai_status,$pai_record){
+        switch ($pai_status) {
+            case '0':
+                if($pai_record['pai_diamonds']==$pai_record['max']){
+                    return '领先';
+                }
+                return '落后';
+            case '1':
+                return '待付款';
+            case '2':
+                return '排队中';
+            case '3':
+                return '超时出局';
+            case '4':
+                return '竞拍完成';
+
+            default:
+                return '超时出局';
+        }
+    }
+</php>
+<div class="main_title">参拍记录 <a href="{:u("PaiGoods/index")}" class="back_list">{%BACK_LIST}</a></div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="pai_record"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,podcast_name:主播名称,user_name:竞拍人,consignee:收货人姓名,consignee_mobile:收货人手机号,bz_diamonds:参与保证金,create_time:参与时间,pai_diamonds:最终出价,pai_number:出价次数,pai_status|get_istrue=$pai_record:出价状态"/>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+
+<script>
+
+$(function(){
+	$("input[type='checkbox']").each(function(){
+		$(this).hide();
+	})
+	$('th:last').hide();
+});
+
+</script>

@@ -1,0 +1,173 @@
+@import (once) "public/variable.less";
+.page-shop-order_settlement_user{
+	.content{
+		bottom: 2.25rem;
+	}
+	.address{
+		height: 4rem;
+		line-height: 4rem;
+		background: #fff;
+		text-align: center;
+		border-bottom: 1px solid #ccc;
+		a{
+			color: #ff0000;
+		}
+	}
+	
+	.addressed{
+		display: flex;
+		display: -webkit-flex;
+		background: #fff;
+		border-bottom: 1px solid #ccc;
+		padding: 0.5rem;
+		.icon{
+			width: 2rem;
+			line-height: 2.5rem;
+		    display: -webkit-flex;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    i{
+		    	font-size: 1.2rem;
+		    }
+		}
+		.address-info{
+			flex:1;
+			-webkit-flex:1;
+			p.user-info{
+				display: flex;
+				display: -webkit-flex;
+				-webkit-justify-content: space-between;
+				justify-content: space-between;
+			}
+			p{
+				word-wrap:break-word;
+				word-break:break-all;
+			}
+		}
+	}
+	.list-block{
+		margin: 0;
+		.item-content{
+			padding-left: 1rem;
+		}
+		.m-order-info{
+			background: #e4e4e4;
+		}
+	}
+	.card{
+		margin: 0;
+		margin-bottom: 0.25rem;
+		&:last-child{
+			margin-bottom: 0;
+		}
+		.card-content{
+			.card-content-inner{
+				padding: 0.25rem 0.5rem 0.25rem 1rem;
+				background: #f1f1f1;
+				display: flex;
+				display: -webkit-flex;
+				margin-bottom: 0.5rem;
+				&:last-child{
+					margin-bottom:0;
+				}
+				.goods-img{
+					display: flex;
+					display: -webkit-flex;
+					margin-right: 0.25rem;
+					width: 4.2rem;
+    				height: 4.2rem;
+					img{
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.card{
+					background: #f1f1f1;
+					flex:1;
+					-webkit-flex:1;
+					.card-content-inner{
+						padding: 0;
+						margin: 0;
+						line-height: 0.8rem;
+						word-wrap:break-word;
+						word-break:break-all;
+						.inner-text{
+							min-height: 0.8rem;
+						}
+						p{
+							margin-bottom: 0.35rem;
+						}
+					}
+					.card-footer{
+						padding: 0;
+						min-height: 0;
+						line-height: 0.8rem;
+						position: absolute;
+					    width: 100%;
+					    bottom: 0;
+						i{
+						    vertical-align: top;
+						    line-height: 0.9rem;
+						}
+					}
+				}
+			}
+			
+		}
+		.card-footer{
+			.footer-input{
+				-webkit-flex:1;
+				flex:1;
+				width: 100%;
+				border: 0;
+				line-height: 0.7rem;
+
+			}
+			.goods-all-money{
+				text-align: right;
+				width: 100%;
+			}
+		}
+	}
+	.goods-money{
+		color: #ff0000;
+		font-weight: bold;
+		font-size: 0.7rem;
+		i{
+			font-size: 0.8rem;
+		}
+	}
+	nav{
+		display: flex;
+		display: -webkit-flex;
+		height: 2.25rem;
+		background: #fff;
+		font-size: 0.7rem;
+		.all-goods-money{
+			width: 11.7rem;
+			text-align: right;
+			padding-right: 0.75rem;
+			line-height: 2.25rem;
+			.goods-money{
+				i{
+					line-height: 2.25rem;
+					font-size: 0.8rem;
+				}
+			}
+		}
+		.m-button{
+			flex:1;
+			-webkit-flex:1;
+			a{
+				height: 100%;
+				border: 0;
+				line-height: 2.25rem;
+				color: #fff;
+				top: 0;
+				border-radius: 0;
+				background: #ff9900;
+			}
+		}
+	}
+}

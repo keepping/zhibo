@@ -1,0 +1,62 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("VideoCate/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">话题名称:</td>
+		<td class="item_input">{$vo.title}<input type="hidden" class="textbox" name="title" value="{$vo.title}"/></td>
+	</tr>
+    <!--<tr>
+        <td class="item_title">图标:</td>
+        <td class="item_input"><html:imgUpload name = 'image' id='image' value="$vo.image" disabled="disabled"/>
+            <span class='tip_span'></span>
+        </td>
+    </tr>-->
+    <tr>
+        <td class="item_title">描述:</td>
+        <td class="item_input">
+            <textarea name="desc" class="textarea">{$vo.desc}</textarea>
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="item_title">关联用户ID:</td>
+        <td class="item_input"><input type="text" class="textbox" name="user_id" <if condition="$vo['user_id'] gt 0">value="{$vo.user_id}"</if> /></td>
+    </tr>
+    <tr>
+        <td class="item_title">{%IS_EFFECT}:</td>
+        <td class="item_input">
+            <label>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> disabled="disabled" /></label>
+            <label>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> disabled="disabled"/></label>
+        </td>
+    </tr>-->
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$vo.sort}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="VideoCate" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

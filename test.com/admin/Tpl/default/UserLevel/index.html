@@ -1,0 +1,38 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>会员等级</div>
+<div class="blank10"></div>
+
+	<if condition="(DISTRIBUTION_MODULE eq 1)">
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="level"
+				checkbox="true"
+				action="true"
+				datasource="list"
+				show="id:{%ID},name:等级名称:edit,level:等级,score:所需积分值,commission:主播分佣比率%"
+				actionlist="edit:{%EDIT}, del:{%DEL}" />
+	<else/>
+		<html:list
+				id="dataTable"
+				style="dataTable"
+				name="level"
+				checkbox="true"
+				action="true"
+				datasource="list"
+				show="id:{%ID},name:等级名称:edit,level:等级,score:所需积分值"
+				actionlist="edit:{%EDIT}, del:{%DEL}" />
+	</if>
+	<table class="dataTable">
+		<tbody>
+			<td colspan="6">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" /><input type="button" class="button button-del" value="{%DEL}" onclick="del();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

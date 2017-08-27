@@ -1,0 +1,103 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<PHP>
+	function get_payment_user_name($uid)
+	{
+		return M("User")->where("id=".$uid)->getField("nick_name");
+	}
+	function get_payment_name($id,$notice)
+	{
+		$str = "";
+		$payment = M("Payment")->getById($notice['payment_id']);
+		if($payment)
+		{
+			$str .= "通过";
+			$class_name = $payment['class_name']."_payment";		
+			$str.=$payment['name'];
+			if($notice['bank_id']!="")
+			{
+				require_once APP_ROOT_PATH."/system/payment/".$class_name.".php";
+				$str.=$payment_lang[$notice['bank_id']];
+			}
+		}
+		else
+		{
+			$str = "管理员收款";
+		}
+		
+		return $str;
+	}
+	function get_paymentnotice_title($name,$notice)
+	{
+		if($notice['memo']=="")$notice['memo']="无";
+		if($name)
+		return "<span title='".$name."--付款备注:".$notice['memo']."'>".msubstr($name)."</span>";
+		else
+		return "<span title='在线充值--付款备注:".$notice['memo']."'>在线充值</span>";
+	}
+</PHP>
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title"><if condition="$is_cash eq 1">提现记录<else />付款记录</if></div>
+<div class="blank5"></div>
+<!--<div class="button_row">
+	<input type="button" class="button" value="删除" onclick="del();" />
+</div>-->
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+        {%NICK_NAME}: <input type="text" class="textbox" name="nick_name" value="{:trim($_REQUEST['nick_name'])}" style="width:100px;" />
+        <input type="hidden" name="payment_id" value="{:trim($_REQUEST['payment_id'])}"/>
+		<input type="hidden" value="PaymentNotice" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<if condition="$is_cash eq 1">
+    <html:list
+            id="dataTable"
+            style="dataTable"
+            name="deal"
+            checkbox="true"
+            action="true"
+            datasource="list"
+            show="id:{%ID}|50px
+		,memo|get_title:申请备注
+		,money|format_price:金额
+		,ticket|:{%TICKET}
+		,user_id|get_payment_user_name:{%NICK_NAME}
+		,create_time|to_date:申请时间
+		,reply|get_title:操作备注
+		,pay_time|to_date:支付时间
+		,partner_trade_no:外部单号
+		,pay_log|get_title:支付备注"
+            actionlist="tips:无" />
+<else />
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,deal_name|get_paymentnotice_title=$deal:项目名称
+		,notice_sn:付款单号
+		,outer_notice_sn:外部单号
+		,user_id|get_payment_user_name:{%NICK_NAME}
+		,payment_id|get_payment_name=$deal:支付方式
+		,create_time|to_date:创建时间
+		,pay_time|to_date:支付时间
+		,money|format_price:金额
+		,is_paid|get_status:是否支付" 
+	actionlist="tips:无" />
+</if>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

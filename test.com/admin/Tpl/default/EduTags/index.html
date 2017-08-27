@@ -1,0 +1,50 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" /><div class="main">
+<PHP>
+	function get_type($type) {
+		switch($type) {
+			case 0:
+				return '教师';
+			case 1:
+				return '机构';
+			case 2:
+				return '课程';
+		}
+	}
+</PHP> 
+<div class="main_title_list"><div class="list-line-ico"></div>{$main_title}</div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%KEYWORD}：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />
+		类型：<select name="type">
+				<option value="">不限</option>	
+				<option value="0" <if condition="$_REQUEST['type'] eq '0'">selected="selected"</if>>教师</option>	
+				<option value="1" <if condition="$_REQUEST['type'] eq '1'">selected="selected"</if>>机构</option>	
+				<option value="2" <if condition="$_REQUEST['type'] eq '2'">selected="selected"</if>>课程</option>	
+			</select>
+		<input type="hidden" value="EduTags" name="m" /><input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="tag"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|90px,title:标题:edit,type|get_type:类型"
+	actionlist="edit:编辑详情,del:{%DEL}" />
+	<table class="dataTable">
+		<tbody>
+			<td colspan="10">
+				<input type="button" class="button button-add" value="{%ADD}" onclick="add();" />
+			</td>
+		</tbody>
+	</table>
+<div class="page">{$page}</div>
+</div>
+<script>
+</script>
+<include file="Public:footer" />

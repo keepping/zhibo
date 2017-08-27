@@ -1,0 +1,90 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	$(document).ready(function(){
+        var send_type = $("#send_type").val();
+        if(send_type==1 || send_type ==2){
+            $("#send_define_data").show();
+        }else{
+            $("#send_define_data").hide();
+        }
+
+        $("#send_type").bind("change",function(){
+            var send_type=$('#send_type').val();
+            if(send_type==2){
+                $("#send_define_data").show();
+                $("#tip_span").html("请输入房间ID，用空格分隔");
+            }else{
+                $("#send_define_data").hide();
+            }
+        });
+	});
+</script>
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Video/online_index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="add" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">红包大小:</td>
+		<td>
+			<input name="diamonds" class="textbox require"><span class="tip_span">&nbsp;[指定多个直播间或者全部直播间时，红包会按照直播间人数比例发放]</span>
+
+		</td>
+	</tr>
+    <tr>
+        <td class="item_title">发送人:</td>
+        <td class="item_input">
+            <select name="send_user_id">
+                <foreach name="send_user" item="user">
+					<option name="" value="{$user.id}"> 昵称：{$user.nick_name} 账号钻石数：{$user.diamonds}</option>
+                </foreach>
+            </select>
+        </td>
+    </tr>
+
+	<tr>
+		<td class="item_title">{%SEND_TYPE}:</td>
+		<td class="item_input">
+			<select name="send_type" id="send_type">
+				<option value="0">所有直播间</option>
+				<option value="2">单个或多个直播间</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr id="send_define_data">
+		<td class="item_title">{%SEND_DEFINE_DATA}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="room_id" ></textarea>
+			<span class="tip_span" id="tip_span">请输入房间ID，用空格分隔</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Video" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<input type="hidden" name="prop_id" value="12" />
+
+			<input type="hidden" name="num" value="1" />
+			<!--<input type="hidden" name="is_plus" value="1" />-->
+
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%SEND_NOW}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

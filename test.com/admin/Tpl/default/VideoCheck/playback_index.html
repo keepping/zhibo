@@ -1,0 +1,204 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_level($id){
+		$get_level=$GLOBALS['db']->getOne("select ul.name from ".DB_PREFIX."user_level as ul left join ".DB_PREFIX."user as u on u.user_level = ul.level where u.id=".$id);
+ 		return $get_level;
+	}
+	function get_nickname($id){
+		$get_nickname=$GLOBALS['db']->getOne("select nick_name from ".DB_PREFIX."user where id=".$id);
+ 		return $get_nickname;
+	}
+    function get_room_type($room_type){
+        if($room_type==1){
+            return "私密";
+        }elseif($room_type==2){
+            return "聊天室";
+        }elseif($room_type==3){
+            return "互动聊天室";
+        }else{
+            return "公开";
+        }
+    }
+	function set_demand_video_status($id,$video){
+        if($video['live_in']==0){
+            return "<a href=\"javascript:demand_video_status('".$id."')\">上线</a>";
+        }else{
+            return "<a href=\"javascript:demand_video_status('".$id."')\">下线</a>";
+        }
+	}
+    function set_vod_concatvideo($id,$video){
+        if($video['is_concatvideo']==0){
+            return "<a href=\"javascript:concatvideo('".$id."')\">合并视频</a>";
+        }else{
+            return "<a>视频已合并</a>";
+        }
+    }
+	function video_status($live_in){
+		if($live_in==0){
+			return "否";
+		}elseif($live_in==3){
+			return "是";
+		}
+	}
+	function live_pay($is_live_pay){
+	if($is_live_pay==0){
+	return "否";
+	}elseif($is_live_pay==1){
+	return "是";
+	}}
+
+	function live_pay_type($live_pay_type,$video){
+        if($video['is_live_pay']==1){
+            if($live_pay_type==1){
+                return "按场收费";
+            }elseif($live_pay_type==0){
+                return "按时收费";
+            }elseif($live_pay_type==2){
+                return "暂未收费";
+            }
+        }
+	}
+
+    function set_live_pay($id,$video){
+        if($video['pay_editable']==1){
+            return "<a href=\"javascript:set_live_pay('".$id."')\">编辑</a>";
+        }
+    }
+	
+</PHP>
+<script>
+// console.log("before");
+// if (!TECENT_VIDEO) {
+//     console.log("in");
+//     $(".button-add").css("display","none");
+// }
+function set_live_pay(id){
+    $.ajax({
+        url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=set_live_pay&id="+id,
+        data: "ajax=1",
+        dataType: "json",
+        success: function(msg){
+            if(msg.status==0){
+                alert(msg.info);
+            }
+        },
+        error: function(){
+            $.weeboxs.open(ROOT+'?'+VAR_MODULE+'='+MODULE_NAME+'&'+VAR_ACTION+'=set_live_pay&id='+id, {contentType:'ajax',showButton:false,title:'付费设置',width:600,height:200});
+        }
+    });
+}
+
+function get_preview(id)
+{
+    window.open(ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=play&id="+id);
+}
+
+function del_video(id)
+{
+    if(!id)
+    {
+        idBox = $(".key:checked");
+        if(idBox.length == 0)
+        {
+            alert(LANG['DELETE_EMPTY_WARNING']);
+            return;
+        }
+        idArray = new Array();
+        $.each( idBox, function(i, n){
+            idArray.push($(n).val());
+        });
+        id = idArray.join(",");
+    }
+    if(confirm(LANG['CONFIRM_DELETE']))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_video&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+function demand_video_status(id)
+{
+    /*if(!id)
+    {
+        idBox = $(".key:checked");
+        if(idBox.length == 0)
+        {
+            alert(LANG['VIDEO_STATUS_WARNING']);
+            return;
+        }
+        idArray = new Array();
+        $.each( idBox, function(i, n){
+            idArray.push($(n).val());
+        });
+        id = idArray.join(",");
+    }LANG['CONFIRM_VIDEO_STATUS']*/
+    if(confirm("确定要修改状态？"))
+        $.ajax({
+            url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=set_demand_video_status&id="+id,
+            data: "ajax=1",
+            dataType: "json",
+            success: function(obj){
+                alert(obj.info);
+                func();
+                function func(){
+                    if(obj.status==1){
+                        location.href=location.href;
+                    }
+                }
+            }
+        });
+}
+</script>
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title_list"><div class="list-line-ico"></div>审核视频列表</div>
+<div class="button_row">
+
+</div>
+<div class="search_row">
+</div>
+<html:list
+	id="dataTable"
+	style="dataTable"
+	name="video"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:房间号
+		,user_id:主播ID
+		,user_id|get_nickname=$video['user_id']:主播
+		,title:直播标题
+		,max_watch_number:累计观看人数
+		,vote_number:{%TICKET}
+		,room_type|get_room_type=$video['room_type']:直播类型
+		,live_in|video_status=$video['live_in']:上线
+		,create_time|to_date:创建时间
+		,end_time|to_date:结束时间
+		,len_time:直播时长"
+	actionlist="get_preview:查看,id|set_demand_video_status=$video" />
+	<table class="dataTable">
+		<tbody>
+            <td colspan="11">
+		</tbody>
+	</table>
+
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

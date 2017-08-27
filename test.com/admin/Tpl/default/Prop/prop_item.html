@@ -1,0 +1,89 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function prop_name($id){
+		$prop=M("Prop")->where("id =".intval($id))->getField("name");
+		return $prop;
+	}
+	function is_show($show_user){
+		return $show_user?"是":"否";
+	}
+	function is_type($type){
+		if($type==1){
+			return "屏幕上部";
+		}
+		if($type==2){
+			return "屏幕中间";
+		}
+		if($type==3){
+			return "屏幕底部";
+		}
+	}
+</php>
+<script>
+	function add_item(id){
+		location.href = ROOT+'?m='+MODULE_NAME+'&a=add_prop_item&id='+id;
+	}
+	function edit_item(id){
+		location.href = ROOT+'?m='+MODULE_NAME+'&a=edit_prop_item&id='+id;
+	}
+	function del_prop_item(id){
+		if(!id)
+		{
+			idBox = $(".key:checked");
+			if(idBox.length == 0)
+			{
+				alert("请选择需要删除的项目");
+				return;
+			}
+			idArray = new Array();
+			$.each( idBox, function(i, n){
+				idArray.push($(n).val());
+			});
+			id = idArray.join(",");
+		}
+		if(confirm("确定要删除选中的项目吗？"))
+		$.ajax({ 
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_prop_item&id="+id, 
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					$("#info").html(obj.info);
+					if(obj.status==1)
+					location.href=location.href;
+				}
+		});
+	}
+</script>
+<div class="main">
+<div class="main_title">动画列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add_item({$prop_info.id});" />
+	<input type="button" class="button" value="{%DEL}" onclick="del_prop_item();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="prop_animated"
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}
+		  ,prop_id|prop_name:所属礼物
+		  ,url:gif动画地址
+		  ,play_count:播放次数
+		  ,delay_time:延时播放时间（毫秒）
+		  ,duration:播放时长（毫秒）
+		  ,show_user|is_show:显示用户名
+		  ,type|is_type:使用路径
+		  ,sort|get_sort=$prop_animated['id']:{%SORT}"
+	actionlist="edit_item:编辑,del_prop_item:删除" /> 
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />
+
+<!---->

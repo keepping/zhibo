@@ -1,0 +1,51 @@
+{include file="inc/header.html"}
+<?php
+    $this->_var['dpagecss'][] = $this->_var['TMPL_REAL']."/css/distribution-init_register.css";
+    $this->_var['dcpagecss'][] = $this->_var['TMPL_REAL']."/css/distribution-init_register.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$dpagecss" c="$dcpagecss"}" />
+<div class="page page-distribution-init_register" id="distribution-init_register">
+    <div class="content">
+	    <div id="vscope-login">
+			<div class="list-block">
+			    <ul>
+			        <li>
+			            <div class="item-content">
+			                <div class="item-inner">
+			                    <div class="item-input">
+			                        <input type="text" v-model="mobile" name="mobile" placeholder="请输入您的手机号码" />
+			                    </div>
+			                </div>
+			            </div>
+			        </li>
+			        <li>
+			            <div class="item-content">
+			                <div class="item-inner">
+			                    <div class="item-input">
+			                        <input type="text" v-model="verify_coder" name="verify_coder" placeholder="请输入验证码" >
+			                    </div>
+			                    <div class="item-after">
+			                    	<a class="send-code f-l button button-danger" id="j-send-code" @click="send_code">获取验证码</a>
+			                    </div>
+			                </div>
+			            </div>
+			        </li>
+			    </ul>
+			</div>
+			<div class="content-block">
+			    <div class="row">
+			        <div class="col-100"><a class="button button-big button-fill button-round button-success button-login" @click="login('{$data.url}')">登录</a></div>
+			    </div>
+			</div>
+			{if $data.app_down_url}
+			<div class="content-block">
+				<div class="row">
+					<div class="col-100"><a class="button button-big button-fill button-round button-success button-login"  href="{$data.app_down_url}">点击下载APP</a></div>
+				</div>
+			</div>
+			{/if}
+
+		</div>
+	</div>
+</div>
+{include file="inc/footer.html"}
